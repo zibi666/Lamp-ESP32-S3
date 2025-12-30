@@ -1,0 +1,44 @@
+Command: ninja all
+/home/usr/ESP_Project/lamp/main/Kconfig.projbuild:607: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'
+info: INFO: Symbol DSP_OPTIMIZATIONS_SUPPORTED defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:4
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:4
+info: INFO: Symbol DSP_ANSI defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:17
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:17
+info: INFO: Symbol DSP_OPTIMIZED defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:19
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:19
+info: INFO: Symbol DSP_OPTIMIZATION defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:24
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:24
+info: INFO: Symbol DSP_MAX_FFT_SIZE_512 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:35
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:35
+info: INFO: Symbol DSP_MAX_FFT_SIZE_1024 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:37
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:37
+info: INFO: Symbol DSP_MAX_FFT_SIZE_2048 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:39
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:39
+info: INFO: Symbol DSP_MAX_FFT_SIZE_4096 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:41
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:41
+info: INFO: Symbol DSP_MAX_FFT_SIZE_8192 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:43
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:43
+info: INFO: Symbol DSP_MAX_FFT_SIZE_16384 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:45
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:45
+info: INFO: Symbol DSP_MAX_FFT_SIZE_32768 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:47
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:47
+info: INFO: Symbol DSP_MAX_FFT_SIZE defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:51
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:51
+info: INFO: Choice DSP_OPTIMIZATION defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:9
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:9
+info: INFO: Choice DSP_MAX_FFT_SIZE defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:29
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:29

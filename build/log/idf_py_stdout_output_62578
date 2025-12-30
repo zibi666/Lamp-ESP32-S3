@@ -1,0 +1,27 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python -DESP_PLATFORM=1 -DCCACHE_ENABLE=0 /home/usr/ESP_Project/lamp
+-- IDF_TARGET is not set, guessed 'esp32s3' from sdkconfig '/home/usr/ESP_Project/lamp/sdkconfig'
+-- Found Git: /usr/bin/git (found version "2.25.1") 
+-- Minimal build - OFF
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/usr/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc
+-- Check for working C compiler: /home/usr/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc
+-- Check for working C compiler: /home/usr/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /home/usr/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-g++
+-- Check for working CXX compiler: /home/usr/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-g++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Building ESP-IDF components for target esp32s3
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_jd9365_10_1
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_st7703
+NOTICE: Skipping optional dependency: espressif/esp_lcd_ili9881c
+NOTICE: Skipping optional dependency: espressif/esp_hosted
+NOTICE: Skipping optional dependency: espressif/esp_wifi_remote
+NOTICE: Skipping optional dependency: espfriends/servo_dog_ctrl

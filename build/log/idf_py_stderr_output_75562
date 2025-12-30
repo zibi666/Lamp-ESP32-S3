@@ -1,0 +1,7 @@
+Command: ninja all
+"idf_component.yml" file was found for components:
+	/home/usr/esp/esp-idf/components/esp_dsp
+	/home/usr/esp/esp-idf/components/esp_websocket_client
+	/home/usr/ESP_Project/lamp/main
+However, the component manager is not enabled.
+/home/usr/ESP_Project/lamp/main/Kconfig.projbuild:607: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'
