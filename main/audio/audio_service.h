@@ -11,7 +11,6 @@
 #include <freertos/task.h>
 #include <freertos/event_groups.h>
 #include <esp_timer.h>
-#include <model_path.h>
 
 #include <opus_encoder.h>
 #include <opus_decoder.h>
@@ -20,7 +19,6 @@
 #include "audio_codec.h"
 #include "audio_processor.h"
 #include "processors/audio_debugger.h"
-#include "wake_word.h"
 #include "protocol.h"
 
 
@@ -49,13 +47,11 @@
 
 
 #define AS_EVENT_AUDIO_TESTING_RUNNING      (1 << 0)
-#define AS_EVENT_WAKE_WORD_RUNNING          (1 << 1)
-#define AS_EVENT_AUDIO_PROCESSOR_RUNNING    (1 << 2)
-#define AS_EVENT_PLAYBACK_NOT_EMPTY         (1 << 3)
+#define AS_EVENT_AUDIO_PROCESSOR_RUNNING    (1 << 1)
+#define AS_EVENT_PLAYBACK_NOT_EMPTY         (1 << 2)
 
 struct AudioServiceCallbacks {
     std::function<void(void)> on_send_queue_available;
-    std::function<void(const std::string&)> on_wake_word_detected;
     std::function<void(bool)> on_vad_change;
     std::function<void(void)> on_audio_testing_queue_full;
 };
@@ -88,16 +84,10 @@ public:
     void Initialize(AudioCodec* codec);
     void Start();
     void Stop();
-    void EncodeWakeWord();
-    std::unique_ptr<AudioStreamPacket> PopWakeWordPacket();
-    const std::string& GetLastWakeWord() const;
     bool IsVoiceDetected() const { return voice_detected_; }
     bool IsIdle();
-    bool IsWakeWordRunning() const { return xEventGroupGetBits(event_group_) & AS_EVENT_WAKE_WORD_RUNNING; }
     bool IsAudioProcessorRunning() const { return xEventGroupGetBits(event_group_) & AS_EVENT_AUDIO_PROCESSOR_RUNNING; }
-    bool IsAfeWakeWord();
 
-    void EnableWakeWordDetection(bool enable);
     void EnableVoiceProcessing(bool enable);
     void SetAfeOutputCallback(std::function<void(std::vector<int16_t>&&)> callback);
     void EnableAudioTesting(bool enable);
@@ -111,13 +101,11 @@ public:
     void PlaySound(const std::string_view& sound);
     bool ReadAudioData(std::vector<int16_t>& data, int sample_rate, int samples);
     void ResetDecoder();
-    void SetModelsList(srmodel_list_t* models_list);
 
 private:
     AudioCodec* codec_ = nullptr;
     AudioServiceCallbacks callbacks_;
     std::unique_ptr<AudioProcessor> audio_processor_;
-    std::unique_ptr<WakeWord> wake_word_;
     std::unique_ptr<AudioDebugger> audio_debugger_;
     std::unique_ptr<OpusEncoderWrapper> opus_encoder_;
     std::unique_ptr<OpusDecoderWrapper> opus_decoder_;
@@ -126,7 +114,6 @@ private:
     OpusResampler reference_resampler_;
     OpusResampler output_resampler_;
     DebugStatistics debug_statistics_;
-    srmodel_list_t* models_list_ = nullptr;
 
     EventGroupHandle_t event_group_;
 
@@ -144,7 +131,6 @@ private:
     // For server AEC
     std::deque<uint32_t> timestamp_queue_;
 
-    bool wake_word_initialized_ = false;
     bool audio_processor_initialized_ = false;
     bool voice_detected_ = false;
     bool service_stopped_ = true;

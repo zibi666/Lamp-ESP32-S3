@@ -69,8 +69,7 @@ void Application::CheckAssetsVersion() {
     // Disabled in offline audio-only mode
 }
 
-void Application::CheckNewVersion(Ota& ota) {
-    (void)ota;
+void Application::CheckNewVersion() {
     xEventGroupSetBits(event_group_, MAIN_EVENT_CHECK_NEW_VERSION_DONE);
 }
 
@@ -237,10 +236,6 @@ void Application::MainEventLoop() {
 // End: 核心修改区域
 // ------------------------------------------------------------------------
 
-void Application::OnWakeWordDetected() {
-    SetListeningMode(aec_mode_ == kAecOff ? kListeningModeAutoStop : kListeningModeRealtime);
-    audio_service_.PlaySound(Lang::Sounds::OGG_POPUP);
-}
 
 void Application::AbortSpeaking(AbortReason reason) {
     ESP_LOGI(TAG, "Abort speaking");
@@ -274,7 +269,6 @@ void Application::SetDeviceState(DeviceState state) {
         case kDeviceStateIdle:
             display->SetStatus(Lang::Strings::STANDBY);
             display->SetEmotion("neutral");
-            audio_service_.EnableWakeWordDetection(false);
             break;
         case kDeviceStateConnecting:
             display->SetStatus(Lang::Strings::CONNECTING);
@@ -284,11 +278,9 @@ void Application::SetDeviceState(DeviceState state) {
         case kDeviceStateListening:
             display->SetStatus(Lang::Strings::LISTENING);
             display->SetEmotion("neutral");
-            audio_service_.EnableWakeWordDetection(false);
             break;
         case kDeviceStateSpeaking:
             display->SetStatus(Lang::Strings::SPEAKING);
-            audio_service_.EnableWakeWordDetection(false);
             break;
         default:
             break;
@@ -300,16 +292,6 @@ void Application::Reboot() {
     audio_service_.Stop();
     vTaskDelay(pdMS_TO_TICKS(1000));
     esp_restart();
-}
-
-bool Application::UpgradeFirmware(Ota& ota, const std::string& url) {
-    ESP_LOGW(TAG, "UpgradeFirmware is disabled in offline mode");
-    return false;
-}
-
-void Application::WakeWordInvoke(const std::string& wake_word) {
-    (void)wake_word;
-    SetListeningMode(aec_mode_ == kAecOff ? kListeningModeAutoStop : kListeningModeRealtime);
 }
 
 bool Application::CanEnterSleepMode() {

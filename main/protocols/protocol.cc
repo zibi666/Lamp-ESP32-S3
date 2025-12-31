@@ -40,18 +40,10 @@ void Protocol::SetError(const std::string& message) {
 }
 
 void Protocol::SendAbortSpeaking(AbortReason reason) {
+    (void)reason;
     std::string message = "{\"session_id\":\"" + session_id_ + "\",\"type\":\"abort\"";
-    if (reason == kAbortReasonWakeWordDetected) {
-        message += ",\"reason\":\"wake_word_detected\"";
-    }
     message += "}";
     SendText(message);
-}
-
-void Protocol::SendWakeWordDetected(const std::string& wake_word) {
-    std::string json = "{\"session_id\":\"" + session_id_ + 
-                      "\",\"type\":\"listen\",\"state\":\"detect\",\"text\":\"" + wake_word + "\"}";
-    SendText(json);
 }
 
 void Protocol::SendStartListening(ListeningMode mode) {

@@ -8,11 +8,11 @@
 #include "esp_websocket_client.h"
 
 // ---------------- 配置 ----------------
-#define WEBSOCKET_URI           "ws://118.195.133.25:8080/esp32"
+#define WEBSOCKET_URI           "ws://118.195.133.25:6060/esp32"
 #define TAG                     "WS_UPLOADER"
 
 // 队列深度：Opus 60ms帧，150帧约9秒。
-#define SEND_QUEUE_LEN          150 
+#define SEND_QUEUE_LEN          150
 #define WS_SEND_TIMEOUT_MS      1000
 
 // ---------------- 状态管理 ----------------
@@ -60,7 +60,7 @@ static void websocket_event_handler(void *handler_args, esp_event_base_t base, i
     }
 }
 
-// 🔥 新增：清空队列
+// 新增：清空队列
 // 当网络断开时，必须清空积压的旧数据，否则重连后你会听到几秒前的录音，产生巨大延迟
 static void clear_queue() {
     queue_item_t item;
@@ -88,7 +88,7 @@ static void audio_send_task(void* arg) {
                 
                 int ret = esp_websocket_client_send_bin(ws_client, (const char*)item.buf, item.len, pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
                 
-                // 🔥 核心修复：发送失败时的熔断机制
+                // 核心修复：发送失败时的熔断机制
                 if (ret < 0) {
                     ESP_LOGE(TAG, "发送失败 (ret=%d)，暂停发送等待重连...", ret);
                     
@@ -104,7 +104,7 @@ static void audio_send_task(void* arg) {
                     // C. 清空所有积压队列 (避免延迟和内存泄漏)
                     clear_queue();
 
-                    // D. 🔥 强制休眠 2 秒！
+                    // D. 强制休眠 2 秒！
                     // 这是解决刷屏的关键。给底层 Wi-Fi 协议栈时间去扫描和重连，
                     // 避免 CPU 被死循环占满导致 Wi-Fi 无法恢复。
                     vTaskDelay(pdMS_TO_TICKS(2000));

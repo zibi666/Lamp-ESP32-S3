@@ -2,9 +2,12 @@
 #include "audio_service.h"
 #include "boards/common/wifi_connect.h"
 #include "boards/common/board.h"
+#include "boards/common/pwm_test.h"
 #include <esp_log.h>
 #include <memory>
 #include <string>
+#include <algorithm>
+#include <cctype>
 
 #define TAG "AFE_WS_SENDER"
 
@@ -74,9 +77,9 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
 
     audio_uploader_set_text_cb([](const char* data, size_t len) {
         ESP_LOGI(TAG, "WS text: %.*s", (int)len, data);
-        
-        // Handle volume control from server (numeric string "0"-"100")
-        if (len > 0 && len < 4) { // Volume string shouldn't be long
+
+        // 处理服务端下发的音量控制（数字字符串 "0"-"100"）
+        if (len > 0 && len < 4) { // 音量字符串不应过长
             std::string text(data, len);
             char* end;
             long val = strtol(text.c_str(), &end, 10);
@@ -88,6 +91,54 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
                         ESP_LOGI(TAG, "Server set volume to %ld", val);
                     }
                 }
+            }
+        }
+
+        // 处理后端命令：(command, amplitude)
+        std::string text(data, len);
+        auto is_space = [](unsigned char c) { return std::isspace(c) != 0; };
+        text.erase(text.begin(), std::find_if(text.begin(), text.end(), [&](char c) { return !is_space(c); }));
+        text.erase(std::find_if(text.rbegin(), text.rend(), [&](char c) { return !is_space(c); }).base(), text.end());
+        if (!text.empty() && text.front() == '(' && text.back() == ')') {
+            text = text.substr(1, text.size() - 2);
+        }
+        size_t comma = text.find(',');
+        std::string cmd = (comma == std::string::npos) ? text : text.substr(0, comma);
+        std::string amp_str = (comma == std::string::npos) ? "" : text.substr(comma + 1);
+        cmd.erase(cmd.begin(), std::find_if(cmd.begin(), cmd.end(), [&](char c) { return !is_space(c); }));
+        cmd.erase(std::find_if(cmd.rbegin(), cmd.rend(), [&](char c) { return !is_space(c); }).base(), cmd.end());
+        amp_str.erase(amp_str.begin(), std::find_if(amp_str.begin(), amp_str.end(), [&](char c) { return !is_space(c); }));
+        amp_str.erase(std::find_if(amp_str.rbegin(), amp_str.rend(), [&](char c) { return !is_space(c); }).base(), amp_str.end());
+
+        const int kDefaultAmplitude = 10;
+        int amplitude = kDefaultAmplitude;
+        if (!amp_str.empty()) {
+            char* end = nullptr;
+            long val = strtol(amp_str.c_str(), &end, 10);
+            if (end != amp_str.c_str() && *end == '\0') {
+                amplitude = (int)val;
+            }
+        }
+        if (amplitude < 0) {
+            amplitude = -amplitude;
+        }
+        if (amplitude > 100) {
+            amplitude = 100;
+        }
+
+        if (cmd == "brightness_down" ||
+            cmd == "brightness_up" ||
+            cmd == "tem_down" ||
+            cmd == "tem_up") {
+            ESP_LOGI(TAG, "Backend command: %s, amplitude=%d", cmd.c_str(), amplitude);
+            if (cmd == "brightness_down") {
+                LampAdjustBrightness(-amplitude);
+            } else if (cmd == "brightness_up") {
+                LampAdjustBrightness(amplitude);
+            } else if (cmd == "tem_down") {
+                LampAdjustTemperature(-amplitude);
+            } else if (cmd == "tem_up") {
+                LampAdjustTemperature(amplitude);
             }
         }
     });

@@ -31,8 +31,7 @@ struct BinaryProtocol3 {
 } __attribute__((packed));
 
 enum AbortReason {
-    kAbortReasonNone,
-    kAbortReasonWakeWordDetected
+    kAbortReasonNone
 };
 
 enum ListeningMode {
@@ -68,7 +67,6 @@ public:
     virtual void CloseAudioChannel() = 0;
     virtual bool IsAudioChannelOpened() const = 0;
     virtual bool SendAudio(std::unique_ptr<AudioStreamPacket> packet) = 0;
-    virtual void SendWakeWordDetected(const std::string& wake_word);
     virtual void SendStartListening(ListeningMode mode);
     virtual void SendStopListening();
     virtual void SendAbortSpeaking(AbortReason reason);

@@ -10,7 +10,7 @@ AfeAudioProcessor::AfeAudioProcessor()
     event_group_ = xEventGroupCreate();
 }
 
-void AfeAudioProcessor::Initialize(AudioCodec* codec, int frame_duration_ms, srmodel_list_t* models_list) {
+void AfeAudioProcessor::Initialize(AudioCodec* codec, int frame_duration_ms) {
     codec_ = codec;
     frame_samples_ = frame_duration_ms * 16000 / 1000;
 
@@ -27,15 +27,8 @@ void AfeAudioProcessor::Initialize(AudioCodec* codec, int frame_duration_ms, srm
         input_format.push_back('R');
     }
 
-    srmodel_list_t *models;
-    if (models_list == nullptr) {
-        models = esp_srmodel_init("model");
-    } else {
-        models = models_list;
-    }
-
-    char* ns_model_name = esp_srmodel_filter(models, ESP_NSNET_PREFIX, NULL);
-    char* vad_model_name = esp_srmodel_filter(models, ESP_VADN_PREFIX, NULL);
+    char* ns_model_name = nullptr;
+    char* vad_model_name = nullptr;
     
     afe_config_t* afe_config = afe_config_init(input_format.c_str(), NULL, AFE_TYPE_VC, AFE_MODE_HIGH_PERF);
     afe_config->aec_mode = AEC_MODE_VOIP_HIGH_PERF;

@@ -10,13 +10,6 @@
 #include "processors/no_audio_processor.h"
 #endif
 
-#if CONFIG_IDF_TARGET_ESP32S3 || CONFIG_IDF_TARGET_ESP32P4
-#include "wake_words/afe_wake_word.h"
-#include "wake_words/custom_wake_word.h"
-#else
-#include "wake_words/esp_wake_word.h"
-#endif
-
 #define TAG "AudioService"
 
 
@@ -82,7 +75,7 @@ void AudioService::Initialize(AudioCodec* codec) {
 
 void AudioService::Start() {
     service_stopped_ = false;
-    xEventGroupClearBits(event_group_, AS_EVENT_AUDIO_TESTING_RUNNING | AS_EVENT_WAKE_WORD_RUNNING | AS_EVENT_AUDIO_PROCESSOR_RUNNING);
+    xEventGroupClearBits(event_group_, AS_EVENT_AUDIO_TESTING_RUNNING | AS_EVENT_AUDIO_PROCESSOR_RUNNING);
 
     esp_timer_start_periodic(audio_power_timer_, 1000000);
 
@@ -128,7 +121,6 @@ void AudioService::Stop() {
     esp_timer_stop(audio_power_timer_);
     service_stopped_ = true;
     xEventGroupSetBits(event_group_, AS_EVENT_AUDIO_TESTING_RUNNING |
-        AS_EVENT_WAKE_WORD_RUNNING |
         AS_EVENT_AUDIO_PROCESSOR_RUNNING);
 
     std::lock_guard<std::mutex> lock(audio_queue_mutex_);
@@ -197,7 +189,7 @@ bool AudioService::ReadAudioData(std::vector<int16_t>& data, int sample_rate, in
 void AudioService::AudioInputTask() {
     while (true) {
         EventBits_t bits = xEventGroupWaitBits(event_group_, AS_EVENT_AUDIO_TESTING_RUNNING |
-            AS_EVENT_WAKE_WORD_RUNNING | AS_EVENT_AUDIO_PROCESSOR_RUNNING,
+            AS_EVENT_AUDIO_PROCESSOR_RUNNING,
             pdFALSE, pdFALSE, portMAX_DELAY);
 
         if (service_stopped_) {
@@ -229,18 +221,6 @@ void AudioService::AudioInputTask() {
                 }
                 PushTaskToEncodeQueue(kAudioTaskTypeEncodeToTestingQueue, std::move(data));
                 continue;
-            }
-        }
-
-        /* Feed the wake word */
-        if (bits & AS_EVENT_WAKE_WORD_RUNNING) {
-            std::vector<int16_t> data;
-            int samples = wake_word_->GetFeedSize();
-            if (samples > 0) {
-                if (ReadAudioData(data, 16000, samples)) {
-                    wake_word_->Feed(data);
-                    continue;
-                }
             }
         }
 
@@ -462,51 +442,11 @@ std::unique_ptr<AudioStreamPacket> AudioService::PopPacketFromSendQueue() {
     return packet;
 }
 
-void AudioService::EncodeWakeWord() {
-    if (wake_word_) {
-        wake_word_->EncodeWakeWordData();
-    }
-}
-
-const std::string& AudioService::GetLastWakeWord() const {
-    return wake_word_->GetLastDetectedWakeWord();
-}
-
-std::unique_ptr<AudioStreamPacket> AudioService::PopWakeWordPacket() {
-    auto packet = std::make_unique<AudioStreamPacket>();
-    if (wake_word_->GetWakeWordOpus(packet->payload)) {
-        return packet;
-    }
-    return nullptr;
-}
-
-void AudioService::EnableWakeWordDetection(bool enable) {
-    if (!wake_word_) {
-        return;
-    }
-
-    ESP_LOGD(TAG, "%s wake word detection", enable ? "Enabling" : "Disabling");
-    if (enable) {
-        if (!wake_word_initialized_) {
-            if (!wake_word_->Initialize(codec_, models_list_)) {
-                ESP_LOGE(TAG, "Failed to initialize wake word");
-                return;
-            }
-            wake_word_initialized_ = true;
-        }
-        wake_word_->Start();
-        xEventGroupSetBits(event_group_, AS_EVENT_WAKE_WORD_RUNNING);
-    } else {
-        wake_word_->Stop();
-        xEventGroupClearBits(event_group_, AS_EVENT_WAKE_WORD_RUNNING);
-    }
-}
-
 void AudioService::EnableVoiceProcessing(bool enable) {
     ESP_LOGD(TAG, "%s voice processing", enable ? "Enabling" : "Disabling");
     if (enable) {
         if (!audio_processor_initialized_) {
-            audio_processor_->Initialize(codec_, OPUS_FRAME_DURATION_MS, models_list_);
+            audio_processor_->Initialize(codec_, OPUS_FRAME_DURATION_MS);
             audio_processor_initialized_ = true;
         }
 
@@ -537,7 +477,7 @@ void AudioService::EnableAudioTesting(bool enable) {
 void AudioService::EnableDeviceAec(bool enable) {
     ESP_LOGI(TAG, "%s device AEC", enable ? "Enabling" : "Disabling");
     if (!audio_processor_initialized_) {
-        audio_processor_->Initialize(codec_, OPUS_FRAME_DURATION_MS, models_list_);
+        audio_processor_->Initialize(codec_, OPUS_FRAME_DURATION_MS);
         audio_processor_initialized_ = true;
     }
 
@@ -711,40 +651,4 @@ void AudioService::CheckAndUpdateAudioPowerState() {
     if (!codec_->input_enabled() && !codec_->output_enabled()) {
         esp_timer_stop(audio_power_timer_);
     }
-}
-
-void AudioService::SetModelsList(srmodel_list_t* models_list) {
-    models_list_ = models_list;
-
-#if CONFIG_IDF_TARGET_ESP32S3 || CONFIG_IDF_TARGET_ESP32P4
-    if (esp_srmodel_filter(models_list_, ESP_MN_PREFIX, NULL) != nullptr) {
-        wake_word_ = std::make_unique<CustomWakeWord>();
-    } else if (esp_srmodel_filter(models_list_, ESP_WN_PREFIX, NULL) != nullptr) {
-        wake_word_ = std::make_unique<AfeWakeWord>();
-    } else {
-        wake_word_ = nullptr;
-    }
-#else
-    if (esp_srmodel_filter(models_list_, ESP_WN_PREFIX, NULL) != nullptr) {
-        wake_word_ = std::make_unique<EspWakeWord>();
-    } else {
-        wake_word_ = nullptr;
-    }
-#endif
-
-    if (wake_word_) {
-        wake_word_->OnWakeWordDetected([this](const std::string& wake_word) {
-            if (callbacks_.on_wake_word_detected) {
-                callbacks_.on_wake_word_detected(wake_word);
-            }
-        });
-    }
-}
-
-bool AudioService::IsAfeWakeWord() {
-#if CONFIG_IDF_TARGET_ESP32S3 || CONFIG_IDF_TARGET_ESP32P4
-    return wake_word_ != nullptr && dynamic_cast<AfeWakeWord*>(wake_word_.get()) != nullptr;
-#else
-    return false;
-#endif
 }

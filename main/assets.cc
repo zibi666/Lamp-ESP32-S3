@@ -1,6 +1,5 @@
 #include "assets.h"
 #include "board.h"
-#include "application.h"
 
 #include <esp_log.h>
 #include <spi_flash_mmap.h>
@@ -120,26 +119,6 @@ bool Assets::Apply() {
         }
     }
     
-    cJSON* srmodels = cJSON_GetObjectItem(root, "srmodels");
-    if (cJSON_IsString(srmodels)) {
-        std::string srmodels_file = srmodels->valuestring;
-        if (GetAssetData(srmodels_file, ptr, size)) {
-            if (models_list_ != nullptr) {
-                esp_srmodel_deinit(models_list_);
-                models_list_ = nullptr;
-            }
-            models_list_ = srmodel_load(static_cast<uint8_t*>(ptr));
-            if (models_list_ != nullptr) {
-                auto& app = Application::GetInstance();
-                app.GetAudioService().SetModelsList(models_list_);
-            } else {
-                ESP_LOGE(TAG, "Failed to load srmodels.bin");
-            }
-        } else {
-            ESP_LOGE(TAG, "The srmodels file %s is not found", srmodels_file.c_str());
-        }
-    }
-
     cJSON_Delete(root);
     return true;
 }

@@ -1,0 +1,1131 @@
+Command: /home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python /home/usr/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/usr/ESP_Project/lamp/build/xiaozhi.elf /home/usr/ESP_Project/lamp/build/bootloader/bootloader.elf -m '/home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python' '/home/usr/esp/esp-idf/tools/idf.py'
+xx�x���S	*��}��Ʌ�� Addi�ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x55c
+load:0x403c8700,len:0xc3c
+load:0x403cb700,len:0x2e84
+entry 0x403c8908
+[0;32mI (33) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (33) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (33) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (35) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (39) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (44) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (48) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (53) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (57) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (62) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (67) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (72) MSPI Timing: PSRAM timing tuning index: 5[0m
+[0;32mI (75) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (79) esp_psram: Speed: 80MHz[0m
+[0;32mI (82) cpu_start: Multicore app[0m
+[0;32mI (96) cpu_start: Pro cpu start user code[0m
+[0;32mI (96) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (96) app_init: Application information:[0m
+[0;32mI (96) app_init: Project name:     xiaozhi[0m
+[0;32mI (100) app_init: App version:      2.0.3[0m
+[0;32mI (104) app_init: Compile time:     Dec 30 2025 03:55:01[0m
+[0;32mI (109) app_init: ELF file SHA256:  c7a8a2870...[0m
+[0;32mI (113) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (117) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (120) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (124) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (128) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (135) heap_init: At 3FCA87C8 len 00040F48 (259 KiB): RAM[0m
+[0;32mI (140) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (145) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (150) heap_init: At 600FE020 len 00001FB8 (7 KiB): RTCRAM[0m
+[0;32mI (156) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (162) spi_flash: detected chip: boya[0m
+[0;32mI (165) spi_flash: flash io: qio[0m
+[0;32mI (169) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (175) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (182) main_task: Started on CPU0[0m
+[0;32mI (212) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (212) main_task: Calling app_main()[0m
+[0;32mI (222) Board: UUID=d5c53eb6-3c64-4ecf-8fd4-6e66c248ef9d SKU=atk-dnesp32s3[0m
+[0;32mI (222) button: IoT Button Version: 4.1.4[0m
+[0;32mI (222) atk_dnesp32s3: Speaker amplifier enabled (active-low) on XL9555 IO0_2[0m
+[0;32mI (232) Application: STATE: starting[0m
+[0;32mI (232) WifiBoard: Connecting to fixed Wi-Fi network[0m
+[0;32mI (242) wifi station: ESP_WIFI_MODE_STA[0m
+[0;32mI (242) pp: pp rom version: e7ae62f[0m
+[0;32mI (242) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (262) wifi:wifi driver task: 3fceebf8, prio:23, stack:6144, core=0[0m
+[0;32mI (262) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (262) wifi:wifi certification version: v7.0[0m
+[0;32mI (262) wifi:config NVS flash: enabled[0m
+[0;32mI (272) wifi:config nano formatting: enabled[0m
+[0;32mI (272) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (272) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (282) wifi:Init management short buffer num: 32[0m
+[0;32mI (282) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (292) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (292) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (302) wifi:Init static rx buffer num: 3[0m
+[0;32mI (302) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (302) wifi_init: rx ba win: 3[0m
+[0;32mI (312) wifi_init: accept mbox: 6[0m
+[0;32mI (312) wifi_init: tcpip mbox: 16[0m
+[0;32mI (312) wifi_init: udp mbox: 6[0m
+[0;32mI (312) wifi_init: tcp mbox: 6[0m
+[0;32mI (322) wifi_init: tcp tx win: 5760[0m
+[0;32mI (322) wifi_init: tcp rx win: 5760[0m
+[0;32mI (322) wifi_init: tcp mss: 1440[0m
+[0;32mI (332) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (372) wifi:mode : sta (dc:b4:d9:16:d9:28)[0m
+[0;32mI (372) wifi:enable tsf[0m
+[0;32mI (372) wifi station: wifi_init_sta finished.[0m
+[0;32mI (372) wifi:new:<11,2>, old:<1,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (382) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (402) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (402) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (622) wifi:connected with TP-LINK, aid = 2, channel 11, 40D, bssid = 64:6e:97:52:9c:c1[0m
+[0;32mI (622) wifi:security: WPA2-PSK, phy: bgn, rssi: -25[0m
+[0;32mI (632) wifi:pm start, type: 1[0m
+
+[0;32mI (632) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (642) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000[0m
+[0;32mI (652) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (672) wifi:<ba-add>idx:0 (ifx:0, 64:6e:97:52:9c:c1), tid:0, ssn:3, winSize:64[0m
+[0;32mI (2162) esp_netif_handlers: sta ip: 192.168.1.109, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2162) wifi station: got ip:192.168.1.109[0m
+[0;32mI (2162) wifi station: connected to ap SSID:TP-LINK password:708708708[0m
+[0;32mI (2162) Es8388AudioCodec: Duplex channels created[0m
+[0;32mI (2182) Es8388AudioCodec: Es8388AudioCodec initialized[0m
+[0;32mI (2182) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2182) I2S_IF: STD Mode 0 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2182) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2192) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2202) ES8388: Start on mode:3[0m
+[0;32mI (2202) Adev_Codec: Open codec device OK[0m
+[0;32mI (2202) AudioCodec: Set input enable to true[0m
+[0;32mI (2212) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2212) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2222) Adev_Codec: Open codec device OK[0m
+[0;32mI (2232) AudioCodec: Set output enable to true[0m
+[0;32mI (2232) AudioCodec: Audio codec started[0m
+[0;32mI (2232) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2242) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2252) AudioService: Opus codec task started[0m
+[0;32mI (2252) AudioCodec: Set output volume to 60[0m
+[0;32mI (2262) websocket_client: Started[0m
+[0;32mI (2262) AFE_WS_SENDER: AFE WebSocket sender initialized after WiFi up[0m
+[0;32mI (2272) AFE: AFE Version: (1MIC_V250121)[0m
+[0;32mI (2272) AFE: Input PCM Config: total 1 channels(1 microphone, 0 playback), sample rate:16000[0m
+[1;31mE (2282) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[0;32mI (2282) AFE: AFE Pipeline: [input] -> |VAD(WebRTC)| -> [output][0m
+[1;31mE (2282) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (2302) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (2302) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (2322) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (2322) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (2332) WS_UPLOADER: WebSocket Disconnected![0m
+[0;32mI (2332) AfeAudioProcessor: Audio communication task started, feed size: 512 fetch size: 512[0m
+[0;32mI (2342) Application: STATE: idle[0m
+[0;32mI (2342) AudioService: PlaySound called, size=2012[0m
+[0;32mI (2352) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2352) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (2362) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (2372) AudioService: Queued 18 opus packets for playback (sr=16000)[0m
+[0;32mI (2372) main_task: Returned from app_main()[0m
+[1;31mE (5382) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (5382) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (5392) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (5392) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (5412) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (5412) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (5422) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (8432) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (8432) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (8432) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (8442) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (8462) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (8462) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (8462) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (11482) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (11492) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (11492) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (11492) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (11512) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (11512) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (11522) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (14542) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (14542) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (14542) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (14552) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (14572) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (14572) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (14572) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (17592) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (17592) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (17602) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (17602) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (17622) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (17622) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (17632) WS_UPLOADER: WebSocket Disconnected![0m
+[0;32mI (19252) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (19252) AudioCodec: Set output enable to false[0m
+[1;31mE (20642) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (20642) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (20642) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (20652) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (20672) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (20672) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (20672) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (23692) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (23692) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (23692) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (23702) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (23712) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (23722) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (23722) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (26742) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (26742) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (26742) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (26752) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (26762) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (26772) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (26772) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (29802) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (29802) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (29802) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (29802) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (29822) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (29822) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (29832) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (32842) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (32842) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (32842) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (32852) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (32872) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (32872) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (32882) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (35912) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (35912) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (35912) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (35922) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (35932) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (35942) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (35942) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (38962) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (38962) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (38972) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (38972) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (38992) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (38992) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (39002) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (42012) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (42012) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (42012) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (42022) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (42042) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (42042) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (42042) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (45062) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (45062) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (45072) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (45072) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (45092) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (45092) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (45102) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (48112) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (48112) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (48112) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (48122) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (48142) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (48142) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (48152) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (51162) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (51162) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (51172) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (51172) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (51192) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (51192) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (51202) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (54212) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (54212) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (54212) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (54222) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (54242) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (54242) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (54242) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (57262) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (57262) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (57272) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (57272) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (57292) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (57292) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (57302) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (60322) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (60322) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (60322) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (60322) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (60342) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (60342) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (60352) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (63372) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (63372) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (63372) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (63382) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (63392) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (63402) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (63402) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (66422) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (66422) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (66432) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (66432) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (66452) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (66452) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (66462) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (69472) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (69472) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (69482) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (69482) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (69502) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (69502) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (69512) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (72532) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (72532) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (72532) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (72532) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (72552) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (72552) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (72562) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (75582) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (75582) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (75582) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (75592) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (75602) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (75612) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (75612) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (78632) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (78632) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (78632) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (78642) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (78662) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (78662) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (78662) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (81682) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (81682) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (81682) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (81692) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (81712) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (81712) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (81722) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (84742) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (84742) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (84742) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (84742) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (84762) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (84772) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (84772) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (89282) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (89282) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (89282) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (89292) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (89302) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (89312) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (89312) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (92332) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (92332) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (92342) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (92342) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (92362) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (92362) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (92372) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (95382) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (95382) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (95382) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (95392) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (95412) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (95412) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (95412) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (98442) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (98442) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (98442) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (98452) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (98462) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (98472) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (98472) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (101492) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (101492) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (101492) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (101502) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (101512) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (101522) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (101522) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (104552) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (104552) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (104552) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (104562) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (104572) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (104582) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (104582) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (107602) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (107602) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (107612) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (107612) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (107632) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (107632) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (107642) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (110652) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (110652) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (110652) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (110662) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (110682) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (110682) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (110692) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (113712) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (113712) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (113712) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (113722) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (113742) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (113742) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (113742) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (116772) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (116772) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (116772) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (116772) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (116792) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (116792) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (116802) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (119812) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (119812) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (119812) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (119822) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (119832) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (119842) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (119842) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (122862) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (122862) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (122872) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (122872) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (122892) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (122892) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (122902) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (125912) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (125912) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (125912) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (125922) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (125942) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (125942) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (125952) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (128972) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (128972) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (128972) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (128982) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (128992) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (129002) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (129002) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (132022) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (132022) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (132022) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (132032) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (132052) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (132052) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (132052) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (135082) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (135082) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (135082) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (135092) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (135102) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (135112) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (135112) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (138132) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (138142) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (138142) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (138142) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (138162) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (138162) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (138172) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (141182) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (141182) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (141182) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (141192) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (141212) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (141212) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (141212) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (144232) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (144232) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (144232) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (144242) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (144262) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (144262) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (144262) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (147282) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (147282) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (147282) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (147292) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (147302) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (147312) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (147312) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (150342) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (150342) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (150342) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (150352) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (150362) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (150372) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (150372) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (153402) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (153402) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (153402) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (153412) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (153422) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (153432) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (153432) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (156462) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (156462) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (156462) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (156462) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (156482) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (156492) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (156492) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (161012) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (161012) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (161012) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (161012) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (161032) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (161042) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (161042) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (165552) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (165552) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (165552) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (165562) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (165582) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (165582) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (165582) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (168612) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (168612) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (168612) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (168612) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (168632) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (168632) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (168642) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (171662) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (171662) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (171662) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (171672) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (171682) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (171692) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (171692) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (174762) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (174762) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (174762) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (174762) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (174782) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (174782) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (174792) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (177812) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (177812) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (177812) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (177822) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (177842) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (177842) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (177852) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (180862) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (180862) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (180862) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (180872) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (180892) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (180892) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (180902) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (183922) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (183922) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (183922) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (183932) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (183942) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (183952) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (183952) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (186972) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (186972) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (186972) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (186982) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (187002) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (187002) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (187012) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (190022) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (190022) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (190022) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (190032) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (190052) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (190052) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (190062) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (193102) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (193102) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (193102) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (193102) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (193122) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (193122) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (193132) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (196142) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (196142) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (196152) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (196152) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (196172) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (196172) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (196182) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (199192) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (199192) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (199192) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (199202) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (199222) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (199222) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (199232) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (202242) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (202242) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (202242) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (202252) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (202272) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (202272) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (202272) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (205302) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (205302) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (205302) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (205302) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (205322) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (205322) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (205332) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (208342) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (208342) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (208342) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (208352) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (208372) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (208372) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (208382) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (211392) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (211392) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (211392) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (211402) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (211412) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (211422) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (211422) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (214442) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (214442) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (214442) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (214452) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (214472) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (214472) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (214482) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (217492) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (217492) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (217492) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (217502) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (217522) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (217522) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (217532) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (220552) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (220552) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (220552) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (220552) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (220572) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (220572) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (220582) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (223592) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (223592) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (223602) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (223602) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (223622) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (223622) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (223632) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (226642) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (226642) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (226642) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (226652) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (226662) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (226672) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (226672) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (229692) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (229692) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (229692) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (229702) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (229722) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (229722) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (229722) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (232752) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (232752) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (232752) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (232752) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (232772) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (232782) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (232782) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (237292) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (237292) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (237292) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (237302) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (237322) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (237322) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (237332) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (240342) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (240342) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (240342) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (240352) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (240372) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (240372) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (240372) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (243402) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (243402) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (243402) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (243402) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (243422) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (243422) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (243432) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (246442) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (246442) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (246442) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (246452) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (246472) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (246472) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (246482) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (249492) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (249492) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (249492) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (249502) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (249522) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (249522) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (249532) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (252542) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (252542) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (252542) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (252552) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (252572) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (252572) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (252572) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (255602) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (255602) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (255602) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (255602) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (255622) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (255632) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (255632) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (258652) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (258652) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (258652) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (258662) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (258682) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (258682) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (258692) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (261702) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (261702) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (261702) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (261712) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (261722) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (261732) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (261732) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (264762) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (264762) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (264762) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (264762) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (264782) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (264782) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (264792) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (267802) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (267802) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (267812) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (267812) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (267832) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (267832) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (267842) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (270852) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (270852) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (270852) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (270862) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (270882) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (270882) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (270892) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (273912) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (273912) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (273922) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (273922) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (273942) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (273942) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (273952) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (276972) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (276972) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (276972) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (276982) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (276992) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (277002) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (277002) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (281512) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (281512) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (281512) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (281522) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (281542) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (281542) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (281552) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (284562) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (284562) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (284562) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (284572) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (284592) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (284592) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (284592) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (287612) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (287612) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (287612) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (287622) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (287642) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (287642) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (287652) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (290662) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (290662) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (290662) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (290672) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (290692) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (290692) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (290692) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (293712) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (293712) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (293712) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (293722) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (293732) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (293742) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (293742) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (296762) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (296762) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (296772) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (296772) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (296792) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (296792) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (296802) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (299812) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (299812) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (299812) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (299822) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (299842) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (299842) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (299842) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (302862) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (302862) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (302872) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (302872) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (302892) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (302892) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (302902) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (305912) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (305922) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (305922) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (305922) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (305942) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (305942) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (305952) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (308972) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (308972) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (308972) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (308972) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (308992) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (309002) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (309002) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (313512) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (313512) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (313512) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (313522) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (313532) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (313542) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (313542) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (316572) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (316572) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (316572) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (316572) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (316592) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (316592) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (316602) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (319622) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (319622) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (319622) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (319632) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (319642) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (319652) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (319652) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (322672) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (322672) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (322672) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (322682) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (322702) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (322702) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (322712) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (325722) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (325722) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (325732) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (325732) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (325752) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (325752) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (325762) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (328772) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (328772) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (328782) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (328782) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (328802) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (328802) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (328812) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (331832) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (331832) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (331832) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (331842) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (331852) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (331862) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (331862) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (334882) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (334882) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (334892) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (334892) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (334912) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (334912) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (334922) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (337932) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (337932) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (337932) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (337942) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (337962) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (337962) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (337962) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (340982) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (340982) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (340982) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (340992) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (341002) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (341012) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (341012) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (344042) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (344042) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (344042) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (344052) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (344062) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (344072) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (344072) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (347102) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (347102) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (347102) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (347112) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (347132) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (347132) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (347132) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (350152) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (350152) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (350152) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (350162) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (350182) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (350182) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (350192) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (353202) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (353202) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (353212) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (353212) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (353232) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (353232) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (353242) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (356262) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (356262) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (356262) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (356272) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (356292) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (356292) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (356292) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (359322) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (359322) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (359322) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (359322) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (359342) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (359342) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (359352) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (362372) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (362372) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (362372) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (362372) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (362392) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (362392) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (362402) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (365412) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (365412) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (365412) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (365422) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (365442) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (365442) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (365452) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (368462) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (368462) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (368462) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (368472) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (368492) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (368492) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (368492) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (371512) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (371512) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (371512) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (371522) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (371542) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (371542) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (371552) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (374562) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (374562) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (374562) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (374572) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (374582) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (374592) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (374592) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (377612) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (377612) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (377612) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (377622) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (377642) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (377642) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (377652) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (380672) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (380672) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (380672) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (380682) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (380692) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (380702) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (380702) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (383722) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (383722) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (383732) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (383732) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (383752) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (383752) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (383762) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (386772) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (386772) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (386782) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (386782) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (386802) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (386802) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (386812) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (389832) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (389832) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (389832) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (389832) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (389852) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (389852) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (389862) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (392882) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (392882) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (392882) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (392882) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (392902) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (392912) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (392912) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (397422) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (397422) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (397422) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (397432) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (397452) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (397452) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (397462) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (400472) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (400472) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (400472) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (400482) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (400492) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (400502) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (400502) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (403522) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (403522) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (403522) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (403532) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (403542) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (403552) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (403552) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (406572) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (406572) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (406572) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (406582) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (406592) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (406602) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (406602) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (409632) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (409632) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (409632) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (409642) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (409652) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (409662) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (409662) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (412682) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (412682) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (412682) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (412692) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (412712) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (412712) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (412712) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (415742) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (415742) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (415742) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (415752) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (415762) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (415772) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (415772) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (418792) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (418792) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (418802) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (418802) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (418822) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (418822) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (418832) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (422022) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (422022) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (422022) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (422032) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (422042) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (422052) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (422052) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (425082) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (425082) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (425082) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (425082) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (425102) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (425102) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (425112) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (428122) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (428122) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (428132) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (428132) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (428152) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (428152) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (428162) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (431182) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (431182) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (431182) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (431182) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (431202) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (431212) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (431212) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (435722) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (435722) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (435732) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (435732) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (435752) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (435752) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (435762) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (438772) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (438772) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (438772) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (438782) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (438802) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (438802) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (438802) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (441822) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (441822) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (441822) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (441832) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (441852) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (441852) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (441862) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (444882) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (444882) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (444882) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (444892) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (444902) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (444912) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (444912) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (447932) esp-tls: [sock=54] delayed connect error: Connection reset by peer[0m
+[1;31mE (447932) transport_base: Failed to open a new connection: 32772[0m
+[1;31mE (447942) transport_ws: Error connecting to host 118.195.133.25:6060[0m
+[1;31mE (447942) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_FAILED_CONNECT_TO_HOST, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (447962) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (447962) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (447972) WS_UPLOADER: WebSocket Disconnected![0m

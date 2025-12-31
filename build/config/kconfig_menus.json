@@ -6743,16 +6743,6 @@
     {
         "children": [
             {
-                "children": [],
-                "depends_on": null,
-                "help": "The application will access this URL to check for new firmwares and server address.",
-                "id": "OTA_URL",
-                "name": "OTA_URL",
-                "range": null,
-                "title": "Default OTA URL",
-                "type": "string"
-            },
-            {
                 "children": [
                     {
                         "children": [],
@@ -8391,96 +8381,6 @@
                 "name": "DISPLAY_STYLE",
                 "title": "Select display style",
                 "type": "choice"
-            },
-            {
-                "children": [
-                    {
-                        "children": [],
-                        "depends_on": "<choice WAKE_WORD_TYPE>",
-                        "help": "Disable wake word detection",
-                        "id": "WAKE_WORD_DISABLED",
-                        "name": "WAKE_WORD_DISABLED",
-                        "range": null,
-                        "title": "Disabled",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "(IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C5 || IDF_TARGET_ESP32C6 || (IDF_TARGET_ESP32 && SPIRAM)) && <choice WAKE_WORD_TYPE>",
-                        "help": "Support ESP32 C3\u3001ESP32 C5 \u4e0e ESP32 C6, and (ESP32 with PSRAM)",
-                        "id": "USE_ESP_WAKE_WORD",
-                        "name": "USE_ESP_WAKE_WORD",
-                        "range": null,
-                        "title": "Wakenet model without AFE",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "(IDF_TARGET_ESP32S3 || IDF_TARGET_ESP32P4) && SPIRAM && <choice WAKE_WORD_TYPE>",
-                        "help": "Support AEC if available, requires ESP32 S3 and PSRAM",
-                        "id": "USE_AFE_WAKE_WORD",
-                        "name": "USE_AFE_WAKE_WORD",
-                        "range": null,
-                        "title": "Wakenet model with AFE",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "(IDF_TARGET_ESP32S3 || IDF_TARGET_ESP32P4) && SPIRAM && <choice WAKE_WORD_TYPE>",
-                        "help": "Requires ESP32 S3 and PSRAM",
-                        "id": "USE_CUSTOM_WAKE_WORD",
-                        "name": "USE_CUSTOM_WAKE_WORD",
-                        "range": null,
-                        "title": "Multinet model (Custom Wake Word)",
-                        "type": "bool"
-                    }
-                ],
-                "depends_on": null,
-                "help": "Choose the type of wake word implementation to use",
-                "id": "xiaozhi-assistant-wake-word-implementation-type",
-                "name": "WAKE_WORD_TYPE",
-                "title": "Wake Word Implementation Type",
-                "type": "choice"
-            },
-            {
-                "children": [],
-                "depends_on": "USE_CUSTOM_WAKE_WORD",
-                "help": "Custom Wake Word, use pinyin for Chinese, separated by spaces",
-                "id": "CUSTOM_WAKE_WORD",
-                "name": "CUSTOM_WAKE_WORD",
-                "range": null,
-                "title": "Custom Wake Word",
-                "type": "string"
-            },
-            {
-                "children": [],
-                "depends_on": "USE_CUSTOM_WAKE_WORD",
-                "help": "Greeting sent to the server after wake word detection",
-                "id": "CUSTOM_WAKE_WORD_DISPLAY",
-                "name": "CUSTOM_WAKE_WORD_DISPLAY",
-                "range": null,
-                "title": "Custom Wake Word Display",
-                "type": "string"
-            },
-            {
-                "children": [],
-                "depends_on": "USE_CUSTOM_WAKE_WORD",
-                "help": "Custom Wake Word Threshold, range 1-99, the smaller the more sensitive, default 20",
-                "id": "CUSTOM_WAKE_WORD_THRESHOLD",
-                "name": "CUSTOM_WAKE_WORD_THRESHOLD",
-                "range": null,
-                "title": "Custom Wake Word Threshold (%)",
-                "type": "int"
-            },
-            {
-                "children": [],
-                "depends_on": "USE_AFE_WAKE_WORD || USE_CUSTOM_WAKE_WORD",
-                "help": "Send wake word data to the server as the first message of the conversation and wait for response",
-                "id": "SEND_WAKE_WORD_DATA",
-                "name": "SEND_WAKE_WORD_DATA",
-                "range": null,
-                "title": "Send Wake Word Data",
-                "type": "bool"
             },
             {
                 "children": [

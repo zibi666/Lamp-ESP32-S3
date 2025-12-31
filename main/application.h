@@ -12,18 +12,16 @@
 #include <memory>
 
 #include "protocol.h"
-#include "ota.h"
 #include "audio_service.h"
 #include "device_state_event.h"
 
 
 #define MAIN_EVENT_SCHEDULE (1 << 0)
 #define MAIN_EVENT_SEND_AUDIO (1 << 1)
-#define MAIN_EVENT_WAKE_WORD_DETECTED (1 << 2)
-#define MAIN_EVENT_VAD_CHANGE (1 << 3)
-#define MAIN_EVENT_ERROR (1 << 4)
-#define MAIN_EVENT_CHECK_NEW_VERSION_DONE (1 << 5)
-#define MAIN_EVENT_CLOCK_TICK (1 << 6)
+#define MAIN_EVENT_VAD_CHANGE (1 << 2)
+#define MAIN_EVENT_ERROR (1 << 3)
+#define MAIN_EVENT_CHECK_NEW_VERSION_DONE (1 << 4)
+#define MAIN_EVENT_CLOCK_TICK (1 << 5)
 
 
 enum AecMode {
@@ -55,8 +53,6 @@ public:
     void StartListening();
     void StopListening();
     void Reboot();
-    void WakeWordInvoke(const std::string& wake_word);
-    bool UpgradeFirmware(Ota& ota, const std::string& url = "");
     bool CanEnterSleepMode();
     void SetAecMode(AecMode mode);
     AecMode GetAecMode() const { return aec_mode_; }
@@ -84,8 +80,7 @@ private:
     TaskHandle_t check_new_version_task_handle_ = nullptr;
     TaskHandle_t main_event_loop_task_handle_ = nullptr;
 
-    void OnWakeWordDetected();
-    void CheckNewVersion(Ota& ota);
+    void CheckNewVersion();
     void CheckAssetsVersion();
     void ShowActivationCode(const std::string& code, const std::string& message);
     void SetListeningMode(ListeningMode mode);

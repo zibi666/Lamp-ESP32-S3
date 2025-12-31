@@ -7,7 +7,6 @@
 #include <esp_system.h>
 #include <esp_partition.h>
 #include <esp_app_desc.h>
-#include <esp_ota_ops.h>
 #if CONFIG_IDF_TARGET_ESP32P4
 #include "esp_wifi_remote.h"
 #endif
@@ -147,5 +146,6 @@ void SystemInfo::PrintTaskList() {
 void SystemInfo::PrintHeapStats() {
     int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
     int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-    ESP_LOGI(TAG, "free sram: %u minimal sram: %u", free_sram, min_free_sram);
+    (void)free_sram;
+    (void)min_free_sram;
 }

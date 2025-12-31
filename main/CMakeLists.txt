@@ -13,7 +13,6 @@ set(SOURCES "audio/audio_codec.cc"
             "protocols/websocket_protocol.cc"
             "system_info.cc"
             "application.cc"
-            "ota.cc"
             "settings.cc"
             "device_state_event.cc"
             "assets.cc"
@@ -350,12 +349,6 @@ if(CONFIG_USE_AUDIO_PROCESSOR)
 else()
     list(APPEND SOURCES "audio/processors/no_audio_processor.cc")
 endif()
-if(CONFIG_IDF_TARGET_ESP32S3 OR CONFIG_IDF_TARGET_ESP32P4)
-    list(APPEND SOURCES "audio/wake_words/afe_wake_word.cc")
-    list(APPEND SOURCES "audio/wake_words/custom_wake_word.cc")
-else()
-    list(APPEND SOURCES "audio/wake_words/esp_wake_word.cc")
-endif()
 
 # Select language directory according to Kconfig
 if(CONFIG_LANGUAGE_ZH_CN)
@@ -452,12 +445,6 @@ add_custom_target(lang_header ALL
     DEPENDS ${LANG_HEADER}
 )
 
-# Find ESP-SR component dynamically
-find_component_by_pattern("espressif__esp-sr" ESP_SR_COMPONENT ESP_SR_COMPONENT_PATH)
-if(ESP_SR_COMPONENT_PATH)
-    set(ESP_SR_MODEL_PATH "${ESP_SR_COMPONENT_PATH}/model")
-endif()
-
 # Find xiaozhi-fonts component dynamically
 find_component_by_pattern("xiaozhi-fonts" XIAOZHI_FONTS_COMPONENT XIAOZHI_FONTS_COMPONENT_PATH)
 if(XIAOZHI_FONTS_COMPONENT_PATH)
@@ -528,9 +515,6 @@ function(build_default_assets_bin)
         list(APPEND BUILD_ARGS "--extra_files" "${DEFAULT_ASSETS_EXTRA_FILES}")
     endif()
     
-    if(ESP_SR_MODEL_PATH)
-        list(APPEND BUILD_ARGS "--esp_sr_model_path" "${ESP_SR_MODEL_PATH}")
-    endif()
     if(XIAOZHI_FONTS_PATH)
         list(APPEND BUILD_ARGS "--xiaozhi_fonts_path" "${XIAOZHI_FONTS_PATH}")
     endif()
