@@ -1,4 +1,4 @@
-/* * Data converted from /home/usr/ESP_Project/lamp/main/assets/locales/zh-CN/wificonfig.ogg
+/* * Data converted from /home/lm/esp_project/modern_light/Lamp-ESP32-S3/main/assets/locales/zh-CN/wificonfig.ogg
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

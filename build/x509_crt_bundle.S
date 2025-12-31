@@ -1,4 +1,4 @@
-/* * Data converted from /home/usr/ESP_Project/lamp/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

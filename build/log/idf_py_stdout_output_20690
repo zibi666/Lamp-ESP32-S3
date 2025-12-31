@@ -1,0 +1,150 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/lm/.espressif/python_env/idf5.5_py3.10_env/bin/python -DESP_PLATFORM=1 -DCCACHE_ENABLE=0 /home/lm/esp_project/modern_light/Lamp-ESP32-S3
+-- IDF_TARGET is not set, guessed 'esp32s3' from sdkconfig '/home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig'
+-- Found Git: /usr/bin/git (found version "2.34.1") 
+-- Minimal build - OFF
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/lm/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/lm/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/lm/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Building ESP-IDF components for target esp32s3
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_jd9365_10_1
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_st7703
+NOTICE: Skipping optional dependency: espressif/esp_lcd_ili9881c
+NOTICE: Skipping optional dependency: espressif/esp_hosted
+NOTICE: Skipping optional dependency: espressif/esp_wifi_remote
+NOTICE: Skipping optional dependency: espfriends/servo_dog_ctrl
+NOTICE: 
+Following dependencies have new versions available:
+Dependency "espressif/button": "4.1.4" -> "4.1.5"
+Dependency "espressif/esp_lcd_touch_cst816s": "1.1.0" -> "1.1.1"
+Dependency "espressif/esp_lcd_touch_gt1151": "1.0.5~2" -> "1.1.0"
+Dependency "espressif/esp_lcd_touch_gt911": "1.2.0" -> "1.2.0~1"
+Dependency "espressif/knob": "1.0.1" -> "1.0.2"
+Consider running "idf.py update-dependencies" to update your lock file.
+NOTICE: Updating lock file at /home/lm/esp_project/modern_light/Lamp-ESP32-S3/dependencies.lock
+NOTICE: Processing 44 dependencies:
+NOTICE: [1/44] 78/esp-ml307 (3.3.7)
+NOTICE: [2/44] 78/esp-opus (1.0.5)
+NOTICE: [3/44] 78/esp-opus-encoder (2.4.1)
+NOTICE: [4/44] 78/esp-wifi-connect (2.5.2)
+NOTICE: [5/44] 78/esp_lcd_nv3023 (1.0.0)
+NOTICE: [6/44] 78/xiaozhi-fonts (1.5.5)
+NOTICE: [7/44] espressif/adc_mic (0.2.1)
+NOTICE: [8/44] espressif/button (4.1.4)
+NOTICE: [9/44] espressif/cmake_utilities (0.5.3)
+NOTICE: [10/44] espressif/dl_fft (0.3.1)
+NOTICE: [11/44] espressif/esp-dsp (1.6.0)
+NOTICE: [12/44] espressif/esp-sr (2.1.5)
+NOTICE: [13/44] espressif/esp_codec_dev (1.4.0)
+NOTICE: [14/44] espressif/esp_io_expander (1.1.0)
+NOTICE: [15/44] espressif/esp_io_expander_tca9554 (2.0.0)
+NOTICE: [16/44] espressif/esp_io_expander_tca95xx_16bit (2.0.1)
+NOTICE: [17/44] espressif/esp_lcd_axs15231b (1.0.1~1)
+NOTICE: [18/44] espressif/esp_lcd_gc9a01 (2.0.1)
+NOTICE: [19/44] espressif/esp_lcd_ili9341 (1.2.0)
+NOTICE: [20/44] espressif/esp_lcd_panel_io_additions (1.0.1)
+NOTICE: [21/44] espressif/esp_lcd_spd2010 (1.0.2)
+NOTICE: [22/44] espressif/esp_lcd_st7701 (1.1.5)
+NOTICE: [23/44] espressif/esp_lcd_st77916 (1.0.1)
+NOTICE: [24/44] espressif/esp_lcd_st7796 (1.3.5)
+NOTICE: [25/44] espressif/esp_lcd_touch (1.2.1)
+NOTICE: [26/44] espressif/esp_lcd_touch_cst816s (1.1.0)
+NOTICE: [27/44] espressif/esp_lcd_touch_ft5x06 (1.0.7)
+NOTICE: [28/44] espressif/esp_lcd_touch_gt1151 (1.0.5~2)
+NOTICE: [29/44] espressif/esp_lcd_touch_gt911 (1.2.0)
+NOTICE: [30/44] espressif/esp_lvgl_port (2.6.3)
+NOTICE: [31/44] espressif/esp_mmap_assets (1.4.0)
+NOTICE: [32/44] espressif/esp_new_jpeg (0.6.1)
+NOTICE: [33/44] espressif/freetype (2.13.3~1)
+NOTICE: [34/44] espressif/knob (1.0.1)
+NOTICE: [35/44] espressif/led_strip (3.0.2)
+NOTICE: [36/44] espressif2022/esp_emote_gfx (1.2.0~1)
+NOTICE: [37/44] espressif2022/image_player (1.1.1)
+NOTICE: [38/44] lvgl/lvgl (9.3.0)
+NOTICE: [39/44] tny-robotics/sh1106-esp-idf (1.0.0)
+NOTICE: [40/44] txp666/otto-emoji-gif-component (1.0.4)
+NOTICE: [41/44] waveshare/esp_lcd_sh8601 (1.0.2)
+NOTICE: [42/44] waveshare/esp_lcd_touch_cst9217 (1.0.4)
+NOTICE: [43/44] wvirgil123/sscma_client (1.0.2)
+NOTICE: [44/44] idf (5.5.1)
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_jd9365_10_1
+NOTICE: Skipping optional dependency: waveshare/esp_lcd_st7703
+NOTICE: Skipping optional dependency: espressif/esp_lcd_ili9881c
+NOTICE: Skipping optional dependency: espressif/esp_hosted
+NOTICE: Skipping optional dependency: espressif/esp_wifi_remote
+NOTICE: Skipping optional dependency: espfriends/servo_dog_ctrl
+-- Project sdkconfig file /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig
+Loading defaults file /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults...
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults:32 CONFIG_NEWLIB_NANO_FORMAT was replaced with CONFIG_LIBC_NEWLIB_NANO_FORMAT 
+warning: unknown kconfig symbol 'CAMERA_NO_AFFINITY' assigned to 'y' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults
+warning: unknown kconfig symbol 'CAMERA_DMA_BUFFER_SIZE_MAX' assigned to '8192' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults
+warning: unknown kconfig symbol 'LV_USE_OS' assigned to '0' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults
+Loading defaults file /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults.esp32s3...
+warning: unknown kconfig symbol 'CAMERA_NO_AFFINITY' assigned to 'y' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults.esp32s3
+warning: unknown kconfig symbol 'CAMERA_DMA_BUFFER_SIZE_MAX' assigned to '8192' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults.esp32s3
+warning: unknown kconfig symbol 'LV_USE_OS' assigned to '0' in /home/lm/esp_project/modern_light/Lamp-ESP32-S3/sdkconfig.defaults.esp32s3
+-- Compiler supported targets: xtensa-esp-elf
+-- Found Python3: /home/lm/.espressif/python_env/idf5.5_py3.10_env/bin/python (found version "3.10.12") found components: Interpreter 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- USING O3
+-- App "xiaozhi" version: 2.0.3
+-- Adding linker script /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/esp-idf/esp_system/ld/sections.ld.in
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.bt_funcs.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libgcc.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.wdt.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.version.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_master.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_50.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_smp.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_dtm.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_test.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ble_scan.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.libc.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/esp_rom/esp32s3/ld/esp32s3.rom.newlib.ld
+-- Adding linker script /home/lm/esp/v5.5.1/esp-idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
+-- ESP_LCD_NV3023: 1.0.0
+-- ADC_MIC: 0.2.1
+-- BUTTON: 4.1.4
+-- ESP_LCD_AXS15231B: 1.0.1
+-- ESP_LCD_GC9A01: 2.0.1
+-- ESP_LCD_ILI9341: 1.2.0
+-- ESP_LCD_PANEL_IO_ADDITIONS: 1.0.1
+-- ESP_LCD_SPD2010: 1.0.2
+-- ESP_LCD_ST7701: 1.1.5
+-- ESP_LCD_ST77916: 1.0.1
+-- ESP_LCD_ST7796: 1.3.5
+-- LVGL version: 9.3.0
+-- ESP_MMAP_ASSETS: 1.4.0
+-- KNOB: 1.0.1
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- Otto Emoji GIF Component:
+--   Found 7 GIF source files
+--   Include directory: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/txp666__otto-emoji-gif-component/include
+-- ESP_LCD_SH8601: 1.0.2
+-- Default assets build configured: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/generated_assets.bin
+-- Generated default assets flash configured: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/generated_assets.bin -> assets partition
+-- Component idf::main will be linked with -Wl,--whole-archive
+-- Components: 78__esp-ml307 78__esp-opus 78__esp-opus-encoder 78__esp-wifi-connect 78__esp_lcd_nv3023 78__xiaozhi-fonts app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_bootloader_format esp_coex esp_common esp_driver_ana_cmpr esp_driver_bitscrambler esp_driver_cam esp_driver_dac esp_driver_gpio esp_driver_gptimer esp_driver_i2c esp_driver_i2s esp_driver_isp esp_driver_jpeg esp_driver_ledc esp_driver_mcpwm esp_driver_parlio esp_driver_pcnt esp_driver_ppa esp_driver_rmt esp_driver_sdio esp_driver_sdm esp_driver_sdmmc esp_driver_sdspi esp_driver_spi esp_driver_touch_sens esp_driver_tsens esp_driver_twai esp_driver_uart esp_driver_usb_serial_jtag esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_security esp_system esp_timer esp_vfs_console esp_wifi espcoredump espressif2022__esp_emote_gfx espressif2022__image_player espressif__adc_mic espressif__button espressif__cmake_utilities espressif__dl_fft espressif__esp-dsp espressif__esp-sr espressif__esp_codec_dev espressif__esp_io_expander espressif__esp_io_expander_tca9554 espressif__esp_io_expander_tca95xx_16bit espressif__esp_lcd_axs15231b espressif__esp_lcd_gc9a01 espressif__esp_lcd_ili9341 espressif__esp_lcd_panel_io_additions espressif__esp_lcd_spd2010 espressif__esp_lcd_st7701 espressif__esp_lcd_st77916 espressif__esp_lcd_st7796 espressif__esp_lcd_touch espressif__esp_lcd_touch_cst816s espressif__esp_lcd_touch_ft5x06 espressif__esp_lcd_touch_gt1151 espressif__esp_lcd_touch_gt911 espressif__esp_lvgl_port espressif__esp_mmap_assets espressif__esp_new_jpeg espressif__freetype espressif__knob espressif__led_strip esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lvgl__lvgl lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread rt sdmmc soc spi_flash spiffs tcp_transport tny-robotics__sh1106-esp-idf touch_element txp666__otto-emoji-gif-component ulp unity usb vfs waveshare__esp_lcd_sh8601 waveshare__esp_lcd_touch_cst9217 wear_levelling wifi_provisioning wpa_supplicant wvirgil123__sscma_client xtensa
+-- Component paths: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp-ml307 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp-opus /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp-opus-encoder /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp-wifi-connect /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp_lcd_nv3023 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__xiaozhi-fonts /home/lm/esp/v5.5.1/esp-idf/components/app_trace /home/lm/esp/v5.5.1/esp-idf/components/app_update /home/lm/esp/v5.5.1/esp-idf/components/bootloader /home/lm/esp/v5.5.1/esp-idf/components/bootloader_support /home/lm/esp/v5.5.1/esp-idf/components/bt /home/lm/esp/v5.5.1/esp-idf/components/cmock /home/lm/esp/v5.5.1/esp-idf/components/console /home/lm/esp/v5.5.1/esp-idf/components/cxx /home/lm/esp/v5.5.1/esp-idf/components/driver /home/lm/esp/v5.5.1/esp-idf/components/efuse /home/lm/esp/v5.5.1/esp-idf/components/esp-tls /home/lm/esp/v5.5.1/esp-idf/components/esp_adc /home/lm/esp/v5.5.1/esp-idf/components/esp_app_format /home/lm/esp/v5.5.1/esp-idf/components/esp_bootloader_format /home/lm/esp/v5.5.1/esp-idf/components/esp_coex /home/lm/esp/v5.5.1/esp-idf/components/esp_common /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_ana_cmpr /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_bitscrambler /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_cam /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_dac /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_gpio /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_gptimer /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_i2c /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_i2s /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_isp /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_jpeg /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_ledc /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_mcpwm /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_parlio /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_pcnt /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_ppa /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_rmt /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_sdio /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_sdm /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_sdmmc /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_sdspi /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_spi /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_touch_sens /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_tsens /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_twai /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_uart /home/lm/esp/v5.5.1/esp-idf/components/esp_driver_usb_serial_jtag /home/lm/esp/v5.5.1/esp-idf/components/esp_eth /home/lm/esp/v5.5.1/esp-idf/components/esp_event /home/lm/esp/v5.5.1/esp-idf/components/esp_gdbstub /home/lm/esp/v5.5.1/esp-idf/components/esp_hid /home/lm/esp/v5.5.1/esp-idf/components/esp_http_client /home/lm/esp/v5.5.1/esp-idf/components/esp_http_server /home/lm/esp/v5.5.1/esp-idf/components/esp_https_ota /home/lm/esp/v5.5.1/esp-idf/components/esp_https_server /home/lm/esp/v5.5.1/esp-idf/components/esp_hw_support /home/lm/esp/v5.5.1/esp-idf/components/esp_lcd /home/lm/esp/v5.5.1/esp-idf/components/esp_local_ctrl /home/lm/esp/v5.5.1/esp-idf/components/esp_mm /home/lm/esp/v5.5.1/esp-idf/components/esp_netif /home/lm/esp/v5.5.1/esp-idf/components/esp_netif_stack /home/lm/esp/v5.5.1/esp-idf/components/esp_partition /home/lm/esp/v5.5.1/esp-idf/components/esp_phy /home/lm/esp/v5.5.1/esp-idf/components/esp_pm /home/lm/esp/v5.5.1/esp-idf/components/esp_psram /home/lm/esp/v5.5.1/esp-idf/components/esp_ringbuf /home/lm/esp/v5.5.1/esp-idf/components/esp_rom /home/lm/esp/v5.5.1/esp-idf/components/esp_security /home/lm/esp/v5.5.1/esp-idf/components/esp_system /home/lm/esp/v5.5.1/esp-idf/components/esp_timer /home/lm/esp/v5.5.1/esp-idf/components/esp_vfs_console /home/lm/esp/v5.5.1/esp-idf/components/esp_wifi /home/lm/esp/v5.5.1/esp-idf/components/espcoredump /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif2022__esp_emote_gfx /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif2022__image_player /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__adc_mic /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__button /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__cmake_utilities /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__dl_fft /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp-dsp /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp-sr /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_codec_dev /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_io_expander /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_io_expander_tca9554 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_io_expander_tca95xx_16bit /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_axs15231b /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_gc9a01 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_ili9341 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_panel_io_additions /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_spd2010 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_st7701 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_st77916 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_st7796 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch_cst816s /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch_ft5x06 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch_gt1151 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch_gt911 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lvgl_port /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_mmap_assets /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_new_jpeg /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__freetype /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__knob /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__led_strip /home/lm/esp/v5.5.1/esp-idf/components/esptool_py /home/lm/esp/v5.5.1/esp-idf/components/fatfs /home/lm/esp/v5.5.1/esp-idf/components/freertos /home/lm/esp/v5.5.1/esp-idf/components/hal /home/lm/esp/v5.5.1/esp-idf/components/heap /home/lm/esp/v5.5.1/esp-idf/components/http_parser /home/lm/esp/v5.5.1/esp-idf/components/idf_test /home/lm/esp/v5.5.1/esp-idf/components/ieee802154 /home/lm/esp/v5.5.1/esp-idf/components/json /home/lm/esp/v5.5.1/esp-idf/components/log /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/lvgl__lvgl /home/lm/esp/v5.5.1/esp-idf/components/lwip /home/lm/esp_project/modern_light/Lamp-ESP32-S3/main /home/lm/esp/v5.5.1/esp-idf/components/mbedtls /home/lm/esp/v5.5.1/esp-idf/components/mqtt /home/lm/esp/v5.5.1/esp-idf/components/newlib /home/lm/esp/v5.5.1/esp-idf/components/nvs_flash /home/lm/esp/v5.5.1/esp-idf/components/nvs_sec_provider /home/lm/esp/v5.5.1/esp-idf/components/openthread /home/lm/esp/v5.5.1/esp-idf/components/partition_table /home/lm/esp/v5.5.1/esp-idf/components/perfmon /home/lm/esp/v5.5.1/esp-idf/components/protobuf-c /home/lm/esp/v5.5.1/esp-idf/components/protocomm /home/lm/esp/v5.5.1/esp-idf/components/pthread /home/lm/esp/v5.5.1/esp-idf/components/rt /home/lm/esp/v5.5.1/esp-idf/components/sdmmc /home/lm/esp/v5.5.1/esp-idf/components/soc /home/lm/esp/v5.5.1/esp-idf/components/spi_flash /home/lm/esp/v5.5.1/esp-idf/components/spiffs /home/lm/esp/v5.5.1/esp-idf/components/tcp_transport /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/tny-robotics__sh1106-esp-idf /home/lm/esp/v5.5.1/esp-idf/components/touch_element /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/txp666__otto-emoji-gif-component /home/lm/esp/v5.5.1/esp-idf/components/ulp /home/lm/esp/v5.5.1/esp-idf/components/unity /home/lm/esp/v5.5.1/esp-idf/components/usb /home/lm/esp/v5.5.1/esp-idf/components/vfs /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/waveshare__esp_lcd_sh8601 /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/waveshare__esp_lcd_touch_cst9217 /home/lm/esp/v5.5.1/esp-idf/components/wear_levelling /home/lm/esp/v5.5.1/esp-idf/components/wifi_provisioning /home/lm/esp/v5.5.1/esp-idf/components/wpa_supplicant /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/wvirgil123__sscma_client /home/lm/esp/v5.5.1/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build

@@ -1,0 +1,3 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/lm/.espressif/python_env/idf5.5_py3.10_env/bin/python -DESP_PLATFORM=1 -DCCACHE_ENABLE=0 /home/lm/esp_project/modern_light/Lamp-ESP32-S3
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/main/Kconfig.projbuild:540: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'
+warning: user value 68 on the int symbol LWIP_DHCP_OPTIONS_LEN (defined at /home/lm/esp/v5.5.1/esp-idf/components/lwip/Kconfig:364) ignored due to being outside the active range ([69, 255]) -- falling back on defaults

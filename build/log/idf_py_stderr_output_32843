@@ -1,0 +1,2 @@
+Command: ninja all
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/main/Kconfig.projbuild:540: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'

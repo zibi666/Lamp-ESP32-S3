@@ -1,4 +1,4 @@
-/* * Data converted from /home/usr/ESP_Project/lamp/managed_components/78__esp-wifi-connect/assets/wifi_configuration.html
+/* * Data converted from /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/78__esp-wifi-connect/assets/wifi_configuration.html
  * (null byte appended)
  */
 .data

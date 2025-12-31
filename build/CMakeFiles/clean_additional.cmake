@@ -1,6 +1,8 @@
 # Additional clean files
+cmake_minimum_required(VERSION 3.16)
 
-file(REMOVE_RECURSE
+if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
+  file(REMOVE_RECURSE
   "0.ogg.S"
   "1.ogg.S"
   "2.ogg.S"
@@ -41,4 +43,5 @@ file(REMOVE_RECURSE
   "x509_crt_bundle.S"
   "xiaozhi.bin"
   "xiaozhi.map"
-)
+  )
+endif()

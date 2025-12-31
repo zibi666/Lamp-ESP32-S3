@@ -433,6 +433,16 @@ dependencies:
     - esp32c5
     - esp32c6
     version: 0.6.1
+  espressif/esp_websocket_client:
+    component_hash: 723aba370113196c66321442426cd6452c351eef31c85c83bd1446831ef9f8f4
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.6.0
   espressif/freetype:
     component_hash: cd5e2d8458e6e8d73f1120ac474467cabb669d8ea4b25050bf6a348c1e89225e
     dependencies:
@@ -506,7 +516,7 @@ dependencies:
   idf:
     source:
       type: idf
-    version: 5.5.0
+    version: 5.5.1
   lvgl/lvgl:
     component_hash: b702d642e03e95928046d5c6726558e6444e112420c77efa5fdb6650b0a13c5d
     dependencies: []
@@ -600,6 +610,7 @@ direct_dependencies:
 - espressif/esp_lcd_touch_gt911
 - espressif/esp_lvgl_port
 - espressif/esp_mmap_assets
+- espressif/esp_websocket_client
 - espressif/knob
 - espressif/led_strip
 - espressif2022/esp_emote_gfx
@@ -611,6 +622,6 @@ direct_dependencies:
 - waveshare/esp_lcd_sh8601
 - waveshare/esp_lcd_touch_cst9217
 - wvirgil123/sscma_client
-manifest_hash: 8185dcef64033fce90b7ccc8ef3258af730326f31e9d5992a8d241a0e4600579
+manifest_hash: 2667917225fda8b43c2e268f271cf01ed88d476062813f3937e80f7441833ebd
 target: esp32s3
 version: 2.0.0

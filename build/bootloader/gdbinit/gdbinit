@@ -1,2 +1,2 @@
-source /home/usr/ESP_Project/lamp/build/bootloader/gdbinit/symbols
-source /home/usr/ESP_Project/lamp/build/bootloader/gdbinit/connect
+source /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader/gdbinit/symbols
+source /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader/gdbinit/connect
