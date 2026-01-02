@@ -19,6 +19,13 @@ void audio_uploader_send_bytes(const uint8_t *data, size_t len);
 // 发送 PCM 数据 (兼容旧接口)
 void audio_uploader_send(const int16_t *data, int samples);
 
+// 发送文本消息（短指令或状态）
+bool audio_uploader_send_text(const char *data);
+
+// WebSocket 连接建立回调
+typedef void (*audio_uploader_connected_cb_t)(void);
+void audio_uploader_set_connected_cb(audio_uploader_connected_cb_t cb);
+
 // 回调函数定义
 typedef void (*audio_uploader_binary_cb_t)(const uint8_t *data, size_t len);
 typedef void (*audio_uploader_text_cb_t)(const char *data, size_t len);

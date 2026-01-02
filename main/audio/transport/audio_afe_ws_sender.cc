@@ -129,7 +129,9 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
         if (cmd == "brightness_down" ||
             cmd == "brightness_up" ||
             cmd == "tem_down" ||
-            cmd == "tem_up") {
+            cmd == "tem_up" ||
+            cmd == "volume_down" ||
+            cmd == "volume_up") {
             ESP_LOGI(TAG, "Backend command: %s, amplitude=%d", cmd.c_str(), amplitude);
             if (cmd == "brightness_down") {
                 LampAdjustBrightness(-amplitude);
@@ -139,6 +141,15 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
                 LampAdjustTemperature(-amplitude);
             } else if (cmd == "tem_up") {
                 LampAdjustTemperature(amplitude);
+            } else if (cmd == "volume_down" || cmd == "volume_up") {
+                auto codec = Board::GetInstance().GetAudioCodec();
+                if (codec) {
+                    int delta = (cmd == "volume_up") ? amplitude : -amplitude;
+                    int next_volume = std::max(0, std::min(100, codec->output_volume() + delta));
+                    if (next_volume != codec->output_volume()) {
+                        codec->SetOutputVolume(next_volume);
+                    }
+                }
             }
         }
     });

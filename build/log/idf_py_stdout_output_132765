@@ -1,0 +1,464 @@
+Command: /home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python /home/usr/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyUSB0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/usr/ESP_Project/lamp/build/xiaozhi.elf /home/usr/ESP_Project/lamp/build/bootloader/bootloader.elf -m '/home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python' '/home/usr/esp/esp-idf/tools/idf.py'
+x���x����� esp_psram: Reserving pool of 64K of inte�ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x55c
+load:0x403c8700,len:0xc3c
+load:0x403cb700,len:0x2e84
+entry 0x403c8908
+[0;32mI (33) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (33) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (33) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (35) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (39) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (44) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (48) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (52) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (57) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (62) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (67) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (71) MSPI Timing: PSRAM timing tuning index: 5[0m
+[0;32mI (75) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (79) esp_psram: Speed: 80MHz[0m
+[0;32mI (82) cpu_start: Multicore app[0m
+[0;32mI (96) cpu_start: Pro cpu start user code[0m
+[0;32mI (96) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (96) app_init: Application information:[0m
+[0;32mI (96) app_init: Project name:     xiaozhi[0m
+[0;32mI (100) app_init: App version:      2.0.3[0m
+[0;32mI (104) app_init: Compile time:     Dec 30 2025 03:55:01[0m
+[0;32mI (109) app_init: ELF file SHA256:  a3c1ea406...[0m
+[0;32mI (113) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (117) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (120) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (124) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (128) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (135) heap_init: At 3FCA87D8 len 00040F38 (259 KiB): RAM[0m
+[0;32mI (140) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (145) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (150) heap_init: At 600FE020 len 00001FB8 (7 KiB): RTCRAM[0m
+[0;32mI (155) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (162) spi_flash: detected chip: boya[0m
+[0;32mI (165) spi_flash: flash io: qio[0m
+[0;32mI (169) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (175) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (181) main_task: Started on CPU0[0m
+[0;32mI (211) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (211) main_task: Calling app_main()[0m
+[0;32mI (221) Board: UUID=d5c53eb6-3c64-4ecf-8fd4-6e66c248ef9d SKU=atk-dnesp32s3[0m
+[0;32mI (221) button: IoT Button Version: 4.1.4[0m
+[0;32mI (221) atk_dnesp32s3: Speaker amplifier enabled (active-low) on XL9555 IO0_2[0m
+[0;32mI (231) Application: STATE: starting[0m
+[0;32mI (231) WifiBoard: Connecting to fixed Wi-Fi network[0m
+[0;32mI (241) wifi station: ESP_WIFI_MODE_STA[0m
+[0;32mI (241) pp: pp rom version: e7ae62f[0m
+[0;32mI (241) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (261) wifi:wifi driver task: 3fceec7c, prio:23, stack:6144, core=0[0m
+[0;32mI (261) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (261) wifi:wifi certification version: v7.0[0m
+[0;32mI (261) wifi:config NVS flash: enabled[0m
+[0;32mI (271) wifi:config nano formatting: enabled[0m
+[0;32mI (271) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (271) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (281) wifi:Init management short buffer num: 32[0m
+[0;32mI (281) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (291) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (291) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (291) wifi:Init static rx buffer num: 3[0m
+[0;32mI (301) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (301) wifi_init: rx ba win: 3[0m
+[0;32mI (311) wifi_init: accept mbox: 6[0m
+[0;32mI (311) wifi_init: tcpip mbox: 16[0m
+[0;32mI (311) wifi_init: udp mbox: 6[0m
+[0;32mI (311) wifi_init: tcp mbox: 6[0m
+[0;32mI (321) wifi_init: tcp tx win: 5760[0m
+[0;32mI (321) wifi_init: tcp rx win: 5760[0m
+[0;32mI (321) wifi_init: tcp mss: 1440[0m
+[0;32mI (331) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (371) wifi:mode : sta (dc:b4:d9:16:d9:28)[0m
+[0;32mI (371) wifi:enable tsf[0m
+[0;32mI (371) wifi station: wifi_init_sta finished.[0m
+[0;32mI (451) wifi:new:<11,2>, old:<1,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (451) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (471) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (471) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (681) wifi:connected with TP-LINK, aid = 1, channel 11, 40D, bssid = 64:6e:97:52:9c:c1[0m
+[0;32mI (681) wifi:security: WPA2-PSK, phy: bgn, rssi: -28[0m
+[0;32mI (691) wifi:pm start, type: 1[0m
+
+[0;32mI (691) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (691) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000[0m
+[0;32mI (721) wifi:<ba-add>idx:0 (ifx:0, 64:6e:97:52:9c:c1), tid:0, ssn:3, winSize:64[0m
+[0;32mI (751) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (2211) esp_netif_handlers: sta ip: 192.168.1.102, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2211) wifi station: got ip:192.168.1.102[0m
+[0;32mI (2211) wifi station: connected to ap SSID:TP-LINK password:708708708[0m
+[0;32mI (2211) Es8388AudioCodec: Duplex channels created[0m
+[0;32mI (2231) Es8388AudioCodec: Es8388AudioCodec initialized[0m
+[0;32mI (2231) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2231) I2S_IF: STD Mode 0 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2231) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2241) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2251) ES8388: Start on mode:3[0m
+[0;32mI (2251) Adev_Codec: Open codec device OK[0m
+[0;32mI (2251) AudioCodec: Set input enable to true[0m
+[0;32mI (2261) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2261) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2271) Adev_Codec: Open codec device OK[0m
+[0;32mI (2281) AudioCodec: Set output enable to true[0m
+[0;32mI (2281) AudioCodec: Audio codec started[0m
+[0;32mI (2281) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2291) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2301) AudioService: Opus codec task started[0m
+[0;32mI (2301) AudioCodec: Set output volume to 60[0m
+[0;32mI (2311) websocket_client: Started[0m
+[0;32mI (2311) AFE_WS_SENDER: AFE WebSocket sender initialized after WiFi up[0m
+[0;32mI (2321) AFE: AFE Version: (1MIC_V250121)[0m
+[0;32mI (2321) AFE: Input PCM Config: total 1 channels(1 microphone, 0 playback), sample rate:16000[0m
+[0;32mI (2331) AFE: AFE Pipeline: [input] -> |VAD(WebRTC)| -> [output][0m
+[0;32mI (2331) AfeAudioProcessor: Audio communication task started, feed size: 512 fetch size: 512[0m
+[0;32mI (2341) Application: STATE: idle[0m
+[0;32mI (2341) AudioService: PlaySound called, size=2012[0m
+[0;32mI (2351) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2361) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (2361) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (2371) AudioService: Queued 18 opus packets for playback (sr=16000)[0m
+[0;32mI (2381) main_task: Returned from app_main()[0m
+[1;31mE (7321) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (7321) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (7321) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (7321) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (7341) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (7341) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (7341) WS_UPLOADER: WebSocket Disconnected![0m
+[0;32mI (14931) WS_UPLOADER: WebSocket Connected![0m
+[0;32mI (19301) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (19301) AudioCodec: Set output enable to false[0m
+[0;32mI (27681) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (27681) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (27681) AudioCodec: Set output volume to 70[0m
+[0;32mI (27691) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (28111) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (28111) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (28121) Adev_Codec: Open codec device OK[0m
+[0;32mI (28121) AudioCodec: Set output enable to true[0m
+[0;32mI (38241) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (42031) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (42031) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (42031) AudioCodec: Set output volume to 70[0m
+[0;32mI (42031) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (52301) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (68111) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (68111) AudioCodec: Set output enable to false[0m
+[0;32mI (72371) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (72371) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (72371) AudioCodec: Set output volume to 70[0m
+[0;32mI (72371) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (72661) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (72661) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (72661) Adev_Codec: Open codec device OK[0m
+[0;32mI (72671) AudioCodec: Set output enable to true[0m
+[0;32mI (73151) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (78931) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (78931) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (78931) AudioCodec: Set output volume to 70[0m
+[0;32mI (78931) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (79681) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (84861) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (84871) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (84871) AudioCodec: Set output volume to 70[0m
+[0;32mI (84871) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (85611) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (92741) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (92741) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (92751) AudioCodec: Set output volume to 70[0m
+[0;32mI (92751) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (103081) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (106941) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (106941) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (106941) AudioCodec: Set output volume to 70[0m
+[0;32mI (106941) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (117011) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (133661) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (133661) AudioCodec: Set output enable to false[0m
+[0;32mI (373191) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (373191) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (373191) AudioCodec: Set output volume to 70[0m
+[0;32mI (373191) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (373421) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (373421) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (373431) Adev_Codec: Open codec device OK[0m
+[0;32mI (373431) AudioCodec: Set output enable to true[0m
+[0;32mI (377771) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (393421) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (393421) AudioCodec: Set output enable to false[0m
+[0;32mI (393711) AFE_WS_SENDER: WS text: {"type":"tts","state":"start"}[0m
+[0;32mI (393711) AFE_WS_SENDER: WS text: 70[0m
+[0;32mI (393711) AudioCodec: Set output volume to 70[0m
+[0;32mI (393711) AFE_WS_SENDER: Server set volume to 70[0m
+[0;32mI (393891) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (393891) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (393901) Adev_Codec: Open codec device OK[0m
+[0;32mI (393901) AudioCodec: Set output enable to true[0m
+[0;32mI (405241) AFE_WS_SENDER: WS text: {"type":"tts","state":"end"}[0m
+[0;32mI (420891) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (420891) AudioCodec: Set output enable to false[0m
+[0;33mW (686391) websocket_client: Client was not started[0m
+[0;32mI (686391) websocket_client: Started[0m
+[0;32mI (686391) WS_UPLOADER: WebSocket Connected![0m
+[0;32mI (1306661) websocket_client: Started[0m
+[0;32mI (1306681) WS_UPLOADER: WebSocket Connected![0m
+[0;33mW (1582161) websocket_client: Client was not started[0m
+[0;32mI (1582161) websocket_client: Started[0m
+[0;32mI (1582191) WS_UPLOADER: WebSocket Connected![0m
+[0;32mI (2721) esp_netif_handlers: sta ip: 192.168.1.104, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2721) wifi station: got ip:192.168.1.104[0m
+[0;32mI (2721) wifi station: connected to ap SSID:TP-LINK password:708708708[0m
+[0;32mI (2721) Es8388AudioCodec: Duplex channels created[0m
+[0;32mI (2741) Es8388AudioCodec: Es8388AudioCodec initialized[0m
+[0;32mI (2741) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2741) I2S_IF: STD Mode 0 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2741) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2751) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2761) ES8388: Start on mode:3[0m
+[0;32mI (2761) Adev_Codec: Open codec device OK[0m
+[0;32mI (2761) AudioCodec: Set input enable to true[0m
+[0;32mI (2771) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2771) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2781) Adev_Codec: Open codec device OK[0m
+[0;32mI (2791) AudioCodec: Set output enable to true[0m
+[0;32mI (2791) AudioCodec: Audio codec started[0m
+[0;32mI (2791) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2801) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2811) AudioService: Opus codec task started[0m
+[0;32mI (2811) AudioCodec: Set output volume to 60[0m
+[0;32mI (2831) websocket_client: Started[0m
+[0;32mI (2831) AFE_WS_SENDER: AFE WebSocket sender initialized after WiFi up[0m
+[0;32mI (2831) AFE: AFE Version: (1MIC_V250121)[0m
+[0;32mI (2831) AFE: Input PCM Config: total 1 channels(1 microphone, 0 playback), sample rate:16000[0m
+[0;32mI (2841) AFE: AFE Pipeline: [input] -> |VAD(WebRTC)| -> [output][0m
+[0;32mI (2851) AfeAudioProcessor: Audio communication task started, feed size: 512 fetch size: 512[0m
+[0;32mI (2851) Application: STATE: idle[0m
+[0;32mI (2861) AudioService: PlaySound called, size=2012[0m
+[0;32mI (2861) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2871) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (2871) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (2891) AudioService: Queued 18 opus packets for playback (sr=16000)[0m
+[0;32mI (2891) main_task: Returned from app_main()[0m
+[1;31mE (7841) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (7841) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (7841) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (7841) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (7861) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (7861) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (7861) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (15881) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (15881) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (15881) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (15881) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (15901) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (15901) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (15911) WS_UPLOADER: WebSocket Disconnected![0m
+[0;32mI (19811) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (19811) AudioCodec: Set output enable to false[0m
+[1;31mE (23921) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (23921) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (23921) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (23921) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (23941) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (23941) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (23951) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (31961) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (31961) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (31961) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (31961) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (31981) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (31981) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (31981) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (40001) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (40001) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (40001) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (40001) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (40021) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (40021) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (40021) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (48041) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (48041) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (48041) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (48041) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (48061) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (48061) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (48071) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (56081) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (56081) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (56081) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (56081) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (56101) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (56101) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (56101) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (64121) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (64121) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (64121) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (64121) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (64141) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (64141) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (64141) WS_UPLOADER: WebSocket Disconnected![0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x55c
+load:0x403c8700,len:0xc3c
+load:0x403cb700,len:0x2e84
+entry 0x403c8908
+[0;32mI (33) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (33) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (33) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (35) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (39) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (44) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (48) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (52) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (57) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (62) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (67) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (71) MSPI Timing: PSRAM timing tuning index: 5[0m
+[0;32mI (75) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (79) esp_psram: Speed: 80MHz[0m
+[0;32mI (82) cpu_start: Multicore app[0m
+[0;32mI (96) cpu_start: Pro cpu start user code[0m
+[0;32mI (96) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (96) app_init: Application information:[0m
+[0;32mI (96) app_init: Project name:     xiaozhi[0m
+[0;32mI (100) app_init: App version:      2.0.3[0m
+[0;32mI (104) app_init: Compile time:     Dec 30 2025 03:55:01[0m
+[0;32mI (109) app_init: ELF file SHA256:  a3c1ea406...[0m
+[0;32mI (113) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (117) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (120) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (124) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (128) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (135) heap_init: At 3FCA87D8 len 00040F38 (259 KiB): RAM[0m
+[0;32mI (140) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (145) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (150) heap_init: At 600FE020 len 00001FB8 (7 KiB): RTCRAM[0m
+[0;32mI (155) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (162) spi_flash: detected chip: boya[0m
+[0;32mI (165) spi_flash: flash io: qio[0m
+[0;32mI (169) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (175) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (181) main_task: Started on CPU0[0m
+[0;32mI (211) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (211) main_task: Calling app_main()[0m
+[0;32mI (221) Board: UUID=d5c53eb6-3c64-4ecf-8fd4-6e66c248ef9d SKU=atk-dnesp32s3[0m
+[0;32mI (221) button: IoT Button Version: 4.1.4[0m
+[0;32mI (221) atk_dnesp32s3: Speaker amplifier enabled (active-low) on XL9555 IO0_2[0m
+[0;32mI (231) Application: STATE: starting[0m
+[0;32mI (231) WifiBoard: Connecting to fixed Wi-Fi network[0m
+[0;32mI (241) wifi station: ESP_WIFI_MODE_STA[0m
+[0;32mI (241) pp: pp rom version: e7ae62f[0m
+[0;32mI (241) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (261) wifi:wifi driver task: 3fceec7c, prio:23, stack:6144, core=0[0m
+[0;32mI (261) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (261) wifi:wifi certification version: v7.0[0m
+[0;32mI (261) wifi:config NVS flash: enabled[0m
+[0;32mI (271) wifi:config nano formatting: enabled[0m
+[0;32mI (271) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (271) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (281) wifi:Init management short buffer num: 32[0m
+[0;32mI (281) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (291) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (291) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (301) wifi:Init static rx buffer num: 3[0m
+[0;32mI (301) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (301) wifi_init: rx ba win: 3[0m
+[0;32mI (311) wifi_init: accept mbox: 6[0m
+[0;32mI (311) wifi_init: tcpip mbox: 16[0m
+[0;32mI (311) wifi_init: udp mbox: 6[0m
+[0;32mI (311) wifi_init: tcp mbox: 6[0m
+[0;32mI (321) wifi_init: tcp tx win: 5760[0m
+[0;32mI (321) wifi_init: tcp rx win: 5760[0m
+[0;32mI (321) wifi_init: tcp mss: 1440[0m
+[0;32mI (331) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (371) wifi:mode : sta (dc:b4:d9:16:d9:28)[0m
+[0;32mI (371) wifi:enable tsf[0m
+[0;32mI (371) wifi station: wifi_init_sta finished.[0m
+[0;32mI (471) wifi:new:<11,2>, old:<1,0>, ap:<255,255>, sta:<11,2>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (471) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (481) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (491) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (711) wifi:connected with TP-LINK, aid = 1, channel 11, 40D, bssid = 64:6e:97:52:9c:c1[0m
+[0;32mI (711) wifi:security: WPA2-PSK, phy: bgn, rssi: -36[0m
+[0;32mI (711) wifi:pm start, type: 1[0m
+
+[0;32mI (711) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (721) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000[0m
+[0;32mI (741) wifi:<ba-add>idx:0 (ifx:0, 64:6e:97:52:9c:c1), tid:0, ssn:3, winSize:64[0m
+[0;32mI (771) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (2231) esp_netif_handlers: sta ip: 192.168.1.104, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2231) wifi station: got ip:192.168.1.104[0m
+[0;32mI (2231) wifi station: connected to ap SSID:TP-LINK password:708708708[0m
+[0;32mI (2231) Es8388AudioCodec: Duplex channels created[0m
+[0;32mI (2251) Es8388AudioCodec: Es8388AudioCodec initialized[0m
+[0;32mI (2251) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2251) I2S_IF: STD Mode 0 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2251) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2261) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2271) ES8388: Start on mode:3[0m
+[0;32mI (2271) Adev_Codec: Open codec device OK[0m
+[0;32mI (2271) AudioCodec: Set input enable to true[0m
+[0;32mI (2281) I2S_IF: channel mode 0 bits:16/16 channel:2 mask:1[0m
+[0;32mI (2281) I2S_IF: STD Mode 1 bits:16/16 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2291) Adev_Codec: Open codec device OK[0m
+[0;32mI (2301) AudioCodec: Set output enable to true[0m
+[0;32mI (2301) AudioCodec: Audio codec started[0m
+[0;32mI (2301) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2311) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2321) AudioService: Opus codec task started[0m
+[0;32mI (2321) AudioCodec: Set output volume to 60[0m
+[0;32mI (2331) websocket_client: Started[0m
+[0;32mI (2331) AFE_WS_SENDER: AFE WebSocket sender initialized after WiFi up[0m
+[0;32mI (2341) AFE: AFE Version: (1MIC_V250121)[0m
+[0;32mI (2341) AFE: Input PCM Config: total 1 channels(1 microphone, 0 playback), sample rate:16000[0m
+[0;32mI (2351) AFE: AFE Pipeline: [input] -> |VAD(WebRTC)| -> [output][0m
+[0;32mI (2351) AfeAudioProcessor: Audio communication task started, feed size: 512 fetch size: 512[0m
+[0;32mI (2361) Application: STATE: idle[0m
+[0;32mI (2361) AudioService: PlaySound called, size=2012[0m
+[0;32mI (2371) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2381) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (2381) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (2391) AudioService: Queued 18 opus packets for playback (sr=16000)[0m
+[0;32mI (2401) main_task: Returned from app_main()[0m
+[1;31mE (7341) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (7341) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (7341) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (7341) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (7361) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (7361) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (7361) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (15381) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (15381) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (15381) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (15381) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (15401) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (15401) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (15401) WS_UPLOADER: WebSocket Disconnected![0m
+[0;32mI (19321) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (19321) AudioCodec: Set output enable to false[0m
+[1;31mE (23421) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (23421) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (23421) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (23421) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (23441) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (23441) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (23441) WS_UPLOADER: WebSocket Disconnected![0m
+[1;31mE (31461) esp-tls: [sock=54] select() timeout[0m
+[1;31mE (31461) transport_base: Failed to open a new connection: 32774[0m
+[1;31mE (31461) transport_ws: Error connecting to host 192.168.1.101:6060[0m
+[1;31mE (31461) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[1;31mE (31481) WS_UPLOADER: WebSocket Error![0m
+[0;32mI (31481) websocket_client: Reconnect after 3000 ms[0m
+[0;33mW (31481) WS_UPLOADER: WebSocket Disconnected![0m

@@ -1,9 +1,11 @@
 #include "audio_codec.h"
 #include "board.h"
 #include "settings.h"
+#include "audio/transport/audio_uploader.h"
 
 #include <esp_log.h>
 #include <cstring>
+#include <stdio.h>
 #include <driver/i2s_common.h>
 
 #define TAG "AudioCodec"
@@ -49,11 +51,20 @@ void AudioCodec::Start() {
 }
 
 void AudioCodec::SetOutputVolume(int volume) {
+    int previous_volume = output_volume_;
     output_volume_ = volume;
     ESP_LOGI(TAG, "Set output volume to %d", output_volume_);
     
     Settings settings("audio", true);
     settings.SetInt("output_volume", output_volume_);
+
+    if (output_volume_ != previous_volume) {
+        char payload[24];
+        int len = snprintf(payload, sizeof(payload), "(volume,%d)", output_volume_);
+        if (len > 0 && len < (int)sizeof(payload)) {
+            audio_uploader_send_text(payload);
+        }
+    }
 }
 
 void AudioCodec::EnableInput(bool enable) {

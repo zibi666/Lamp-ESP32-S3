@@ -19,17 +19,21 @@
 static esp_websocket_client_handle_t ws_client = NULL;
 static QueueHandle_t send_queue = NULL;
 static TaskHandle_t send_task_handle = NULL;
+static TickType_t last_reconnect_tick = 0;
 
 // 使用 volatile bool 避免多线程锁竞争
 static volatile bool is_connected = false;
 
 static audio_uploader_binary_cb_t binary_cb = NULL;
 static audio_uploader_text_cb_t text_cb = NULL;
+static audio_uploader_connected_cb_t connected_cb = NULL;
 
 typedef struct {
     size_t len;
     uint8_t* buf; 
 } queue_item_t;
+
+static void clear_queue(void);
 
 // ---------------- WebSocket 事件处理 ----------------
 static void websocket_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data) {
@@ -39,11 +43,15 @@ static void websocket_event_handler(void *handler_args, esp_event_base_t base, i
         case WEBSOCKET_EVENT_CONNECTED:
             ESP_LOGI(TAG, "WebSocket Connected!");
             is_connected = true;
+            if (connected_cb) {
+                connected_cb();
+            }
             break;
 
         case WEBSOCKET_EVENT_DISCONNECTED:
             ESP_LOGW(TAG, "WebSocket Disconnected!");
             is_connected = false;
+            clear_queue();
             break;
 
         case WEBSOCKET_EVENT_DATA:
@@ -77,6 +85,7 @@ static void clear_queue() {
 // ---------------- 发送任务 (消费者) ----------------
 static void audio_send_task(void* arg) {
     queue_item_t item;
+    const TickType_t kReconnectInterval = pdMS_TO_TICKS(5000);
     
     while (true) {
         // 1. 等待数据
@@ -111,6 +120,14 @@ static void audio_send_task(void* arg) {
                     continue; // 跳过本次循环剩余部分，进入下一轮等待
                 }
             } else {
+                // 触发周期性重连，避免 WebSocket 进入卡死状态
+                TickType_t now = xTaskGetTickCount();
+                if (ws_client != NULL && (now - last_reconnect_tick) > kReconnectInterval) {
+                    last_reconnect_tick = now;
+                    esp_websocket_client_stop(ws_client);
+                    esp_websocket_client_start(ws_client);
+                }
+
                 // 如果未连接或连接未就绪，直接丢弃当前包
                 // ESP_LOGW(TAG, "WebSocket not connected or not ready, dropping audio packet.");
                 if (item.buf) {
@@ -184,10 +201,25 @@ void audio_uploader_send(const int16_t *data, int samples) {
     audio_uploader_send_bytes((const uint8_t*)data, samples * sizeof(int16_t));
 }
 
+bool audio_uploader_send_text(const char *data) {
+    if (!is_connected || ws_client == NULL || data == NULL || data[0] == '\0') {
+        return false;
+    }
+    if (!esp_websocket_client_is_connected(ws_client)) {
+        return false;
+    }
+    int ret = esp_websocket_client_send_text(ws_client, data, strlen(data), pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
+    return ret >= 0;
+}
+
 void audio_uploader_set_binary_cb(audio_uploader_binary_cb_t cb) {
     binary_cb = cb;
 }
 
 void audio_uploader_set_text_cb(audio_uploader_text_cb_t cb) {
     text_cb = cb;
+}
+
+void audio_uploader_set_connected_cb(audio_uploader_connected_cb_t cb) {
+    connected_cb = cb;
 }
