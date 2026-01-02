@@ -8,10 +8,22 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <cmath>
 
 #include "board.h"
 
 #define AUDIO_CODEC_DMA_DESC_NUM 6
+
+// 将线性音量(0-100)转换为对数音量，使人耳感知更均匀
+// 使用对数曲线: output = 100 * (log10(1 + input * 9 / 100) / log10(10))
+static inline int LinearToLogVolume(int linear_volume) {
+    if (linear_volume <= 0) return 0;
+    if (linear_volume >= 100) return 100;
+    // 使用对数曲线让低音量区域变化更明显
+    double normalized = linear_volume / 100.0;
+    double log_volume = std::log10(1.0 + normalized * 9.0); // log10(1) = 0, log10(10) = 1
+    return static_cast<int>(log_volume * 100.0 + 0.5);
+}
 #define AUDIO_CODEC_DMA_FRAME_NUM 240
 #define AUDIO_CODEC_DEFAULT_MIC_GAIN 30.0
 

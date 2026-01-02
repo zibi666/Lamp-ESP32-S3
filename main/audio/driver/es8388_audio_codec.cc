@@ -1,8 +1,18 @@
 #include "es8388_audio_codec.h"
 
 #include <esp_log.h>
+#include <algorithm>
+#include <cmath>
 
 #define TAG "Es8388AudioCodec"
+
+static int MapUserVolumeToCodec(int volume) {
+    int clamped = std::max(0, std::min(100, volume));
+    float normalized = static_cast<float>(clamped) / 100.0f;
+    float mapped = powf(normalized, 0.6f);
+    int scaled = static_cast<int>(mapped * 100.0f + 0.5f);
+    return std::max(0, std::min(100, scaled));
+}
 
 Es8388AudioCodec::Es8388AudioCodec(void* i2c_master_handle, i2c_port_t i2c_port, int input_sample_rate, int output_sample_rate,
     gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din,
@@ -133,7 +143,8 @@ void Es8388AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gp
 }
 
 void Es8388AudioCodec::SetOutputVolume(int volume) {
-    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, volume));
+    int mapped_volume = MapUserVolumeToCodec(volume);
+    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, mapped_volume));
     AudioCodec::SetOutputVolume(volume);
 }
 
@@ -180,7 +191,8 @@ void Es8388AudioCodec::EnableOutput(bool enable) {
             .mclk_multiple = 0,
         };
         ESP_ERROR_CHECK(esp_codec_dev_open(output_dev_, &fs));
-        ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, output_volume_));
+        int mapped_volume = MapUserVolumeToCodec(output_volume_);
+        ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, mapped_volume));
 
         // Set analog output volume to 0dB, default is -45dB
         // 0x1E = 30 (0dB)

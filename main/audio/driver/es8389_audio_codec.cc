@@ -135,7 +135,10 @@ void Es8389AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gp
 }
 
 void Es8389AudioCodec::SetOutputVolume(int volume) {
-    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, volume));
+    // 使用对数曲线转换，让音量变化更均匀
+    int hw_volume = LinearToLogVolume(volume);
+    ESP_LOGI(TAG, "Volume: linear=%d, hw=%d", volume, hw_volume);
+    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, hw_volume));
     AudioCodec::SetOutputVolume(volume);
 }
 
@@ -175,7 +178,7 @@ void Es8389AudioCodec::EnableOutput(bool enable) {
             .mclk_multiple = 0,
         };
         ESP_ERROR_CHECK(esp_codec_dev_open(output_dev_, &fs));
-        ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, output_volume_));
+        ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, LinearToLogVolume(output_volume_)));
         if (pa_pin_ != GPIO_NUM_NC) {
             gpio_set_level(pa_pin_, 1);
         }

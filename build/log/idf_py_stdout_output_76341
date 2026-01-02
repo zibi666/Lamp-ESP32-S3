@@ -1,0 +1,80 @@
+Command: ninja all
+[1/30] Performing build step for 'bootloader'
+[1/1] cd /home/usr/ESP_Project/lamp/build/bootloader/esp-idf/esptool_py && /home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python /home/usr/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/usr/ESP_Project/lamp/build/bootloader/bootloader.bin
+Bootloader binary size 0x4070 bytes. 0x3f90 bytes (50%) free.
+[2/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/box_audio_codec.cc.obj
+[3/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/audio_codec.cc.obj
+[4/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/es8389_audio_codec.cc.obj
+[5/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/no_audio_codec.cc.obj
+[6/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/es8311_audio_codec.cc.obj
+[7/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/audio_service.cc.obj
+[8/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/es8374_audio_codec.cc.obj
+[9/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/dummy_audio_codec.cc.obj
+[10/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/driver/es8388_audio_codec.cc.obj
+[11/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/main.cc.obj
+[12/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/protocols/websocket_protocol.cc.obj
+[13/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/application.cc.obj
+[14/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/ml307_board.cc.obj
+[15/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/transport/audio_afe_ws_sender.cc.obj
+[16/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/dual_network_board.cc.obj
+[17/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/power_save_timer.cc.obj
+[18/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/afsk_demod.cc.obj
+[19/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/pwm_test.cc.obj
+[20/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/processors/afe_audio_processor.cc.obj
+[21/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/sleep_timer.cc.obj
+[22/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/wifi_board.cc.obj
+[23/28] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/atk-dnesp32s3/atk_dnesp32s3.cc.obj
+[24/28] Linking C static library esp-idf/main/libmain.a
+[25/28] Generating esp-idf/esp_system/ld/sections.ld
+/home/usr/ESP_Project/lamp/main/Kconfig.projbuild:540: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'
+info: INFO: Symbol DSP_OPTIMIZATIONS_SUPPORTED defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:4
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:4
+info: INFO: Symbol DSP_ANSI defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:17
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:17
+info: INFO: Symbol DSP_OPTIMIZED defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:19
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:19
+info: INFO: Symbol DSP_OPTIMIZATION defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:24
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:24
+info: INFO: Symbol DSP_MAX_FFT_SIZE_512 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:35
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:35
+info: INFO: Symbol DSP_MAX_FFT_SIZE_1024 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:37
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:37
+info: INFO: Symbol DSP_MAX_FFT_SIZE_2048 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:39
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:39
+info: INFO: Symbol DSP_MAX_FFT_SIZE_4096 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:41
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:41
+info: INFO: Symbol DSP_MAX_FFT_SIZE_8192 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:43
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:43
+info: INFO: Symbol DSP_MAX_FFT_SIZE_16384 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:45
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:45
+info: INFO: Symbol DSP_MAX_FFT_SIZE_32768 defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:47
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:47
+info: INFO: Symbol DSP_MAX_FFT_SIZE defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:51
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:51
+info: INFO: Choice DSP_OPTIMIZATION defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:9
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:9
+info: INFO: Choice DSP_MAX_FFT_SIZE defined in multiple locations (see below). Please check if this is a correct behavior or a random name match:
+    /home/usr/esp/esp-idf/components/esp_dsp/Kconfig:29
+    /home/usr/ESP_Project/lamp/managed_components/espressif__esp-dsp/Kconfig:29
+[26/28] Linking CXX executable xiaozhi.elf
+[27/28] Generating binary image from built executable
+esptool.py v4.10.dev2
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+Generated /home/usr/ESP_Project/lamp/build/xiaozhi.bin
+[28/28] cd /home/usr/ESP_Project/lamp/build/esp-idf/esptool_py && /home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python /home/usr/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/usr/ESP_Project/lamp/build/partition_table/partition-table.bin /home/usr/ESP_Project/lamp/build/xiaozhi.bin
+xiaozhi.bin binary size 0x1c9730 bytes. Smallest app partition is 0x3f0000 bytes. 0x2268d0 bytes (55%) free.
