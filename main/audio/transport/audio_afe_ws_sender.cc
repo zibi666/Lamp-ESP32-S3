@@ -78,22 +78,6 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
     audio_uploader_set_text_cb([](const char* data, size_t len) {
         ESP_LOGI(TAG, "WS text: %.*s", (int)len, data);
 
-        // 处理服务端下发的音量控制（数字字符串 "0"-"100"）
-        if (len > 0 && len < 4) { // 音量字符串不应过长
-            std::string text(data, len);
-            char* end;
-            long val = strtol(text.c_str(), &end, 10);
-            if (end != text.c_str() && *end == '\0') {
-                if (val >= 0 && val <= 100) {
-                    auto codec = Board::GetInstance().GetAudioCodec();
-                    if (codec) {
-                        codec->SetOutputVolume((int)val);
-                        ESP_LOGI(TAG, "Server set volume to %ld", val);
-                    }
-                }
-            }
-        }
-
         // 处理后端命令：(command, amplitude)
         std::string text(data, len);
         auto is_space = [](unsigned char c) { return std::isspace(c) != 0; };
@@ -131,7 +115,8 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
             cmd == "tem_down" ||
             cmd == "tem_up" ||
             cmd == "volume_down" ||
-            cmd == "volume_up") {
+            cmd == "volume_up" ||
+            cmd == "volume_set") {
             ESP_LOGI(TAG, "Backend command: %s, amplitude=%d", cmd.c_str(), amplitude);
             if (cmd == "brightness_down") {
                 LampAdjustBrightness(-amplitude);
@@ -148,7 +133,15 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
                     int next_volume = std::max(0, std::min(100, codec->output_volume() + delta));
                     if (next_volume != codec->output_volume()) {
                         codec->SetOutputVolume(next_volume);
+                        ESP_LOGI(TAG, "Volume adjusted: %d -> %d", codec->output_volume() - delta, next_volume);
                     }
+                }
+            } else if (cmd == "volume_set") {
+                auto codec = Board::GetInstance().GetAudioCodec();
+                if (codec) {
+                    int target_volume = std::max(0, std::min(100, amplitude));
+                    codec->SetOutputVolume(target_volume);
+                    ESP_LOGI(TAG, "Volume set to: %d", target_volume);
                 }
             }
         }

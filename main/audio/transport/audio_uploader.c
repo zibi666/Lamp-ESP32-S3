@@ -4,6 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "freertos/semphr.h"
 #include "esp_log.h"
 #include "esp_websocket_client.h"
 
@@ -20,6 +21,7 @@ static esp_websocket_client_handle_t ws_client = NULL;
 static QueueHandle_t send_queue = NULL;
 static TaskHandle_t send_task_handle = NULL;
 static TickType_t last_reconnect_tick = 0;
+static SemaphoreHandle_t ws_mutex = NULL;
 
 // 使用 volatile bool 避免多线程锁竞争
 static volatile bool is_connected = false;
@@ -94,30 +96,39 @@ static void audio_send_task(void* arg) {
             // 2. 检查连接状态
             // 增加 esp_websocket_client_is_connected 检查，确保底层连接完全就绪
             if (is_connected && ws_client != NULL && esp_websocket_client_is_connected(ws_client)) {
-                
-                int ret = esp_websocket_client_send_bin(ws_client, (const char*)item.buf, item.len, pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
-                
-                // 核心修复：发送失败时的熔断机制
-                if (ret < 0) {
-                    ESP_LOGE(TAG, "发送失败 (ret=%d)，暂停发送等待重连...", ret);
-                    
-                    // A. 强制标记断开，阻止新数据入队
-                    is_connected = false; 
-                    
-                    // B. 释放当前包内存
-                    if (item.buf) {
-                        free(item.buf); 
-                        item.buf = NULL; // 避免悬空指针
+                if (ws_mutex && xSemaphoreTake(ws_mutex, pdMS_TO_TICKS(100)) == pdTRUE) {
+                    int ret = esp_websocket_client_send_bin(ws_client, (const char*)item.buf, item.len, pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
+                    xSemaphoreGive(ws_mutex);
+
+                    // 核心修复：发送失败时的熔断机制
+                    if (ret < 0) {
+                        ESP_LOGE(TAG, "发送失败 (ret=%d)，暂停发送等待重连...", ret);
+                        
+                        // A. 强制标记断开，阻止新数据入队
+                        is_connected = false; 
+                        
+                        // B. 释放当前包内存
+                        if (item.buf) {
+                            free(item.buf); 
+                            item.buf = NULL; // 避免悬空指针
+                        }
+
+                        // C. 清空所有积压队列 (避免延迟和内存泄漏)
+                        clear_queue();
+
+                        // D. 强制休眠 2 秒！
+                        // 这是解决刷屏的关键。给底层 Wi-Fi 协议栈时间去扫描和重连，
+                        // 避免 CPU 被死循环占满导致 Wi-Fi 无法恢复。
+                        vTaskDelay(pdMS_TO_TICKS(2000));
+                        continue; // 跳过本次循环剩余部分，进入下一轮等待
                     }
-
-                    // C. 清空所有积压队列 (避免延迟和内存泄漏)
-                    clear_queue();
-
-                    // D. 强制休眠 2 秒！
-                    // 这是解决刷屏的关键。给底层 Wi-Fi 协议栈时间去扫描和重连，
-                    // 避免 CPU 被死循环占满导致 Wi-Fi 无法恢复。
-                    vTaskDelay(pdMS_TO_TICKS(2000));
-                    continue; // 跳过本次循环剩余部分，进入下一轮等待
+                } else {
+                    // 获取锁失败，丢弃当前包避免阻塞
+                    if (item.buf) {
+                        free(item.buf);
+                        item.buf = NULL;
+                    }
+                    continue;
                 }
             } else {
                 // 触发周期性重连，避免 WebSocket 进入卡死状态
@@ -150,6 +161,9 @@ static void audio_send_task(void* arg) {
 void audio_uploader_init(void) {
     if (send_queue == NULL) {
         send_queue = xQueueCreate(SEND_QUEUE_LEN, sizeof(queue_item_t));
+    }
+    if (ws_mutex == NULL) {
+        ws_mutex = xSemaphoreCreateMutex();
     }
 
     esp_websocket_client_config_t config = {
@@ -208,8 +222,12 @@ bool audio_uploader_send_text(const char *data) {
     if (!esp_websocket_client_is_connected(ws_client)) {
         return false;
     }
-    int ret = esp_websocket_client_send_text(ws_client, data, strlen(data), pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
-    return ret >= 0;
+    if (ws_mutex && xSemaphoreTake(ws_mutex, pdMS_TO_TICKS(100)) == pdTRUE) {
+        int ret = esp_websocket_client_send_text(ws_client, data, strlen(data), pdMS_TO_TICKS(WS_SEND_TIMEOUT_MS));
+        xSemaphoreGive(ws_mutex);
+        return ret >= 0;
+    }
+    return false;
 }
 
 void audio_uploader_set_binary_cb(audio_uploader_binary_cb_t cb) {
