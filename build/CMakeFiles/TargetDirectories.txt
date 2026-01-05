@@ -1539,5 +1539,4 @@
 /home/usr/ESP_Project/lamp/build/esp-idf/main/CMakeFiles/package.dir
 /home/usr/ESP_Project/lamp/build/esp-idf/main/CMakeFiles/edit_cache.dir
 /home/usr/ESP_Project/lamp/build/esp-idf/main/CMakeFiles/generated_default_assets.dir
-/home/usr/ESP_Project/lamp/build/esp-idf/main/CMakeFiles/lang_header.dir
 /home/usr/ESP_Project/lamp/build/esp-idf/main/CMakeFiles/__idf_main.dir

@@ -1,27 +1,28 @@
 # Define source files
-set(SOURCES "audio/audio_codec.cc"
-            "audio/audio_service.cc"
-            "audio/driver/no_audio_codec.cc"
-            "audio/driver/box_audio_codec.cc"
-            "audio/driver/es8311_audio_codec.cc"
-            "audio/driver/es8374_audio_codec.cc"
-            "audio/driver/es8388_audio_codec.cc"
-            "audio/driver/es8389_audio_codec.cc"
-            "audio/driver/dummy_audio_codec.cc"
-            "audio/processors/audio_debugger.cc"
-            "protocols/protocol.cc"
-            "protocols/websocket_protocol.cc"
+set(SOURCES 
+            # Voice (语音功能)
+            "voice/audio_codec.cc"
+            "voice/audio_service.cc"
+            "voice/driver/es8388_audio_codec.cc"
+            "voice/processors/audio_debugger.cc"
+            # Network (网络传输)
+            "network/protocol.cc"
+            "network/websocket_protocol.cc"
+            "network/audio_uploader.c"
+            "network/audio_afe_ws_sender.cc"
+            # PWM
+            "pwm/pwm_test.cc"
+            "pwm/backlight.cc"
+            # Core
             "system_info.cc"
             "application.cc"
             "settings.cc"
             "device_state_event.cc"
             "assets.cc"
             "main.cc"
-            "audio/transport/audio_uploader.c"
-            "audio/transport/audio_afe_ws_sender.cc"
             )
 
-set(INCLUDE_DIRS "." "audio" "protocols" "audio/driver" "audio/transport")
+set(INCLUDE_DIRS "." "voice" "voice/driver" "voice/processors" "network" "pwm")
 
 # Add board common files
 file(GLOB BOARD_COMMON_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/*.c)
@@ -345,60 +346,15 @@ list(APPEND SOURCES ${BOARD_SOURCES})
 
 # Select audio processor according to Kconfig
 if(CONFIG_USE_AUDIO_PROCESSOR)
-    list(APPEND SOURCES "audio/processors/afe_audio_processor.cc")
+    list(APPEND SOURCES "voice/processors/afe_audio_processor.cc")
 else()
-    list(APPEND SOURCES "audio/processors/no_audio_processor.cc")
+    list(APPEND SOURCES "voice/processors/no_audio_processor.cc")
 endif()
 
-# Select language directory according to Kconfig
-if(CONFIG_LANGUAGE_ZH_CN)
-    set(LANG_DIR "zh-CN")
-elseif(CONFIG_LANGUAGE_ZH_TW)
-    set(LANG_DIR "zh-TW")
-elseif(CONFIG_LANGUAGE_EN_US)
-    set(LANG_DIR "en-US")
-elseif(CONFIG_LANGUAGE_JA_JP)
-    set(LANG_DIR "ja-JP")
-elseif(CONFIG_LANGUAGE_KO_KR)
-    set(LANG_DIR "ko-KR")
-elseif(CONFIG_LANGUAGE_VI_VN)
-    set(LANG_DIR "vi-VN")
-elseif(CONFIG_LANGUAGE_TH_TH)
-    set(LANG_DIR "th-TH")
-elseif(CONFIG_LANGUAGE_DE_DE)
-    set(LANG_DIR "de-DE")
-elseif(CONFIG_LANGUAGE_FR_FR)
-    set(LANG_DIR "fr-FR")
-elseif(CONFIG_LANGUAGE_ES_ES)
-    set(LANG_DIR "es-ES")
-elseif(CONFIG_LANGUAGE_IT_IT)
-    set(LANG_DIR "it-IT")
-elseif(CONFIG_LANGUAGE_RU_RU)
-    set(LANG_DIR "ru-RU")
-elseif(CONFIG_LANGUAGE_AR_SA)
-    set(LANG_DIR "ar-SA")
-elseif(CONFIG_LANGUAGE_HI_IN)
-    set(LANG_DIR "hi-IN")
-elseif(CONFIG_LANGUAGE_PT_PT)
-    set(LANG_DIR "pt-PT")
-elseif(CONFIG_LANGUAGE_PL_PL)
-    set(LANG_DIR "pl-PL")
-elseif(CONFIG_LANGUAGE_CS_CZ)
-    set(LANG_DIR "cs-CZ")
-elseif(CONFIG_LANGUAGE_FI_FI)
-    set(LANG_DIR "fi-FI")
-elseif(CONFIG_LANGUAGE_TR_TR)
-    set(LANG_DIR "tr-TR")
-elseif(CONFIG_LANGUAGE_ID_ID)
-    set(LANG_DIR "id-ID")
-elseif(CONFIG_LANGUAGE_UK_UA)
-    set(LANG_DIR "uk-UA")
-elseif(CONFIG_LANGUAGE_RO_RO)
-    set(LANG_DIR "ro-RO")
-endif()
+# Only zh-CN language is supported now
+set(LANG_DIR "zh-CN")
 
-# Define generation path
-set(LANG_JSON "${CMAKE_CURRENT_SOURCE_DIR}/assets/locales/${LANG_DIR}/language.json")
+# Define language paths
 set(LANG_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/assets/lang_config.h")
 file(GLOB LANG_SOUNDS ${CMAKE_CURRENT_SOURCE_DIR}/assets/locales/${LANG_DIR}/*.ogg)
 file(GLOB COMMON_SOUNDS ${CMAKE_CURRENT_SOURCE_DIR}/assets/common/*.ogg)
@@ -428,22 +384,8 @@ target_compile_definitions(${COMPONENT_LIB}
                     PRIVATE BUILTIN_TEXT_FONT=${BUILTIN_TEXT_FONT} BUILTIN_ICON_FONT=${BUILTIN_ICON_FONT}
                     )
 
-# Add generation rules
-add_custom_command(
-    OUTPUT ${LANG_HEADER}
-    COMMAND python ${PROJECT_DIR}/scripts/gen_lang.py
-            --language "${LANG_DIR}"
-            --output "${LANG_HEADER}"
-    DEPENDS
-        ${LANG_JSON}
-        ${PROJECT_DIR}/scripts/gen_lang.py
-    COMMENT "Generating ${LANG_DIR} language config"
-)
-
-# Force build generation dependencies
-add_custom_target(lang_header ALL
-    DEPENDS ${LANG_HEADER}
-)
+# Language config is now pre-generated (zh-CN only)
+# No need to run gen_lang.py script anymore
 
 # Find xiaozhi-fonts component dynamically
 find_component_by_pattern("xiaozhi-fonts" XIAOZHI_FONTS_COMPONENT XIAOZHI_FONTS_COMPONENT_PATH)

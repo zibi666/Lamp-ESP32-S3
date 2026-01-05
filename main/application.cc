@@ -11,7 +11,7 @@
 #include <driver/gpio.h>
 #include <arpa/inet.h>
 #include <font_awesome.h>
-#include "audio/transport/audio_afe_ws_sender.h" // 确保包含此头文件
+#include "audio_afe_ws_sender.h" // 确保包含此头文件
 #include "pwm_test.h"
 
 #define TAG "Application"

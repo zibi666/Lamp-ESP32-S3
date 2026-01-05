@@ -14,8 +14,8 @@
 #include "lwip/sys.h"
 
 /* 设置你的WiFi名称和密码 */
-#define EXAMPLE_ESP_WIFI_SSID      "YZY"
-#define EXAMPLE_ESP_WIFI_PASS      "bobobobobo"
+#define EXAMPLE_ESP_WIFI_SSID      "TP-LINK"
+#define EXAMPLE_ESP_WIFI_PASS      "708708708"
 #define EXAMPLE_ESP_MAXIMUM_RETRY  0  // 0 = 无限重连
 
 /* FreeRTOS事件组用于在事件发生时发出信号 */
