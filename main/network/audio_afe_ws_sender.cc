@@ -3,6 +3,7 @@
 #include "wifi_connect.h"
 #include "board.h"
 #include "pwm_test.h"
+#include "assets/lang_config.h"
 #include <esp_log.h>
 #include <memory>
 #include <string>
@@ -16,12 +17,33 @@ static AudioService* g_service = nullptr;
 
 // 延迟到 WiFi 已连接后再去初始化 WebSocket，避免在 netif 未就绪时崩溃
 extern "C" void audio_afe_ws_sender_init(void) {
-    if (ws_ready) {
-        return;
-    }
     if (!wifi_is_connected()) {
         return;
     }
+    
+    // 无论 ws_ready 状态如何，都要确保回调已设置
+    // 设置连接状态回调
+    audio_uploader_set_connected_cb([]() {
+        ESP_LOGI(TAG, "WebSocket connected to server");
+        auto display = Board::GetInstance().GetDisplay();
+        if (display) {
+            display->ShowNotification("已连接服务器", 2000);
+        }
+    });
+    
+    // 设置断开连接回调
+    audio_uploader_set_disconnected_cb([]() {
+        ESP_LOGW(TAG, "WebSocket disconnected from server");
+        auto display = Board::GetInstance().GetDisplay();
+        if (display) {
+            display->ShowNotification("服务器连接断开", 3000);
+        }
+    });
+    
+    if (ws_ready) {
+        return;
+    }
+    
     audio_uploader_init();
     ws_ready = true;
     ESP_LOGI(TAG, "AFE WebSocket sender initialized after WiFi up");

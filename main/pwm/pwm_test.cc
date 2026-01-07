@@ -35,13 +35,6 @@ static int ClampPercent(int value, int min_val, int max_val) {
     return std::max(min_val, std::min(max_val, value));
 }
 
-static int ComputeColorTemperatureK(int temperature_pct) {
-    const int kMinTempK = 2700;
-    const int kMaxTempK = 6500;
-    const int range = kMaxTempK - kMinTempK;
-    return kMinTempK + (temperature_pct * range + 50) / 100;
-}
-
 static uint32_t AbsDiffU32(uint32_t a, uint32_t b) {
     return (a > b) ? (a - b) : (b - a);
 }
@@ -57,17 +50,16 @@ static uint32_t ComputeFadeTimeMs(uint32_t delta, uint32_t max_duty) {
 
 static void SendLampStatus(bool force) {
     char payload[32];
-    int color_temp_k = ComputeColorTemperatureK(temperature_percent);
     if (!force &&
         brightness_percent == last_reported_brightness &&
-        color_temp_k == last_reported_temperature) {
+        temperature_percent == last_reported_temperature) {
         return;
     }
-    int len = snprintf(payload, sizeof(payload), "(%d,%d)", brightness_percent, color_temp_k);
+    int len = snprintf(payload, sizeof(payload), "(%d,%d)", brightness_percent, temperature_percent);
     if (len > 0 && len < (int)sizeof(payload)) {
         if (audio_uploader_send_text(payload)) {
             last_reported_brightness = brightness_percent;
-            last_reported_temperature = color_temp_k;
+            last_reported_temperature = temperature_percent;
         }
     }
 }
