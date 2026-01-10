@@ -118,6 +118,10 @@ public:
     virtual Display* GetDisplay() override {
         return &display_;
     }
+
+    virtual void* GetI2cBus() override {
+        return (void*)i2c_bus_;
+    }
 };
 
 DECLARE_BOARD(atk_dnesp32s3);

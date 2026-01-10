@@ -1,0 +1,2 @@
+source /root/ESP_Project/Lamp-ESP32-S3/build/gdbinit/symbols
+source /root/ESP_Project/Lamp-ESP32-S3/build/gdbinit/connect

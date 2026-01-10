@@ -14,6 +14,15 @@
 #include "audio_afe_ws_sender.h" // 确保包含此头文件
 #include "pwm_test.h"
 
+// 睡眠监测相关头文件 (来自 other_projects)
+extern "C" {
+#include "uart.h"
+#include "app_controller.h"
+#include "rtc_service.h"
+#include "xl9555_keys.h"
+#include "alarm_music.h"
+}
+
 #define TAG "Application"
 
 static const char* const STATE_STRINGS[] = {
@@ -196,6 +205,48 @@ void Application::Start() {
 
     // Start PWM test for IO19 and IO20
     StartPwmTest();
+
+    // ========== 睡眠监测功能初始化 (来自 other_projects) ==========
+    ESP_LOGI(TAG, "初始化睡眠监测功能...");
+    
+    // 初始化 UART1 用于雷达模块通信
+    uart0_init(115200);
+    ESP_LOGI(TAG, "UART1 已初始化用于雷达模块");
+
+    // 初始化 XL9555 按键和蜂鸣器
+    if (xl9555_keys_init() == ESP_OK) {
+        ESP_LOGI(TAG, "XL9555 按键初始化成功");
+        if (xl9555_beep_init() == ESP_OK) {
+            xl9555_beep_off();
+            ESP_LOGI(TAG, "蜂鸣器初始化成功");
+        }
+    } else {
+        ESP_LOGW(TAG, "XL9555 初始化失败，按键和蜂鸣器功能不可用");
+    }
+
+    // 启动 RTC NTP 同步任务
+    if (rtc_start_periodic_sync(10 * 60 * 1000) == ESP_OK) {
+        ESP_LOGI(TAG, "RTC NTP 同步任务已启动");
+    } else {
+        ESP_LOGW(TAG, "RTC NTP 同步任务启动失败");
+    }
+
+    // 初始化闹钟音乐模块
+    if (alarm_music_init() == ESP_OK) {
+        if (alarm_music_start() == ESP_OK) {
+            ESP_LOGI(TAG, "闹钟音乐任务已启动");
+        }
+    }
+
+    // 启动睡眠监测业务控制任务
+    if (app_controller_start() == ESP_OK) {
+        ESP_LOGI(TAG, "睡眠监测业务任务已启动");
+    } else {
+        ESP_LOGW(TAG, "睡眠监测业务任务启动失败");
+    }
+
+    ESP_LOGI(TAG, "睡眠监测功能初始化完成");
+    // ========== 睡眠监测功能初始化结束 ==========
 }
 
 void Application::Schedule(std::function<void()> callback) {

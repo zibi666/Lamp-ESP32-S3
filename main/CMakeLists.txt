@@ -13,6 +13,19 @@ set(SOURCES
             # PWM
             "pwm/pwm_test.cc"
             "pwm/backlight.cc"
+            # BSP - 睡眠监测相关功能 (来自 other_projects)
+            "bsp/UART/uart.c"
+            "bsp/radar_protocol/radar_protocol.c"
+            "bsp/HTTP/http_request.c"
+            "bsp/SleepAnalysis/sleep_analysis.cpp"
+            # SD卡音频播放功能
+            "bsp/sd_audio/audio_hw.c"
+            "bsp/sd_audio/audio_player.c"
+            "bsp/sd_audio/audio_sdcard.c"
+            "bsp/Input/xl9555_keys.c"
+            "bsp/App/app_controller.c"
+            "bsp/RTC/rtc_service.c"
+            "bsp/AlarmMusic/alarm_music.c"
             # Core
             "system_info.cc"
             "application.cc"
@@ -22,7 +35,9 @@ set(SOURCES
             "main.cc"
             )
 
-set(INCLUDE_DIRS "." "voice" "voice/driver" "voice/processors" "network" "pwm")
+set(INCLUDE_DIRS "." "voice" "voice/driver" "voice/processors" "network" "pwm"
+                 "bsp/UART" "bsp/radar_protocol" "bsp/HTTP" "bsp/SleepAnalysis"
+                 "bsp/sd_audio" "bsp/Input" "bsp/App" "bsp/RTC" "bsp/AlarmMusic")
 
 # Add board common files
 file(GLOB BOARD_COMMON_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/*.c)

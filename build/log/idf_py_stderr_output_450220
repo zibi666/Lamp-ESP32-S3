@@ -1,0 +1,3 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/root/.espressif/python_env/idf5.5_py3.12_env/bin/python -DESP_PLATFORM=1 -DCCACHE_ENABLE=0 /root/ESP_Project/Lamp-ESP32-S3
+/root/ESP_Project/Lamp-ESP32-S3/main/Kconfig.projbuild:540: warning: style: quotes recommended around 'TAIJIPAI_S3_CONFIG' in 'menu TAIJIPAI_S3_CONFIG'
+info: Trying to set symbol BOARD_TYPE_BREAD_COMPACT_WIFI to n, but it is currently selected by choice BOARD_TYPE. For setting it to n, set another choice symbol to y instead.
