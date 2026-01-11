@@ -51,6 +51,7 @@ static sleep_stage_result_t g_stage_results[MAX_SLEEP_EPOCHS];
 static size_t g_epoch_count = 0;
 static sleep_thresholds_t g_thresholds = {0};
 static sleep_quality_report_t g_report = {0};
+static volatile sleep_stage_t g_current_stage = SLEEP_STAGE_UNKNOWN;
 
 static bool s_started = false;
 
@@ -390,6 +391,7 @@ static void sleep_stage_task(void *pvParameters)
         }
 
         /* 6. 输出睡眠状态 */
+        g_current_stage = current_stage;
         const char *state_str = (g_sleep_state == SLEEP_MONITORING) ? "监测中" :
                                 (g_sleep_state == SLEEP_SETTLING) ? "观察期" : "睡眠中";
         
@@ -425,6 +427,11 @@ static void sleep_stage_task(void *pvParameters)
 
         vTaskDelay(period);
     }
+}
+
+sleep_stage_t app_controller_get_current_sleep_stage(void)
+{
+    return g_current_stage;
 }
 
 static void uart_rx_task(void *pvParameters)
