@@ -573,6 +573,12 @@ time_t alarm_compute_next_trigger(const alarm_info_t *alarm, const struct tm *no
     if (now_ts == (time_t)-1) {
         return 0;
     }
+    struct tm now_min_check = *now_local;
+    now_min_check.tm_sec = 0;
+    time_t now_min_ts = mktime(&now_min_check);
+    if (now_min_ts == (time_t)-1) {
+        return 0;
+    }
 
     if (alarm->type == ALARM_TYPE_ONCE) {
         if (alarm->target_date[0] == '\0') {
@@ -614,8 +620,14 @@ time_t alarm_compute_next_trigger(const alarm_info_t *alarm, const struct tm *no
         if (cand_ts == (time_t)-1) {
             continue;
         }
+        struct tm cand_min_check = cand;
+        cand_min_check.tm_sec = 0;
+        time_t cand_min_ts = mktime(&cand_min_check);
+        if (cand_min_ts == (time_t)-1) {
+            continue;
+        }
         int idx = (cand.tm_wday == 0) ? 6 : (cand.tm_wday - 1);
-        if ((mask & (1U << idx)) != 0 && cand_ts >= now_ts) {
+        if ((mask & (1U << idx)) != 0 && cand_min_ts >= now_min_ts) {
             return cand_ts;
         }
     }

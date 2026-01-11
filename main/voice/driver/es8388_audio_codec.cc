@@ -14,6 +14,44 @@ static int MapUserVolumeToCodec(int volume) {
     return std::max(0, std::min(100, scaled));
 }
 
+esp_err_t Es8388AudioCodec::ReconfigureI2sTx(int sample_rate, int channels) {
+    if (sample_rate <= 0 || (channels != 1 && channels != 2)) {
+        return ESP_ERR_INVALID_ARG;
+    }
+    if (!i2s_std_cfg_inited_ || !tx_handle_) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    i2s_std_clk_config_t clk_cfg = i2s_std_cfg_.clk_cfg;
+    clk_cfg.sample_rate_hz = (uint32_t)sample_rate;
+
+    i2s_std_slot_config_t slot_cfg = i2s_std_cfg_.slot_cfg;
+    slot_cfg.slot_mode = (channels == 1) ? I2S_SLOT_MODE_MONO : I2S_SLOT_MODE_STEREO;
+    slot_cfg.slot_mask = (channels == 1) ? I2S_STD_SLOT_LEFT : I2S_STD_SLOT_BOTH;
+
+    esp_err_t err = i2s_channel_disable(tx_handle_);
+    if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
+        return err;
+    }
+
+    err = i2s_channel_reconfig_std_slot(tx_handle_, &slot_cfg);
+    if (err != ESP_OK) {
+        return err;
+    }
+
+    err = i2s_channel_reconfig_std_clock(tx_handle_, &clk_cfg);
+    if (err != ESP_OK) {
+        return err;
+    }
+
+    err = i2s_channel_enable(tx_handle_);
+    if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
+        return err;
+    }
+
+    return ESP_OK;
+}
+
 Es8388AudioCodec::Es8388AudioCodec(void* i2c_master_handle, i2c_port_t i2c_port, int input_sample_rate, int output_sample_rate,
     gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din,
     gpio_num_t pa_pin, uint8_t es8388_addr, bool input_reference) {
@@ -90,6 +128,89 @@ Es8388AudioCodec::~Es8388AudioCodec() {
     audio_codec_delete_data_if(data_if_);
 }
 
+bool Es8388AudioCodec::BeginExternalPlayback(int sample_rate, int channels) {
+    if (sample_rate <= 0 || (channels != 1 && channels != 2)) {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(data_if_mutex_);
+
+    if (!output_dev_) {
+        return false;
+    }
+
+    (void)esp_codec_dev_close(output_dev_);
+
+    bool ok = true;
+    if (ReconfigureI2sTx(sample_rate, channels) != ESP_OK) {
+        ok = false;
+    }
+
+    if (ok) {
+        esp_codec_dev_sample_info_t fs = {
+            .bits_per_sample = 16,
+            .channel = (uint8_t)channels,
+            .channel_mask = 0,
+            .sample_rate = (uint32_t)sample_rate,
+            .mclk_multiple = 0,
+        };
+        esp_err_t err = esp_codec_dev_open(output_dev_, &fs);
+        if (err != ESP_OK) {
+            ok = false;
+        } else {
+            int mapped_volume = MapUserVolumeToCodec(output_volume_);
+            err = esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
+            if (err != ESP_OK) {
+                ok = false;
+            }
+        }
+    }
+
+    if (!ok) {
+        (void)ReconfigureI2sTx(output_sample_rate_, 1);
+        esp_codec_dev_sample_info_t fs = {
+            .bits_per_sample = 16,
+            .channel = 1,
+            .channel_mask = 0,
+            .sample_rate = (uint32_t)output_sample_rate_,
+            .mclk_multiple = 0,
+        };
+        (void)esp_codec_dev_open(output_dev_, &fs);
+        int mapped_volume = MapUserVolumeToCodec(output_volume_);
+        (void)esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
+        AudioCodec::EnableOutput(true);
+        output_channels_ = 1;
+        return false;
+    }
+
+    AudioCodec::EnableOutput(true);
+    output_channels_ = channels;
+    return true;
+}
+
+void Es8388AudioCodec::EndExternalPlayback() {
+    std::lock_guard<std::mutex> lock(data_if_mutex_);
+
+    if (!output_dev_) {
+        return;
+    }
+    (void)esp_codec_dev_close(output_dev_);
+
+    (void)ReconfigureI2sTx(output_sample_rate_, 1);
+
+    esp_codec_dev_sample_info_t fs = {
+        .bits_per_sample = 16,
+        .channel = 1,
+        .channel_mask = 0,
+        .sample_rate = (uint32_t)output_sample_rate_,
+        .mclk_multiple = 0,
+    };
+    (void)esp_codec_dev_open(output_dev_, &fs);
+    int mapped_volume = MapUserVolumeToCodec(output_volume_);
+    (void)esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
+    AudioCodec::EnableOutput(true);
+    output_channels_ = 1;
+}
+
 void Es8388AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din){
     assert(input_sample_rate_ == output_sample_rate_);
 
@@ -137,6 +258,8 @@ void Es8388AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gp
         }
     };
 
+    i2s_std_cfg_ = std_cfg;
+    i2s_std_cfg_inited_ = true;
     ESP_ERROR_CHECK(i2s_channel_init_std_mode(tx_handle_, &std_cfg));
     ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx_handle_, &std_cfg));
     ESP_LOGI(TAG, "Duplex channels created");
@@ -146,6 +269,11 @@ void Es8388AudioCodec::SetOutputVolume(int volume) {
     int mapped_volume = MapUserVolumeToCodec(volume);
     ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, mapped_volume));
     AudioCodec::SetOutputVolume(volume);
+}
+
+void Es8388AudioCodec::SetOutputVolumeRuntime(int volume) {
+    int mapped_volume = MapUserVolumeToCodec(volume);
+    ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_set_out_vol(output_dev_, mapped_volume));
 }
 
 void Es8388AudioCodec::EnableInput(bool enable) {
@@ -236,6 +364,7 @@ void Es8388AudioCodec::EnableOutput(bool enable) {
 
 int Es8388AudioCodec::Read(int16_t* dest, int samples) {
     if (input_enabled_) {
+        std::lock_guard<std::mutex> lock(data_if_mutex_);
         ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_read(input_dev_, (void*)dest, samples * sizeof(int16_t)));
     }
     return samples;
@@ -243,6 +372,7 @@ int Es8388AudioCodec::Read(int16_t* dest, int samples) {
 
 int Es8388AudioCodec::Write(const int16_t* data, int samples) {
     if (output_enabled_ && output_dev_ && data != nullptr) {
+        std::lock_guard<std::mutex> lock(data_if_mutex_);
         ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_write(output_dev_, (void*)data, samples * sizeof(int16_t)));
     }
     return samples;

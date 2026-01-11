@@ -20,8 +20,11 @@ private:
     esp_codec_dev_handle_t input_dev_ = nullptr;
     gpio_num_t pa_pin_ = GPIO_NUM_NC;
     std::mutex data_if_mutex_;
+    i2s_std_config_t i2s_std_cfg_ = {};
+    bool i2s_std_cfg_inited_ = false;
 
     void CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din);
+    esp_err_t ReconfigureI2sTx(int sample_rate, int channels);
 
     virtual int Read(int16_t* dest, int samples) override;
     virtual int Write(const int16_t* data, int samples) override;
@@ -32,6 +35,9 @@ public:
         gpio_num_t pa_pin, uint8_t es8388_addr, bool input_reference = false);
     virtual ~Es8388AudioCodec();
 
+    void SetOutputVolumeRuntime(int volume);
+    bool BeginExternalPlayback(int sample_rate, int channels);
+    void EndExternalPlayback();
     virtual void SetOutputVolume(int volume) override;
     virtual void EnableInput(bool enable) override;
     virtual void EnableOutput(bool enable) override;

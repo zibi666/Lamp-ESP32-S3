@@ -115,7 +115,8 @@ static void sntp_init_once(void)
 
 bool rtc_sync_time_from_ntp(uint32_t wait_ms)
 {
-    /* 如果时间已经有效，直接返回成功 */
+    rtc_prepare_timezone();
+
     if (rtc_time_is_valid()) {
         ESP_LOGI(RTC_TAG, "Time already valid, skip sync");
         return true;
@@ -228,6 +229,8 @@ esp_err_t rtc_start_periodic_sync(uint32_t interval_ms)
     if (s_rtc_sync_task) {
         return ESP_OK;
     }
+
+    rtc_prepare_timezone();
 
     BaseType_t r = xTaskCreate(rtc_sync_task, "rtc_ntp_sync", 3072, NULL, 4, &s_rtc_sync_task);
     if (r != pdPASS) {

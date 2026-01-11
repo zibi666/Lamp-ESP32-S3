@@ -2,6 +2,8 @@
 #include "system_info.h"
 #include "settings.h"
 #include "assets/lang_config.h"
+#include "audio_codec.h"
+#include "es8388_audio_codec.h"
 
 #include <esp_log.h>
 #include <esp_ota_ops.h>
@@ -13,6 +15,72 @@
 /* C 接口：供 C 代码获取 I2C 总线 */
 extern "C" void* board_get_i2c_bus(void) {
     return Board::GetInstance().GetI2cBus();
+}
+
+extern "C" void board_audio_enable_output(int enable) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return;
+    }
+    codec->EnableOutput(enable != 0);
+}
+
+extern "C" void board_audio_set_output_volume(int volume_0_100) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return;
+    }
+    codec->SetOutputVolume(volume_0_100);
+}
+
+extern "C" void board_audio_set_output_volume_runtime(int volume_0_100) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return;
+    }
+    auto* es8388 = dynamic_cast<Es8388AudioCodec*>(codec);
+    if (es8388) {
+        es8388->SetOutputVolumeRuntime(volume_0_100);
+    } else {
+        codec->SetOutputVolume(volume_0_100);
+    }
+}
+
+extern "C" int board_audio_begin_external_playback(int sample_rate, int channels) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return 0;
+    }
+    auto* es8388 = dynamic_cast<Es8388AudioCodec*>(codec);
+    if (!es8388) {
+        return 0;
+    }
+    return es8388->BeginExternalPlayback(sample_rate, channels) ? 1 : 0;
+}
+
+extern "C" void board_audio_end_external_playback(void) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return;
+    }
+    auto* es8388 = dynamic_cast<Es8388AudioCodec*>(codec);
+    if (!es8388) {
+        return;
+    }
+    es8388->EndExternalPlayback();
+}
+
+extern "C" int board_audio_output_sample_rate(void) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    return codec ? codec->output_sample_rate() : 0;
+}
+
+extern "C" int board_audio_write_samples(const int16_t* data, int samples) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return 0;
+    }
+    return codec->WriteSamples(data, samples);
 }
 
 Board::Board() {

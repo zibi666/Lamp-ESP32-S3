@@ -39,6 +39,7 @@ public:
     virtual void OutputData(std::vector<int16_t>& data);
     virtual bool InputData(std::vector<int16_t>& data);
     virtual void Start();
+    inline int WriteSamples(const int16_t* data, int samples) { return Write(data, samples); }
 
     inline bool duplex() const { return duplex_; }
     inline bool input_reference() const { return input_reference_; }
