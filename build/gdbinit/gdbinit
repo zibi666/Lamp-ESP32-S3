@@ -1,2 +1,2 @@
-source /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/gdbinit/symbols
-source /home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/gdbinit/connect
+source /root/ESP_Project/Lamp-ESP32-S3/build/gdbinit/symbols
+source /root/ESP_Project/Lamp-ESP32-S3/build/gdbinit/connect

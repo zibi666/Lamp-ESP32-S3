@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

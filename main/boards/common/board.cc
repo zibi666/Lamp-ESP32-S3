@@ -10,6 +10,11 @@
 
 #define TAG "Board"
 
+/* C 接口：供 C 代码获取 I2C 总线 */
+extern "C" void* board_get_i2c_bus(void) {
+    return Board::GetInstance().GetI2cBus();
+}
+
 Board::Board() {
     Settings settings("board", true);
     uuid_ = settings.GetString("uuid");

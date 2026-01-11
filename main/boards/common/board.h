@@ -65,6 +65,7 @@ public:
     virtual void SetPowerSaveMode(bool enabled) = 0;
     virtual std::string GetBoardJson() = 0;
     virtual std::string GetDeviceStatusJson() = 0;
+    virtual void* GetI2cBus() { return nullptr; }  // 返回 i2c_master_bus_handle_t
 };
 
 #define DECLARE_BOARD(BOARD_CLASS_NAME) \

@@ -1,5 +1,5 @@
 #include "wifi_board.h"
-#include "audio/driver/es8388_audio_codec.h"
+#include "es8388_audio_codec.h"
 #include "application.h"
 #include "button.h"
 #include "config.h"
@@ -117,6 +117,10 @@ public:
 
     virtual Display* GetDisplay() override {
         return &display_;
+    }
+
+    virtual void* GetI2cBus() override {
+        return (void*)i2c_bus_;
     }
 };
 

@@ -16,7 +16,7 @@
 /* 设置你的WiFi名称和密码 */
 #define EXAMPLE_ESP_WIFI_SSID      "TP-LINK"
 #define EXAMPLE_ESP_WIFI_PASS      "708708708"
-#define EXAMPLE_ESP_MAXIMUM_RETRY  5
+#define EXAMPLE_ESP_MAXIMUM_RETRY  0  // 0 = 无限重连
 
 /* FreeRTOS事件组用于在事件发生时发出信号 */
 static EventGroupHandle_t s_wifi_event_group;
@@ -38,7 +38,9 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < EXAMPLE_ESP_MAXIMUM_RETRY) {
+        s_wifi_connected = false;
+        xEventGroupClearBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+        if (EXAMPLE_ESP_MAXIMUM_RETRY == 0 || s_retry_num < EXAMPLE_ESP_MAXIMUM_RETRY) {
             esp_wifi_connect();
             s_retry_num++;
             ESP_LOGI(TAG, "retry to connect to the AP");
@@ -51,6 +53,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         s_ip_addr = event->ip_info.ip;  // 保存IP
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&s_ip_addr));
         s_retry_num = 0;
+        xEventGroupClearBits(s_wifi_event_group, WIFI_FAIL_BIT);
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
 }

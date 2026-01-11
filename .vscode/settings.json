@@ -1,6 +1,7 @@
 {
     "git.ignoreLimitWarning": true,
-    "idf.pythonInstallPath": "/home/usr/.espressif/python_env/idf5.5_py3.11_env/bin/python",
-    "idf.port": "/dev/ttyUSB0"
+    "idf.pythonInstallPath": "/root/.espressif/python_env/idf5.5_py3.12_env/bin/python",
+    "idf.port": "/dev/ttyUSB0",
+    "idf.flashType": "UART"
     
 }
