@@ -1,4 +1,4 @@
-# Install script for directory: /root/ESP_Project/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch
+# Install script for directory: /home/lm/esp_project/modern_light/Lamp-ESP32-S3/managed_components/espressif__esp_lcd_touch
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,6 +34,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/root/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump")
+  set(CMAKE_OBJDUMP "/home/lm/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump")
 endif()
 

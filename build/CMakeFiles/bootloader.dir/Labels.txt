@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader
-/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/CMakeFiles/bootloader-complete.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/root/ESP_Project/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/CMakeFiles/bootloader-complete.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/lm/esp_project/modern_light/Lamp-ESP32-S3/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
