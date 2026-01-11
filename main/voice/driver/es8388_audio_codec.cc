@@ -30,6 +30,7 @@ esp_err_t Es8388AudioCodec::ReconfigureI2sTx(int sample_rate, int channels) {
     slot_cfg.slot_mask = (channels == 1) ? I2S_STD_SLOT_LEFT : I2S_STD_SLOT_BOTH;
 
     esp_err_t err = i2s_channel_disable(tx_handle_);
+    // Ignore "not enabled yet" error
     if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
         return err;
     }
@@ -42,6 +43,13 @@ esp_err_t Es8388AudioCodec::ReconfigureI2sTx(int sample_rate, int channels) {
     err = i2s_channel_reconfig_std_clock(tx_handle_, &clk_cfg);
     if (err != ESP_OK) {
         return err;
+    }
+
+    // Also update RX clock to avoid conflict in duplex mode
+    if (rx_handle_) {
+        // Ensure RX is disabled before reconfig (it should be, but just in case)
+        i2s_channel_disable(rx_handle_);
+        i2s_channel_reconfig_std_clock(rx_handle_, &clk_cfg);
     }
 
     err = i2s_channel_enable(tx_handle_);
@@ -132,6 +140,12 @@ bool Es8388AudioCodec::BeginExternalPlayback(int sample_rate, int channels) {
     if (sample_rate <= 0 || (channels != 1 && channels != 2)) {
         return false;
     }
+
+    saved_input_enabled_ = input_enabled_;
+    if (input_enabled_) {
+        EnableInput(false);
+    }
+
     std::lock_guard<std::mutex> lock(data_if_mutex_);
 
     if (!output_dev_) {
@@ -209,6 +223,10 @@ void Es8388AudioCodec::EndExternalPlayback() {
     (void)esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
     AudioCodec::EnableOutput(true);
     output_channels_ = 1;
+
+    if (saved_input_enabled_) {
+        EnableInput(true);
+    }
 }
 
 void Es8388AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din){

@@ -22,6 +22,7 @@ private:
     std::mutex data_if_mutex_;
     i2s_std_config_t i2s_std_cfg_ = {};
     bool i2s_std_cfg_inited_ = false;
+    bool saved_input_enabled_ = false;
 
     void CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din);
     esp_err_t ReconfigureI2sTx(int sample_rate, int channels);
