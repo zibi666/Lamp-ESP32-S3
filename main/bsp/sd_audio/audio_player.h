@@ -20,3 +20,15 @@ esp_err_t audio_player_set_mode(audio_play_mode_t mode);
 
 /* 获取当前播放模式 */
 audio_play_mode_t audio_player_get_mode(void);
+
+/* 播放控制 - 上一首/下一首 */
+void audio_player_next(void);
+void audio_player_prev(void);
+
+/* 获取当前播放信息 */
+size_t audio_player_get_current_track(void);  // 当前曲目索引 (1-based)
+size_t audio_player_get_track_count(void);    // 总曲目数
+
+/* 音量控制 */
+void audio_player_set_volume(uint8_t volume);  // 设置音量 (0-100)
+uint8_t audio_player_get_volume(void);         // 获取当前音量

@@ -11,6 +11,7 @@
 #include "audio_sdcard.h"
 #include "audio_hw.h"
 #include "xl9555_keys.h"
+#include "app_controller.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -32,6 +33,12 @@
 #define MAX_TRACKS         200
 #define MAX_NAME_LEN       128
 
+/* 睡眠检测自动停止相关配置 */
+#define SLEEP_DETECT_INTERVAL_MS   500    // 睡眠检测间隔
+#define SLEEP_VOL_DECREASE_MS      20000  // 每20秒降低一次音量
+#define SLEEP_VOL_DECREASE_STEP    3      // 每次降低的音量步进
+#define SLEEP_DEFAULT_VOLUME       20     // 睡眠音乐默认音量
+
 static const char *TAG = "audio_player";
 
 typedef struct {
@@ -45,7 +52,10 @@ typedef struct {
 static TaskHandle_t s_audio_task = NULL;
 static bool s_inited = false;
 static bool s_stop = false;
+static bool s_skip_next = false;  // 跳到下一首标志
+static bool s_skip_prev = false;  // 跳到上一首标志
 static size_t s_track_index = 0;
+static size_t s_track_count = 0;  // 当前播放列表的歌曲总数
 static audio_play_mode_t s_play_mode = AUDIO_MODE_WAKE;
 
 /**
@@ -215,7 +225,7 @@ static esp_err_t play_single(const char *path)
     ESP_LOGI(TAG, "play %s (%lu Hz, %u bit, %u ch)", path, 
              (unsigned long)info.sample_rate, info.bits_per_sample, info.channels);
 
-    while (!s_stop) {
+    while (!s_stop && !s_skip_next && !s_skip_prev) {
         UINT br = 0;
         fr = f_read(&file, buf, AUDIO_IO_BUF_SIZE, &br);
         if (fr != FR_OK || br == 0) {
@@ -235,6 +245,12 @@ static void audio_task(void *args)
 {
     static char tracks[MAX_TRACKS][MAX_NAME_LEN];
     size_t track_count = 0;
+    
+    /* 睡眠检测相关变量 */
+    TickType_t sleep_detect_tick = 0;      // 开始检测到非WAKE的时间
+    TickType_t last_vol_decrease_tick = 0; // 上次降低音量的时间
+    uint8_t current_volume = SLEEP_DEFAULT_VOLUME;
+    bool is_fading_out = false;            // 是否正在渐弱
 
     while (!s_stop) {
         if (!audio_sdcard_is_mounted()) {
@@ -284,8 +300,19 @@ static void audio_task(void *args)
         
         ESP_LOGI(TAG, "Starting random playback (mode=%d)", s_play_mode);
 
+        // 睡眠音乐模式：初始化音量和检测状态
+        if (s_play_mode == AUDIO_MODE_SLEEP) {
+            current_volume = SLEEP_DEFAULT_VOLUME;
+            audio_hw_set_volume(current_volume);
+            sleep_detect_tick = 0;
+            last_vol_decrease_tick = 0;
+            is_fading_out = false;
+            ESP_LOGI(TAG, "Sleep mode: volume set to %u, sleep detection enabled", current_volume);
+        }
+
         // 按随机顺序播放所有音乐
         s_track_index = 0;
+        s_track_count = track_count;
         while (!s_stop && s_track_index < track_count) {
             char full_path[260];
             snprintf(full_path, sizeof(full_path), "%s/%s", music_dir, tracks[s_track_index]);
@@ -295,8 +322,64 @@ static void audio_task(void *args)
                 break;
             }
 
-            s_track_index++;
-            ESP_LOGI(TAG, "Track %u/%u", (unsigned int)s_track_index, (unsigned int)track_count);
+            // 睡眠音乐模式：检测睡眠状态并渐进式降低音量
+            if (s_play_mode == AUDIO_MODE_SLEEP) {
+                TickType_t now = xTaskGetTickCount();
+                sleep_stage_t stage = app_controller_get_current_sleep_stage();
+                
+                if (stage != SLEEP_STAGE_WAKE) {
+                    // 非清醒状态，开始或继续渐弱
+                    if (!is_fading_out) {
+                        is_fading_out = true;
+                        sleep_detect_tick = now;
+                        last_vol_decrease_tick = now;
+                        ESP_LOGI(TAG, "Sleep detected (stage=%d), starting volume fade out", stage);
+                    }
+                    
+                    // 每20秒降低一次音量
+                    if ((now - last_vol_decrease_tick) * portTICK_PERIOD_MS >= SLEEP_VOL_DECREASE_MS) {
+                        if (current_volume > SLEEP_VOL_DECREASE_STEP) {
+                            current_volume -= SLEEP_VOL_DECREASE_STEP;
+                        } else {
+                            current_volume = 0;
+                        }
+                        audio_hw_set_volume(current_volume);
+                        last_vol_decrease_tick = now;
+                        ESP_LOGI(TAG, "Sleep fade: volume decreased to %u", current_volume);
+                        
+                        // 音量降至0，停止播放
+                        if (current_volume == 0) {
+                            ESP_LOGI(TAG, "Sleep fade complete, stopping music");
+                            s_stop = true;
+                            break;
+                        }
+                    }
+                } else {
+                    // 清醒状态，重置渐弱状态并恢复音量
+                    if (is_fading_out) {
+                        is_fading_out = false;
+                        current_volume = SLEEP_DEFAULT_VOLUME;
+                        audio_hw_set_volume(current_volume);
+                        ESP_LOGI(TAG, "Wake detected, volume restored to %u", current_volume);
+                    }
+                }
+            }
+
+            // 处理上一首/下一首跳转
+            if (s_skip_prev) {
+                s_skip_prev = false;
+                if (s_track_index > 0) {
+                    s_track_index--;  // 回到上一首
+                }
+                ESP_LOGI(TAG, "Skip to previous: Track %u/%u", (unsigned int)(s_track_index + 1), (unsigned int)track_count);
+            } else if (s_skip_next) {
+                s_skip_next = false;
+                s_track_index++;  // 继续到下一首
+                ESP_LOGI(TAG, "Skip to next: Track %u/%u", (unsigned int)(s_track_index + 1), (unsigned int)track_count);
+            } else {
+                s_track_index++;  // 正常播放完毕，下一首
+                ESP_LOGI(TAG, "Track %u/%u", (unsigned int)s_track_index, (unsigned int)track_count);
+            }
         }
         
         // 如果播放完所有音乐，重新开始随机播放
@@ -369,4 +452,44 @@ esp_err_t audio_player_set_mode(audio_play_mode_t mode)
 audio_play_mode_t audio_player_get_mode(void)
 {
     return s_play_mode;
+}
+
+void audio_player_next(void)
+{
+    if (s_audio_task) {
+        s_skip_next = true;
+        ESP_LOGI(TAG, "Next track requested");
+    }
+}
+
+void audio_player_prev(void)
+{
+    if (s_audio_task) {
+        s_skip_prev = true;
+        ESP_LOGI(TAG, "Previous track requested");
+    }
+}
+
+size_t audio_player_get_current_track(void)
+{
+    return s_track_index + 1;  // 返回1-based索引
+}
+
+size_t audio_player_get_track_count(void)
+{
+    return s_track_count;
+}
+
+void audio_player_set_volume(uint8_t volume)
+{
+    if (volume > 100) {
+        volume = 100;
+    }
+    audio_hw_set_volume(volume);
+    ESP_LOGI(TAG, "Volume set to %u", volume);
+}
+
+uint8_t audio_player_get_volume(void)
+{
+    return audio_hw_get_volume();
 }
