@@ -36,8 +36,8 @@
 /* 睡眠检测自动停止相关配置 */
 #define SLEEP_DETECT_INTERVAL_MS   500    // 睡眠检测间隔
 #define SLEEP_VOL_DECREASE_MS      20000  // 每20秒降低一次音量
-#define SLEEP_VOL_DECREASE_STEP    3      // 每次降低的音量步进
-#define SLEEP_DEFAULT_VOLUME       20     // 睡眠音乐默认音量
+#define SLEEP_VOL_DECREASE_STEP    10     // 每次降低的音量步进 (0-100)
+#define SLEEP_DEFAULT_VOLUME       60     // 睡眠音乐默认音量 (0-100)
 
 static const char *TAG = "audio_player";
 
@@ -303,7 +303,7 @@ static void audio_task(void *args)
         // 睡眠音乐模式：初始化音量和检测状态
         if (s_play_mode == AUDIO_MODE_SLEEP) {
             current_volume = SLEEP_DEFAULT_VOLUME;
-            audio_hw_set_volume(current_volume);
+            audio_hw_set_volume_runtime(current_volume);
             sleep_detect_tick = 0;
             last_vol_decrease_tick = 0;
             is_fading_out = false;
@@ -343,7 +343,7 @@ static void audio_task(void *args)
                         } else {
                             current_volume = 0;
                         }
-                        audio_hw_set_volume(current_volume);
+                        audio_hw_set_volume_runtime(current_volume);
                         last_vol_decrease_tick = now;
                         ESP_LOGI(TAG, "Sleep fade: volume decreased to %u", current_volume);
                         
@@ -359,7 +359,7 @@ static void audio_task(void *args)
                     if (is_fading_out) {
                         is_fading_out = false;
                         current_volume = SLEEP_DEFAULT_VOLUME;
-                        audio_hw_set_volume(current_volume);
+                        audio_hw_set_volume_runtime(current_volume);
                         ESP_LOGI(TAG, "Wake detected, volume restored to %u", current_volume);
                     }
                 }
@@ -388,7 +388,9 @@ static void audio_task(void *args)
             vTaskDelay(pdMS_TO_TICKS(500));
         }
     }
-
+    // 播放结束，恢复智能体保存的音量
+    audio_hw_restore_volume();
+    
     s_audio_task = NULL;
     vTaskDelete(NULL);
 }
@@ -485,7 +487,7 @@ void audio_player_set_volume(uint8_t volume)
     if (volume > 100) {
         volume = 100;
     }
-    audio_hw_set_volume(volume);
+    audio_hw_set_volume_runtime(volume);
     ESP_LOGI(TAG, "Volume set to %u", volume);
 }
 

@@ -26,10 +26,10 @@ static volatile TickType_t s_suppress_until_tick = 0;
  * @brief 闹钟音乐任务：从低音量逐渐增大，每30秒增大一次，直到按KEY2停止
  */
 static void alarm_music_task_fn(void *arg) {
-  const uint8_t max_volume = 33;
-  const uint8_t alarm_start_volume = 6;
-  const uint8_t rem_volume = 18;
-  const uint8_t deep_volume_step = 2;
+  const uint8_t max_volume = 100;           // 最大音量 (0-100)
+  const uint8_t alarm_start_volume = 20;    // 起始音量 (0-100)
+  const uint8_t rem_volume = 55;            // REM阶段音量 (0-100)
+  const uint8_t deep_volume_step = 6;       // 深睡阶段每次增加的音量
   const uint32_t deep_increase_period_ms = 20000;
   const uint32_t wake_stop_delay_ms = 30000;
 
@@ -68,7 +68,7 @@ static void alarm_music_task_fn(void *arg) {
       s_alarm_music_ringing = true;
 
       /* 设置初始音量 */
-      audio_hw_set_volume(current_volume);
+      audio_hw_set_volume_runtime(current_volume);
 
       /* 音乐持续播放并逐渐增大音量 */
       while (!s_alarm_music_stop) {
@@ -102,7 +102,7 @@ static void alarm_music_task_fn(void *arg) {
         if (stage == SLEEP_STAGE_REM) {
           if (current_volume != rem_volume) {
             current_volume = rem_volume;
-            audio_hw_set_volume(current_volume);
+            audio_hw_set_volume_runtime(current_volume);
             ESP_LOGI(TAG, "REM阶段，音量调整到 %u", current_volume);
           }
         } else if ((stage == SLEEP_STAGE_NREM ||
@@ -116,7 +116,7 @@ static void alarm_music_task_fn(void *arg) {
             }
             if (next != current_volume) {
               current_volume = next;
-              audio_hw_set_volume(current_volume);
+              audio_hw_set_volume_runtime(current_volume);
               ESP_LOGI(TAG, "深睡/未知阶段，音量增大到 %u", current_volume);
             }
             last_deep_increase_tick = now;
@@ -142,7 +142,7 @@ static void alarm_music_task_fn(void *arg) {
       s_alarm_music_ringing = false;
 
       /* 恢复音量到默认值 */
-      audio_hw_set_volume(20);
+      audio_hw_restore_volume();  // 恢复智能体保存的音量
       ESP_LOGI(TAG, "闹钟音乐结束");
 
       while (xSemaphoreTake(s_alarm_music_sem, 0) == pdTRUE) {

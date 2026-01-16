@@ -83,6 +83,14 @@ extern "C" int board_audio_write_samples(const int16_t* data, int samples) {
     return codec->WriteSamples(data, samples);
 }
 
+extern "C" int board_get_saved_volume(void) {
+    AudioCodec* codec = Board::GetInstance().GetAudioCodec();
+    if (!codec) {
+        return -1;
+    }
+    return codec->output_volume();
+}
+
 Board::Board() {
     Settings settings("board", true);
     uuid_ = settings.GetString("uuid");

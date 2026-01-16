@@ -41,6 +41,8 @@ esp_err_t audio_hw_start(void);
 void audio_hw_stop(void);
 size_t audio_hw_write(const uint8_t *data, size_t len, TickType_t timeout_ticks);
 void audio_hw_deinit(void);
-esp_err_t audio_hw_set_volume(uint8_t volume); /* 0-33 (ES8388 scale) */
+esp_err_t audio_hw_set_volume(uint8_t volume); /* 0-100 */
 uint8_t audio_hw_get_volume(void);
+void audio_hw_set_volume_runtime(uint8_t volume);  /* 闹钟/助眠独立音量控制 */
+void audio_hw_restore_volume(void);                /* 恢复智能体保存的音量 */
 i2c_master_bus_handle_t audio_hw_get_i2c_bus(void);

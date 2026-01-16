@@ -25,6 +25,7 @@ extern int board_audio_write_samples(const int16_t* data, int samples);
 extern void app_audio_notify_external_output(void);
 extern int board_audio_begin_external_playback(int sample_rate, int channels);
 extern void board_audio_end_external_playback(void);
+extern int board_get_saved_volume(void);  // 获取智能体保存的音量
 #ifdef __cplusplus
 }
 #endif
@@ -32,7 +33,8 @@ extern void board_audio_end_external_playback(void);
 static const char *TAG = "audio_hw";
 
 static i2c_master_bus_handle_t s_i2c_bus = NULL;
-static uint8_t s_volume = 20;
+static uint8_t s_volume = 60;           // 默认音量 0-100
+static uint8_t s_runtime_volume = 60;   // 运行时音量（闹钟/助眠使用，独立于智能体）
 static uint32_t s_sample_rate_hz = 0;
 static uint8_t s_bits_per_sample = 0;
 static uint8_t s_channels = 0;
@@ -103,8 +105,7 @@ esp_err_t audio_hw_configure(uint32_t sample_rate_hz, uint8_t bits_per_sample, u
 esp_err_t audio_hw_start(void)
 {
     board_audio_enable_output(1);
-    int vol = (int)((s_volume * 100U) / 33U);
-    board_audio_set_output_volume_runtime(vol);
+    board_audio_set_output_volume_runtime((int)s_volume);
     app_audio_notify_external_output();
     return ESP_OK;
 }
@@ -141,16 +142,41 @@ void audio_hw_deinit(void)
 
 esp_err_t audio_hw_set_volume(uint8_t volume)
 {
-    if (volume > 33) {
-        volume = 33;
+    if (volume > 100) {
+        volume = 100;
     }
     s_volume = volume;
-    int vol = (int)((s_volume * 100U) / 33U);
-    board_audio_set_output_volume_runtime(vol);
+    board_audio_set_output_volume_runtime((int)s_volume);
     return ESP_OK;
 }
 
 uint8_t audio_hw_get_volume(void)
 {
     return s_volume;
+}
+
+/**
+ * @brief 设置运行时音量（闹钟/助眠使用），不影响智能体保存的音量
+ */
+void audio_hw_set_volume_runtime(uint8_t volume)
+{
+    if (volume > 100) {
+        volume = 100;
+    }
+    s_runtime_volume = volume;
+    board_audio_set_output_volume_runtime((int)s_runtime_volume);
+}
+
+/**
+ * @brief 恢复智能体保存的音量
+ */
+void audio_hw_restore_volume(void)
+{
+    int saved_vol = board_get_saved_volume();
+    if (saved_vol < 0) {
+        saved_vol = 70;  // 默认智能体音量
+    }
+    s_volume = (uint8_t)saved_vol;
+    board_audio_set_output_volume_runtime((int)s_volume);
+    ESP_LOGI(TAG, "Volume restored to %d", s_volume);
 }
