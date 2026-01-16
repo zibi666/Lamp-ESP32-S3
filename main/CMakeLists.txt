@@ -18,6 +18,9 @@ set(SOURCES
             "bsp/radar_protocol/radar_protocol.c"
             "bsp/HTTP/http_request.c"
             "bsp/SleepAnalysis/sleep_analysis.cpp"
+            # 智能灯光控制
+            "bsp/SmartLight/smart_light_controller.cpp"
+            "bsp/SmartLight/smart_light_backlight_bridge.cc"
             # SD卡音频播放功能
             "bsp/sd_audio/audio_hw.c"
             "bsp/sd_audio/audio_player.c"
@@ -36,7 +39,7 @@ set(SOURCES
             )
 
 set(INCLUDE_DIRS "." "voice" "voice/driver" "voice/processors" "network" "pwm"
-                 "bsp/UART" "bsp/radar_protocol" "bsp/HTTP" "bsp/SleepAnalysis"
+                 "bsp/UART" "bsp/radar_protocol" "bsp/HTTP" "bsp/SleepAnalysis" "bsp/SmartLight"
                  "bsp/sd_audio" "bsp/Input" "bsp/App" "bsp/RTC" "bsp/AlarmMusic")
 
 # Add board common files

@@ -8,6 +8,7 @@
 #include "radar_protocol.h"
 #include "sleep_analysis.h"
 #include "uart.h"
+#include "smart_light_controller.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -53,6 +54,9 @@ static sleep_quality_report_t g_report = {0};
 static volatile sleep_stage_t g_current_stage = SLEEP_STAGE_UNKNOWN;
 
 static bool s_started = false;
+
+/* 智能灯光控制器 */
+static smart_light_context_t g_smart_light_ctx = {0};
 
 static QueueHandle_t s_health_queue = NULL;
 #define HEALTH_QUEUE_LEN 16
@@ -381,7 +385,11 @@ static void sleep_stage_task(void *pvParameters) {
       }
     }
 
-    /* 6. 输出睡眠状态 */
+    /* 6. 更新智能灯光控制器 */
+    smart_light_update(&g_smart_light_ctx, current_stage, g_sleep_state, 
+                      motion_avg, (uint32_t)time(NULL));
+    
+    /* 7. 输出睡眠状态 */
     g_current_stage = current_stage;
     const char *state_str = (g_sleep_state == SLEEP_MONITORING) ? "监测中"
                             : (g_sleep_state == SLEEP_SETTLING) ? "观察期"
@@ -417,6 +425,15 @@ static void sleep_stage_task(void *pvParameters) {
     } else {
       printf("║ [等待入睡信号...]                       ║\n");
     }
+    
+    /* 输出智能灯光状态 */
+    uint8_t light_brightness = smart_light_get_brightness(&g_smart_light_ctx);
+    if (light_brightness > 0) {
+      printf("╠════════════════════════════════════════╣\n");
+      printf("║ 💡 智能灯光: %s (亮度: %d)         ║\n",
+             smart_light_get_state_str(&g_smart_light_ctx), light_brightness);
+    }
+    
     printf("╚════════════════════════════════════════╝\n");
 
     vTaskDelay(period);
@@ -540,6 +557,9 @@ esp_err_t app_controller_start(void) {
     ESP_LOGE(TAG, "create health queue failed");
     return ESP_FAIL;
   }
+
+  /* 初始化智能灯光控制器 */
+  smart_light_init(&g_smart_light_ctx);
 
   BaseType_t r1 =
       xTaskCreate(upload_data_task, "upload_data_task", 4096, NULL, 5, NULL);
