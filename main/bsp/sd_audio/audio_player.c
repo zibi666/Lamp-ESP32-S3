@@ -2,7 +2,8 @@
  * @file audio_player.c
  * @brief SD 卡音频播放器实现
  * 
- * 本模块从 SD 卡 MUSIC 目录读取 WAV 文件并循环播放。
+ * 本模块从 SD 卡 MUSIC 目录读取 WAV 文件并随机播放。
+ * 支持唤醒音乐（MUSIC/wake）和睡眠音乐（MUSIC/sleep）两种模式。
  * 音频输出通过 main 项目的音频系统（ES8388）。
  */
 
@@ -16,9 +17,11 @@
 #include <strings.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 #include "esp_check.h"
 #include "esp_log.h"
 #include "esp_heap_caps.h"
+#include "esp_random.h"
 #include "ff.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -26,7 +29,7 @@
 #define AUDIO_TASK_STACK   (8 * 1024)
 #define AUDIO_TASK_PRIO    5
 #define AUDIO_IO_BUF_SIZE  4096
-#define MAX_TRACKS         64
+#define MAX_TRACKS         200
 #define MAX_NAME_LEN       128
 
 static const char *TAG = "audio_player";
@@ -43,6 +46,61 @@ static TaskHandle_t s_audio_task = NULL;
 static bool s_inited = false;
 static bool s_stop = false;
 static size_t s_track_index = 0;
+static audio_play_mode_t s_play_mode = AUDIO_MODE_WAKE;
+
+/**
+ * @brief 随机数生成函数 - 使用线性同余生成器
+ * @param seed 随机数种子（会被修改）
+ * @return 随机数
+ */
+static uint32_t linear_congruential_random(uint32_t *seed)
+{
+    // 使用标准的线性同余生成器参数
+    // 参数来自 POSIX.1-2001 标准
+    *seed = (*seed * 1103515245 + 12345) & 0x7fffffff;
+    return *seed;
+}
+
+/**
+ * @brief Fisher-Yates 洗牌算法实现
+ * 用于随机排列音乐列表，确保每次播放都是随机顺序
+ * 
+ * @param tracks 音轨数组
+ * @param track_count 音轨总数
+ */
+static void shuffle_tracks(char (*tracks)[MAX_NAME_LEN], size_t track_count)
+{
+    if (track_count < 2) {
+        return;
+    }
+
+    // 使用 esp_random() 生成真随机数
+    uint32_t seed = esp_random();
+    
+    for (size_t i = track_count - 1; i > 0; i--) {
+        // 生成 0 到 i 之间的随机数
+        size_t j = linear_congruential_random(&seed) % (i + 1);
+        
+        // 交换 tracks[i] 和 tracks[j]
+        char temp[MAX_NAME_LEN];
+        strlcpy(temp, tracks[i], MAX_NAME_LEN);
+        strlcpy(tracks[i], tracks[j], MAX_NAME_LEN);
+        strlcpy(tracks[j], temp, MAX_NAME_LEN);
+    }
+}
+
+/**
+ * @brief 获取播放目录路径
+ * @param mode 播放模式
+ * @return FAT 格式的目录路径
+ */
+static const char* get_music_dir(audio_play_mode_t mode)
+{
+    if (mode == AUDIO_MODE_SLEEP) {
+        return AUDIO_SLEEP_MUSIC_DIR_FAT;
+    }
+    return AUDIO_WAKE_MUSIC_DIR_FAT;
+}
 
 static bool is_wav_file(const char *name)
 {
@@ -186,10 +244,11 @@ static void audio_task(void *args)
             }
         }
 
+        const char *music_dir = get_music_dir(s_play_mode);
         FF_DIR dir;
-        FRESULT fr = f_opendir(&dir, AUDIO_MUSIC_DIR_FAT);
+        FRESULT fr = f_opendir(&dir, music_dir);
         if (fr != FR_OK) {
-            ESP_LOGW(TAG, "dir %s missing, waiting for files", AUDIO_MUSIC_DIR_FAT);
+            ESP_LOGW(TAG, "dir %s missing, waiting for files", music_dir);
             vTaskDelay(pdMS_TO_TICKS(1500));
             continue;
         }
@@ -213,25 +272,37 @@ static void audio_task(void *args)
         f_closedir(&dir);
 
         if (track_count == 0) {
-            ESP_LOGI(TAG, "no wav files in %s", AUDIO_MUSIC_DIR);
+            ESP_LOGI(TAG, "no wav files in %s", music_dir);
             vTaskDelay(pdMS_TO_TICKS(2000));
             continue;
         }
 
-        if (s_track_index >= track_count) {
-            s_track_index = 0;
-        }
+        ESP_LOGI(TAG, "Found %u music files in %s, shuffling...", (unsigned int)track_count, music_dir);
+        
+        // 对音乐列表进行洗牌（随机排列）
+        shuffle_tracks(tracks, track_count);
+        
+        ESP_LOGI(TAG, "Starting random playback (mode=%d)", s_play_mode);
 
-        while (!s_stop) {
+        // 按随机顺序播放所有音乐
+        s_track_index = 0;
+        while (!s_stop && s_track_index < track_count) {
             char full_path[260];
-            snprintf(full_path, sizeof(full_path), "%s/%s", AUDIO_MUSIC_DIR_FAT, tracks[s_track_index]);
+            snprintf(full_path, sizeof(full_path), "%s/%s", music_dir, tracks[s_track_index]);
             play_single(full_path);
 
             if (s_stop) {
                 break;
             }
 
-            s_track_index = (s_track_index + 1) % track_count;
+            s_track_index++;
+            ESP_LOGI(TAG, "Track %u/%u", (unsigned int)s_track_index, (unsigned int)track_count);
+        }
+        
+        // 如果播放完所有音乐，重新开始随机播放
+        if (!s_stop) {
+            ESP_LOGI(TAG, "Finished all tracks, reshuffling...");
+            vTaskDelay(pdMS_TO_TICKS(500));
         }
     }
 
@@ -282,4 +353,20 @@ void audio_player_stop(void)
 bool audio_player_is_running(void)
 {
     return s_audio_task != NULL;
+}
+
+esp_err_t audio_player_set_mode(audio_play_mode_t mode)
+{
+    if (mode != AUDIO_MODE_WAKE && mode != AUDIO_MODE_SLEEP) {
+        return ESP_ERR_INVALID_ARG;
+    }
+    
+    s_play_mode = mode;
+    ESP_LOGI(TAG, "Audio mode set to %d", mode);
+    return ESP_OK;
+}
+
+audio_play_mode_t audio_player_get_mode(void)
+{
+    return s_play_mode;
 }

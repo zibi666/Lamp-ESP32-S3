@@ -638,6 +638,19 @@ void AudioService::ResetDecoder() {
     audio_queue_cv_.notify_all();
 }
 
+void AudioService::NotifyExternalOutput() {
+    last_output_time_ = std::chrono::steady_clock::now();
+    if (codec_ && !codec_->output_enabled()) {
+        codec_->EnableOutput(true);
+    }
+    if (audio_power_timer_) {
+        esp_err_t err = esp_timer_start_periodic(audio_power_timer_, AUDIO_POWER_CHECK_INTERVAL_MS * 1000);
+        if (err != ESP_OK && err != ESP_ERR_INVALID_STATE) {
+            ESP_ERROR_CHECK_WITHOUT_ABORT(err);
+        }
+    }
+}
+
 void AudioService::CheckAndUpdateAudioPowerState() {
     auto now = std::chrono::steady_clock::now();
     auto input_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - last_input_time_).count();

@@ -21,9 +21,14 @@ extern "C" {
 #include "rtc_service.h"
 #include "xl9555_keys.h"
 #include "alarm_music.h"
+#include "http_request.h"
 }
 
 #define TAG "Application"
+
+extern "C" void app_audio_notify_external_output(void) {
+    Application::GetInstance().GetAudioService().NotifyExternalOutput();
+}
 
 static const char* const STATE_STRINGS[] = {
     "unknown",
@@ -236,6 +241,12 @@ void Application::Start() {
         if (alarm_music_start() == ESP_OK) {
             ESP_LOGI(TAG, "闹钟音乐任务已启动");
         }
+    }
+
+    if (alarm_service_start(60000, alarm_music_ring_callback, NULL) == ESP_OK) {
+        ESP_LOGI(TAG, "云端闹钟服务已启动");
+    } else {
+        ESP_LOGW(TAG, "云端闹钟服务启动失败");
     }
 
     // 启动睡眠监测业务控制任务
