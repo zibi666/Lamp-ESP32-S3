@@ -11,6 +11,7 @@
 #include <esp_log.h>
 #include <esp_netif_ip_addr.h>
 #include <font_awesome.h>
+#include <ssid_manager.h>
 
 static const char *TAG = "WifiBoard";
 
@@ -66,7 +67,17 @@ void WifiBoard::SetPowerSaveMode(bool enabled) {
 }
 
 void WifiBoard::ResetWifiConfiguration() {
-    ESP_LOGW(TAG, "ResetWifiConfiguration not supported in fixed Wi-Fi mode");
+    ESP_LOGW(TAG, "Resetting WiFi configuration...");
+    
+    // 清除所有保存的 WiFi 配置
+    SsidManager::GetInstance().Clear();
+    
+    // 延迟后重启设备
+    xTaskCreate([](void* arg) {
+        ESP_LOGI(TAG, "Rebooting in 1 second...");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        esp_restart();
+    }, "reset_wifi_task", 2048, NULL, 5, NULL);
 }
 
 std::string WifiBoard::GetDeviceStatusJson() {

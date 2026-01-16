@@ -34,7 +34,7 @@ dependencies:
       type: service
     version: 2.4.1
   78/esp-wifi-connect:
-    component_hash: 752e62d469a341495368b6a3f812afdbe37569ea5b4460f4eedec42253118e8c
+    component_hash: bf996fc603af1ff529668c788c7b38a8d94b1d43455af56d116d27ebb04b742a
     dependencies:
     - name: idf
       require: private
@@ -42,7 +42,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 2.5.2
+    version: 3.0.2
   78/esp_lcd_nv3023:
     component_hash: fa88abfc19a312eb5e6f2ffa187e0a9faf67e01e758bfb979d3f9d92561a494f
     dependencies:
@@ -158,7 +158,7 @@ dependencies:
       type: service
     version: 1.4.0
   espressif/esp_io_expander:
-    component_hash: abf3ea0d71407d79d15500550aa3ba433848459b0fa94717cf9478822593ee5d
+    component_hash: 034903704f65e3994d7cce9d080b19d89525cf6d416574b932826adf680f3942
     dependencies:
     - name: idf
       require: private
@@ -166,7 +166,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com
       type: service
-    version: 1.1.0
+    version: 1.2.0
   espressif/esp_io_expander_tca9554:
     component_hash: 8a9e3a7dbef589a54f814ff22e9121da86bce19d0e1ccffa53f5df6bb346a140
     dependencies:
@@ -182,19 +182,19 @@ dependencies:
       type: service
     version: 2.0.0
   espressif/esp_io_expander_tca95xx_16bit:
-    component_hash: c384d55e429775d6a1eef26512fbc33bc41823745a8c2ad6d5927729f33a2c21
+    component_hash: a9608ba5753ae2a72e79fccd376fc4283343c0306d23505fbf8a46fafdbde2a2
     dependencies:
     - name: espressif/esp_io_expander
       registry_url: https://components.espressif.com
       require: public
-      version: ^1.0.1
+      version: ^1.2.0
     - name: idf
       require: private
       version: '>=5.2'
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 2.0.1
+    version: 2.0.2
   espressif/esp_lcd_axs15231b:
     component_hash: e614bd75827e95800e39df1ba9474166060ab26c3807d06df9cc312a27021cda
     dependencies:
@@ -434,7 +434,7 @@ dependencies:
     - esp32c6
     version: 0.6.1
   espressif/esp_websocket_client:
-    component_hash: 723aba370113196c66321442426cd6452c351eef31c85c83bd1446831ef9f8f4
+    component_hash: c5a067a9fddea370c478017e66fac302f4b79c3d4027e9bdd42a019786cceb92
     dependencies:
     - name: idf
       require: private
@@ -442,7 +442,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.6.0
+    version: 1.6.1
   espressif/freetype:
     component_hash: cd5e2d8458e6e8d73f1120ac474467cabb669d8ea4b25050bf6a348c1e89225e
     dependencies:
@@ -516,7 +516,7 @@ dependencies:
   idf:
     source:
       type: idf
-    version: 6.1.0
+    version: 5.5.1
   lvgl/lvgl:
     component_hash: b702d642e03e95928046d5c6726558e6444e112420c77efa5fdb6650b0a13c5d
     dependencies: []
@@ -622,6 +622,6 @@ direct_dependencies:
 - waveshare/esp_lcd_sh8601
 - waveshare/esp_lcd_touch_cst9217
 - wvirgil123/sscma_client
-manifest_hash: a80b5d5daf72b9e3c1b0a0d9d9c30bbe59d4a382f8d23cc293801eba72341527
+manifest_hash: 95cf2480bf29352689a5ed8daa74f7696412b4d35ecdd2c7d9997853750c09d6
 target: esp32s3
 version: 2.0.0
