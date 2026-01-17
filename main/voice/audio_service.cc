@@ -132,7 +132,9 @@ void AudioService::Stop() {
 }
 
 bool AudioService::ReadAudioData(std::vector<int16_t>& data, int sample_rate, int samples) {
-    if (!codec_->input_enabled()) {
+    // 外部播放期间（SD卡音乐），不要自动重新启用输入
+    // 因为 BeginExternalPlayback 会禁用输入来重新配置 I2S 采样率
+    if (!codec_->input_enabled() && !external_playback_active_) {
         esp_timer_stop(audio_power_timer_);
         esp_timer_start_periodic(audio_power_timer_, AUDIO_POWER_CHECK_INTERVAL_MS * 1000);
         codec_->EnableInput(true);
@@ -651,6 +653,15 @@ void AudioService::NotifyExternalOutput() {
     }
 }
 
+void AudioService::SetExternalPlaybackActive(bool active) {
+    external_playback_active_ = active;
+    ESP_LOGI(TAG, "External playback active: %s", active ? "true" : "false");
+    if (active) {
+        // 确保输出被启用并重置超时
+        NotifyExternalOutput();
+    }
+}
+
 void AudioService::CheckAndUpdateAudioPowerState() {
     auto now = std::chrono::steady_clock::now();
     auto input_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - last_input_time_).count();
@@ -658,7 +669,8 @@ void AudioService::CheckAndUpdateAudioPowerState() {
     if (input_elapsed > AUDIO_POWER_TIMEOUT_MS && codec_->input_enabled()) {
         codec_->EnableInput(false);
     }
-    if (output_elapsed > AUDIO_POWER_TIMEOUT_MS && codec_->output_enabled()) {
+    // 如果外部播放正在进行，不要禁用输出
+    if (output_elapsed > AUDIO_POWER_TIMEOUT_MS && codec_->output_enabled() && !external_playback_active_) {
         codec_->EnableOutput(false);
     }
     if (!codec_->input_enabled() && !codec_->output_enabled()) {

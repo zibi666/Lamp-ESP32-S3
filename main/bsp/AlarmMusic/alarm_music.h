@@ -26,3 +26,9 @@ void alarm_music_stop(void);
  * @note 该函数由闹钟服务调用，触发音乐播放
  */
 void alarm_music_ring_callback(const alarm_info_t *alarm, void *ctx);
+
+/**
+ * @brief 通知闹钟音乐模块按键按下事件
+ * @param key_code 按键码 (XL9555_KEYx)
+ */
+void alarm_music_notify_key_press(uint8_t key_code);

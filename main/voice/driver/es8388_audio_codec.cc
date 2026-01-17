@@ -50,6 +50,8 @@ esp_err_t Es8388AudioCodec::ReconfigureI2sTx(int sample_rate, int channels) {
         // Ensure RX is disabled before reconfig (it should be, but just in case)
         i2s_channel_disable(rx_handle_);
         i2s_channel_reconfig_std_clock(rx_handle_, &clk_cfg);
+        // Re-enable RX channel after reconfiguration
+        i2s_channel_enable(rx_handle_);
     }
 
     err = i2s_channel_enable(tx_handle_);
@@ -137,96 +139,78 @@ Es8388AudioCodec::~Es8388AudioCodec() {
 }
 
 bool Es8388AudioCodec::BeginExternalPlayback(int sample_rate, int channels) {
+    ESP_LOGI("Es8388", "BeginExternalPlayback: sample_rate=%d, channels=%d (system: %d)", 
+             sample_rate, channels, output_sample_rate_);
+    
     if (sample_rate <= 0 || (channels != 1 && channels != 2)) {
+        ESP_LOGE("Es8388", "BeginExternalPlayback: invalid params");
         return false;
     }
 
+    // 保存当前输入状态，播放结束后恢复
     saved_input_enabled_ = input_enabled_;
-    if (input_enabled_) {
-        EnableInput(false);
-    }
-
-    std::lock_guard<std::mutex> lock(data_if_mutex_);
-
-    if (!output_dev_) {
-        return false;
-    }
-
-    (void)esp_codec_dev_close(output_dev_);
-
-    bool ok = true;
-    if (ReconfigureI2sTx(sample_rate, channels) != ESP_OK) {
-        ok = false;
-    }
-
-    if (ok) {
-        esp_codec_dev_sample_info_t fs = {
-            .bits_per_sample = 16,
-            .channel = (uint8_t)channels,
-            .channel_mask = 0,
-            .sample_rate = (uint32_t)sample_rate,
-            .mclk_multiple = 0,
-        };
-        esp_err_t err = esp_codec_dev_open(output_dev_, &fs);
-        if (err != ESP_OK) {
-            ok = false;
-        } else {
-            int mapped_volume = MapUserVolumeToCodec(output_volume_);
-            err = esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
-            if (err != ESP_OK) {
-                ok = false;
-            }
+    
+    // 如果采样率不匹配，需要重新配置 I2S
+    if (sample_rate != output_sample_rate_) {
+        ESP_LOGI("Es8388", "BeginExternalPlayback: reconfiguring I2S from %d to %d Hz", 
+                 output_sample_rate_, sample_rate);
+        
+        // 先禁用输入，避免采样率变化影响 AFE 音频处理
+        if (input_enabled_) {
+            ESP_LOGI("Es8388", "BeginExternalPlayback: disabling input for sample rate change");
+            EnableInput(false);
         }
+        
+        // 重新配置 I2S TX 为新采样率
+        esp_err_t err = ReconfigureI2sTx(sample_rate, channels);
+        if (err != ESP_OK) {
+            ESP_LOGE("Es8388", "BeginExternalPlayback: failed to reconfigure I2S: %s", esp_err_to_name(err));
+            // 恢复输入并返回失败
+            if (saved_input_enabled_) {
+                EnableInput(true);
+            }
+            return false;
+        }
+        ESP_LOGI("Es8388", "BeginExternalPlayback: I2S reconfigured successfully");
     }
-
-    if (!ok) {
-        (void)ReconfigureI2sTx(output_sample_rate_, 1);
-        esp_codec_dev_sample_info_t fs = {
-            .bits_per_sample = 16,
-            .channel = 1,
-            .channel_mask = 0,
-            .sample_rate = (uint32_t)output_sample_rate_,
-            .mclk_multiple = 0,
-        };
-        (void)esp_codec_dev_open(output_dev_, &fs);
-        int mapped_volume = MapUserVolumeToCodec(output_volume_);
-        (void)esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
-        AudioCodec::EnableOutput(true);
-        output_channels_ = 1;
-        return false;
+    
+    // 确保输出被启用
+    if (!output_enabled_) {
+        ESP_LOGI("Es8388", "BeginExternalPlayback: enabling output");
+        EnableOutput(true);
     }
-
-    AudioCodec::EnableOutput(true);
+    
+    external_sample_rate_ = sample_rate;
     output_channels_ = channels;
+    ESP_LOGI("Es8388", "BeginExternalPlayback: ready for playback at %d Hz", sample_rate);
     return true;
 }
 
 void Es8388AudioCodec::EndExternalPlayback() {
-    std::lock_guard<std::mutex> lock(data_if_mutex_);
-
-    if (!output_dev_) {
-        return;
+    ESP_LOGI("Es8388", "EndExternalPlayback: external_sample_rate=%d, system=%d", 
+             external_sample_rate_, output_sample_rate_);
+    
+    // 如果曾经切换过采样率，恢复系统原始采样率
+    if (external_sample_rate_ != 0 && external_sample_rate_ != output_sample_rate_) {
+        ESP_LOGI("Es8388", "EndExternalPlayback: restoring I2S to %d Hz", output_sample_rate_);
+        
+        esp_err_t err = ReconfigureI2sTx(output_sample_rate_, 1);
+        if (err != ESP_OK) {
+            ESP_LOGE("Es8388", "EndExternalPlayback: failed to restore I2S: %s", esp_err_to_name(err));
+        } else {
+            ESP_LOGI("Es8388", "EndExternalPlayback: I2S restored successfully");
+        }
     }
-    (void)esp_codec_dev_close(output_dev_);
-
-    (void)ReconfigureI2sTx(output_sample_rate_, 1);
-
-    esp_codec_dev_sample_info_t fs = {
-        .bits_per_sample = 16,
-        .channel = 1,
-        .channel_mask = 0,
-        .sample_rate = (uint32_t)output_sample_rate_,
-        .mclk_multiple = 0,
-    };
-    (void)esp_codec_dev_open(output_dev_, &fs);
-    int mapped_volume = MapUserVolumeToCodec(output_volume_);
-    (void)esp_codec_dev_set_out_vol(output_dev_, mapped_volume);
-    AudioCodec::EnableOutput(true);
-    output_channels_ = 1;
-
-    if (saved_input_enabled_) {
+    
+    // 恢复输入（如果之前是启用的）
+    if (saved_input_enabled_ && !input_enabled_) {
+        ESP_LOGI("Es8388", "EndExternalPlayback: restoring input");
         EnableInput(true);
     }
+    
+    external_sample_rate_ = 0;
+    output_channels_ = 1;
+    ESP_LOGI("Es8388", "EndExternalPlayback: done");
 }
 
 void Es8388AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din){
@@ -295,8 +279,43 @@ void Es8388AudioCodec::SetOutputVolumeRuntime(int volume) {
 }
 
 void Es8388AudioCodec::EnableInput(bool enable) {
-    std::lock_guard<std::mutex> lock(data_if_mutex_);
+    ESP_LOGI("Es8388", "EnableInput: enable=%d, current input_enabled=%d", enable, input_enabled_);
+    
+    // 使用超时锁，避免被 Read() 长时间阻塞
+    // Read() 在等待 I2S DMA 数据时会持有 input_mutex_ 较长时间
+    const int max_retries = 50;  // 最多重试50次
+    const int retry_delay_ms = 10;  // 每次重试间隔10ms
+    bool lock_acquired = false;
+    
+    for (int i = 0; i < max_retries && !lock_acquired; i++) {
+        lock_acquired = input_mutex_.try_lock();
+        if (!lock_acquired) {
+            if (i == 0) {
+                ESP_LOGW("Es8388", "EnableInput: waiting for mutex (held by Read)");
+            }
+            vTaskDelay(pdMS_TO_TICKS(retry_delay_ms));
+        }
+    }
+    
+    if (!lock_acquired) {
+        ESP_LOGE("Es8388", "EnableInput: failed to acquire mutex after %dms", 
+                 max_retries * retry_delay_ms);
+        if (!enable) {
+            // 无法获取锁时，设置待关闭标志，由 Read() 在安全时关闭设备
+            ESP_LOGW("Es8388", "EnableInput: deferring device close to Read()");
+            input_close_pending_.store(true);
+            // 更新状态标志，这样 Read() 会在下次调用后返回静音数据
+            AudioCodec::EnableInput(false);
+        }
+        return;
+    }
+    
+    // 使用 RAII 确保解锁
+    std::lock_guard<std::mutex> lock(input_mutex_, std::adopt_lock);
+    ESP_LOGI("Es8388", "EnableInput: mutex acquired");
+    
     if (enable == input_enabled_) {
+        ESP_LOGI("Es8388", "EnableInput: already in target state");
         return;
     }
     if (enable) {
@@ -321,14 +340,22 @@ void Es8388AudioCodec::EnableInput(bool enable) {
         ESP_ERROR_CHECK(esp_codec_dev_close(input_dev_));
     }
     AudioCodec::EnableInput(enable);
+    ESP_LOGI("Es8388", "EnableInput: done, input_enabled=%d", input_enabled_);
 }
 
 void Es8388AudioCodec::EnableOutput(bool enable) {
-    std::lock_guard<std::mutex> lock(data_if_mutex_);
+    ESP_LOGI("Es8388", "EnableOutput: enable=%d, current output_enabled=%d", enable, output_enabled_);
+    
+    // 由于 Read() 使用 input_mutex_，Write()/EnableOutput 使用 output_mutex_
+    // 输入和输出操作完全独立，不会相互阻塞
+    std::lock_guard<std::mutex> lock(output_mutex_);
+    
     if (enable == output_enabled_) {
+        ESP_LOGI("Es8388", "EnableOutput: already in target state, returning");
         return;
     }
     if (enable) {
+        ESP_LOGI("Es8388", "EnableOutput: opening codec dev with sample_rate=%d", output_sample_rate_);
         esp_codec_dev_sample_info_t fs = {
             .bits_per_sample = 16,
             .channel = 1,
@@ -382,8 +409,25 @@ void Es8388AudioCodec::EnableOutput(bool enable) {
 
 int Es8388AudioCodec::Read(int16_t* dest, int samples) {
     if (input_enabled_) {
-        std::lock_guard<std::mutex> lock(data_if_mutex_);
+        // 使用 input_mutex_ 保护输入操作，不会阻塞输出相关操作
+        std::lock_guard<std::mutex> lock(input_mutex_);
         ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_read(input_dev_, (void*)dest, samples * sizeof(int16_t)));
+        
+        // 检查是否有待处理的设备关闭请求（由 EnableInput 超时设置）
+        if (input_close_pending_.load()) {
+            ESP_LOGI("Es8388", "Read: handling deferred device close");
+            ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_close(input_dev_));
+            input_close_pending_.store(false);
+        }
+    } else {
+        // 如果输入被禁用，模拟音频时序并填充静音数据
+        // 防止上层任务（如 AudioService）进入 busy loop 导致看门狗超时
+        if (samples > 0 && input_sample_rate_ > 0) {
+            int duration_ms = samples * 1000 / input_sample_rate_;
+            if (duration_ms < 1) duration_ms = 1;
+            vTaskDelay(pdMS_TO_TICKS(duration_ms));
+            memset(dest, 0, samples * sizeof(int16_t));
+        }
     }
     return samples;
 }
@@ -392,6 +436,13 @@ int Es8388AudioCodec::Write(const int16_t* data, int samples) {
     if (output_enabled_ && output_dev_ && data != nullptr) {
         std::lock_guard<std::mutex> lock(data_if_mutex_);
         ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_write(output_dev_, (void*)data, samples * sizeof(int16_t)));
+    } else {
+        static int warn_count = 0;
+        if (warn_count < 5) {
+            ESP_LOGW("Es8388", "Write skipped: output_enabled=%d, output_dev=%p, data=%p, samples=%d",
+                     output_enabled_, output_dev_, data, samples);
+            warn_count++;
+        }
     }
     return samples;
 }

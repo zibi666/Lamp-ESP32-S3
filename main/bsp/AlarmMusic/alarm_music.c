@@ -21,6 +21,13 @@ static volatile bool s_alarm_music_stop = false;
 static volatile uint8_t s_last_key_code = XL9555_KEY_NONE;
 static volatile bool s_alarm_music_ringing = false;
 static volatile TickType_t s_suppress_until_tick = 0;
+static volatile bool s_key_stop_request = false;
+
+void alarm_music_notify_key_press(uint8_t key_code) {
+    if (key_code == XL9555_KEY2) {
+        s_key_stop_request = true;
+    }
+}
 
 /**
  * @brief 闹钟音乐任务：从低音量逐渐增大，每30秒增大一次，直到按KEY2停止
@@ -45,6 +52,7 @@ static void alarm_music_task_fn(void *arg) {
       stopped_by_key2 = false;
       ESP_LOGI(TAG, "闹钟音乐启动，开始渐进式音量增大");
       s_alarm_music_stop = false;
+      s_key_stop_request = false; // 清除上次的按键请求
       s_last_key_code = XL9555_KEY_NONE;
       current_volume = alarm_start_volume;
       last_deep_increase_tick = xTaskGetTickCount();
@@ -52,6 +60,9 @@ static void alarm_music_task_fn(void *arg) {
       last_stage = SLEEP_STAGE_UNKNOWN;
 
       /* 启动音乐播放 - 带重试机制 */
+      /* 设置为唤醒音乐模式 */
+      audio_player_set_mode(AUDIO_MODE_WAKE);
+      
       esp_err_t play_ret = ESP_FAIL;
       for (int retry = 0; retry < 3 && play_ret != ESP_OK; retry++) {
         if (retry > 0) {
@@ -123,9 +134,8 @@ static void alarm_music_task_fn(void *arg) {
           }
         }
 
-        /* 检查KEY2停止（支持多次按键检测） */
-        uint8_t key = xl9555_keys_scan(0);
-        if (key == XL9555_KEY2 || s_last_key_code == XL9555_KEY2) {
+        /* 检查KEY2停止（由外部任务通过 alarm_music_notify_key_press 通知） */
+        if (s_key_stop_request) {
           ESP_LOGI(TAG, "按下KEY2，闹钟停止");
           stopped_by_key2 = true;
           s_suppress_until_tick = now + pdMS_TO_TICKS(70000);
@@ -144,6 +154,13 @@ static void alarm_music_task_fn(void *arg) {
       /* 恢复音量到默认值 */
       audio_hw_restore_volume();  // 恢复智能体保存的音量
       ESP_LOGI(TAG, "闹钟音乐结束");
+      
+      /* 如果是因为检测到清醒而停止（非按键停止），通知智能体说话 */
+      if (!stopped_by_key2) {
+        extern void app_notify_music_playback_done(int mode);
+        app_notify_music_playback_done(0);  // 0 = AUDIO_MODE_WAKE
+        ESP_LOGI(TAG, "已通知智能体，用户已清醒");
+      }
 
       while (xSemaphoreTake(s_alarm_music_sem, 0) == pdTRUE) {
       }

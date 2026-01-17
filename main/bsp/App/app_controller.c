@@ -8,7 +8,11 @@
 #include "radar_protocol.h"
 #include "sleep_analysis.h"
 #include "uart.h"
+#include "uart.h"
 #include "smart_light_controller.h"
+#include "xl9555_keys.h"
+#include "alarm_music.h"
+#include "audio_player.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -547,6 +551,29 @@ static void uart_rx_task(void *pvParameters) {
   }
 }
 
+/* 全局按键扫描任务 */
+static void key_scan_task(void *pvParameters) {
+    ESP_LOGI(TAG, "全局按键扫描任务已启动");
+    while (1) {
+        uint8_t key = xl9555_keys_scan(0);
+        if (key == XL9555_KEY2) {
+            ESP_LOGI(TAG, "检测到左键按下");
+            
+            // 1. 尝试通知闹钟音乐停止
+            alarm_music_notify_key_press(XL9555_KEY2);
+            
+            // 2. 如果是睡眠音乐模式且正在播放，也停止播放
+            if (audio_player_is_running() && audio_player_get_mode() == AUDIO_MODE_SLEEP) {
+                ESP_LOGI(TAG, "停止睡眠音乐");
+                audio_player_stop();
+                extern void app_notify_music_playback_done(int mode);
+                app_notify_music_playback_done(AUDIO_MODE_SLEEP);
+            }
+        }
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
+}
+
 esp_err_t app_controller_start(void) {
   if (s_started) {
     return ESP_OK;
@@ -567,10 +594,11 @@ esp_err_t app_controller_start(void) {
       xTaskCreate(sleep_stage_task, "sleep_stage_task", 4096, NULL, 5, NULL);
   BaseType_t r3 =
       xTaskCreate(uart_rx_task, "uart_rx_task", 4096, NULL, 5, NULL);
+  BaseType_t r4 =
+      xTaskCreate(key_scan_task, "key_scan_task", 2048, NULL, 5, NULL);
 
-  if (r1 != pdPASS || r2 != pdPASS || r3 != pdPASS) {
-    ESP_LOGE(TAG, "create task failed: %ld %ld %ld", (long)r1, (long)r2,
-             (long)r3);
+  if (r1 != pdPASS || r2 != pdPASS || r3 != pdPASS || r4 != pdPASS) {
+    ESP_LOGE(TAG, "create task failed");
     return ESP_FAIL;
   }
 

@@ -57,6 +57,8 @@ static bool s_skip_prev = false;  // 跳到上一首标志
 static size_t s_track_index = 0;
 static size_t s_track_count = 0;  // 当前播放列表的歌曲总数
 static audio_play_mode_t s_play_mode = AUDIO_MODE_WAKE;
+static audio_player_done_cb_t s_done_cb = NULL;
+static void *s_done_cb_ctx = NULL;
 
 /**
  * @brief 随机数生成函数 - 使用线性同余生成器
@@ -197,6 +199,8 @@ static esp_err_t wav_parse(FIL *file, audio_wav_info_t *info)
 
 static esp_err_t play_single(const char *path)
 {
+    ESP_LOGI(TAG, "play_single: opening %s", path);
+    
     FIL file;
     FRESULT fr = f_open(&file, path, FA_READ);
     if (fr != FR_OK) {
@@ -211,29 +215,46 @@ static esp_err_t play_single(const char *path)
         return ESP_FAIL;
     }
 
+    ESP_LOGI(TAG, "play_single: wav parsed, configuring audio");
+
     /* 配置音频参数（兼容性接口） */
     audio_hw_configure(info.sample_rate, info.bits_per_sample, info.channels);
+    
+    ESP_LOGI(TAG, "play_single: calling audio_hw_start, s_stop=%d, s_skip_next=%d, s_skip_prev=%d", 
+             s_stop, s_skip_next, s_skip_prev);
     audio_hw_start();
+    ESP_LOGI(TAG, "play_single: audio_hw_start returned, s_stop=%d", s_stop);
 
+    ESP_LOGI(TAG, "play_single: allocating buffer, size=%d, free heap=%lu", 
+             AUDIO_IO_BUF_SIZE, (unsigned long)esp_get_free_heap_size());
     uint8_t *buf = (uint8_t *)heap_caps_malloc(AUDIO_IO_BUF_SIZE, MALLOC_CAP_DEFAULT);
     if (!buf) {
-        ESP_LOGE(TAG, "malloc audio buffer failed");
+        ESP_LOGE(TAG, "malloc audio buffer failed, free heap=%lu", (unsigned long)esp_get_free_heap_size());
         f_close(&file);
         return ESP_ERR_NO_MEM;
     }
+    ESP_LOGI(TAG, "play_single: buffer allocated at %p", buf);
 
-    ESP_LOGI(TAG, "play %s (%lu Hz, %u bit, %u ch)", path, 
-             (unsigned long)info.sample_rate, info.bits_per_sample, info.channels);
+    ESP_LOGI(TAG, "play %s (%lu Hz, %u bit, %u ch), s_stop=%d", path, 
+             (unsigned long)info.sample_rate, info.bits_per_sample, info.channels, s_stop);
 
+    int write_count = 0;
     while (!s_stop && !s_skip_next && !s_skip_prev) {
         UINT br = 0;
         fr = f_read(&file, buf, AUDIO_IO_BUF_SIZE, &br);
         if (fr != FR_OK || br == 0) {
+            ESP_LOGI(TAG, "play_single: read done, fr=%d, br=%u", fr, br);
             break;
         }
 
-        audio_hw_write(buf, br, pdMS_TO_TICKS(500));
+        size_t written = audio_hw_write(buf, br, pdMS_TO_TICKS(500));
+        write_count++;
+        if (write_count == 1) {
+            ESP_LOGI(TAG, "play_single: first write, br=%u, written=%zu", br, written);
+        }
     }
+
+    ESP_LOGI(TAG, "play_single: loop exited, s_stop=%d, writes=%d", s_stop, write_count);
 
     free(buf);
     audio_hw_stop();
@@ -388,8 +409,19 @@ static void audio_task(void *args)
             vTaskDelay(pdMS_TO_TICKS(500));
         }
     }
+    
+    // 记录当前模式，用于回调
+    audio_play_mode_t finished_mode = s_play_mode;
+    bool was_stopped_manually = s_stop;
+    
     // 播放结束，恢复智能体保存的音量
     audio_hw_restore_volume();
+    
+    // 如果是自然结束（非手动停止），调用完成回调
+    if (!was_stopped_manually && s_done_cb) {
+        ESP_LOGI(TAG, "Playback finished naturally, invoking done callback (mode=%d)", finished_mode);
+        s_done_cb(finished_mode, s_done_cb_ctx);
+    }
     
     s_audio_task = NULL;
     vTaskDelete(NULL);
@@ -494,4 +526,11 @@ void audio_player_set_volume(uint8_t volume)
 uint8_t audio_player_get_volume(void)
 {
     return audio_hw_get_volume();
+}
+
+void audio_player_set_done_callback(audio_player_done_cb_t cb, void *ctx)
+{
+    s_done_cb = cb;
+    s_done_cb_ctx = ctx;
+    ESP_LOGI(TAG, "Done callback registered");
 }

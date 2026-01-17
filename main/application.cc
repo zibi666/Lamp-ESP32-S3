@@ -22,12 +22,42 @@ extern "C" {
 #include "xl9555_keys.h"
 #include "alarm_music.h"
 #include "http_request.h"
+#include "audio_player.h"
 }
 
 #define TAG "Application"
 
 extern "C" void app_audio_notify_external_output(void) {
     Application::GetInstance().GetAudioService().NotifyExternalOutput();
+}
+
+// 设置外部播放（SD卡音乐）状态
+extern "C" void app_audio_set_external_playback(int active) {
+    Application::GetInstance().GetAudioService().SetExternalPlaybackActive(active != 0);
+}
+
+// 通知智能体播放完成，触发智能体说话
+extern "C" void app_notify_music_playback_done(int mode) {
+    ESP_LOGI(TAG, "Music playback done (mode=%d), scheduling agent notification", mode);
+    
+    Application::GetInstance().Schedule([mode]() {
+        auto display = Board::GetInstance().GetDisplay();
+        if (mode == 0) {  // AUDIO_MODE_WAKE
+            ESP_LOGI(TAG, "Wake music finished, triggering agent to greet");
+            if (display) {
+                display->ShowNotification("早安！", 2000);
+            }
+            // 触发智能体进入监听状态，让用户可以与智能体交互
+            Application::GetInstance().StartListening();
+        } else if (mode == 1) {  // AUDIO_MODE_SLEEP
+            ESP_LOGI(TAG, "Sleep music finished, triggering agent to say goodnight");
+            if (display) {
+                display->ShowNotification("晚安！", 2000);
+            }
+            // 触发智能体进入监听状态
+            Application::GetInstance().StartListening();
+        }
+    });
 }
 
 static const char* const STATE_STRINGS[] = {
@@ -237,6 +267,15 @@ void Application::Start() {
     }
 
     // 初始化闹钟音乐模块
+    // 首先注册音频播放完成回调
+    audio_player_set_done_callback([](audio_play_mode_t mode, void *ctx) {
+        (void)ctx;
+        // 从 C 回调调用 C++ 函数
+        extern void app_notify_music_playback_done(int mode);
+        app_notify_music_playback_done((int)mode);
+    }, NULL);
+    ESP_LOGI(TAG, "音频播放完成回调已注册");
+    
     if (alarm_music_init() == ESP_OK) {
         if (alarm_music_start() == ESP_OK) {
             ESP_LOGI(TAG, "闹钟音乐任务已启动");

@@ -23,6 +23,7 @@ extern void board_audio_set_output_volume_runtime(int volume_0_100);
 extern int board_audio_output_sample_rate(void);
 extern int board_audio_write_samples(const int16_t* data, int samples);
 extern void app_audio_notify_external_output(void);
+extern void app_audio_set_external_playback(int active);  // 设置外部播放状态
 extern int board_audio_begin_external_playback(int sample_rate, int channels);
 extern void board_audio_end_external_playback(void);
 extern int board_get_saved_volume(void);  // 获取智能体保存的音量
@@ -78,6 +79,9 @@ esp_err_t audio_hw_init(void)
 
 esp_err_t audio_hw_configure(uint32_t sample_rate_hz, uint8_t bits_per_sample, uint8_t channels)
 {
+    ESP_LOGI(TAG, "audio_hw_configure: sample_rate=%lu, bits=%u, channels=%u",
+             (unsigned long)sample_rate_hz, bits_per_sample, channels);
+    
     s_sample_rate_hz = sample_rate_hz;
     s_bits_per_sample = bits_per_sample;
     s_channels = channels;
@@ -92,8 +96,18 @@ esp_err_t audio_hw_configure(uint32_t sample_rate_hz, uint8_t bits_per_sample, u
     }
 
     if (sample_rate_hz != 0) {
+        // 先设置外部播放标志，防止 AudioService 在 I2S 重配置期间尝试重新启用输入
+        app_audio_set_external_playback(1);
+        
         int ok = board_audio_begin_external_playback((int)sample_rate_hz, (int)channels);
         s_external_playback = (ok != 0);
+        ESP_LOGI(TAG, "audio_hw_configure: begin_external_playback returned %d", ok);
+        
+        if (!ok) {
+            // 如果失败，恢复标志
+            app_audio_set_external_playback(0);
+        }
+        
         int out_sr = board_audio_output_sample_rate();
         if (out_sr > 0 && (int)sample_rate_hz != out_sr) {
             ESP_LOGW(TAG, "wav sample_rate=%lu, codec sample_rate=%d", (unsigned long)sample_rate_hz, out_sr);
@@ -104,14 +118,24 @@ esp_err_t audio_hw_configure(uint32_t sample_rate_hz, uint8_t bits_per_sample, u
 
 esp_err_t audio_hw_start(void)
 {
+    ESP_LOGI(TAG, "audio_hw_start: sample_rate=%lu, bits=%u, channels=%u, external_playback=%d",
+             (unsigned long)s_sample_rate_hz, s_bits_per_sample, s_channels, s_external_playback);
+    
+    // 通知 AudioService 外部播放开始，防止超时禁用输出
+    app_audio_set_external_playback(1);
+    
     board_audio_enable_output(1);
     board_audio_set_output_volume_runtime((int)s_volume);
     app_audio_notify_external_output();
+    ESP_LOGI(TAG, "audio_hw_start: output enabled, volume=%u", s_volume);
     return ESP_OK;
 }
 
 void audio_hw_stop(void)
 {
+    // 通知 AudioService 外部播放结束
+    app_audio_set_external_playback(0);
+    
     if (s_external_playback) {
         board_audio_end_external_playback();
         s_external_playback = false;
@@ -122,14 +146,26 @@ size_t audio_hw_write(const uint8_t *data, size_t len, TickType_t timeout_ticks)
 {
     (void)timeout_ticks;
     if (!data || len < sizeof(int16_t) || s_bits_per_sample != 16 || s_channels == 0) {
+        ESP_LOGW(TAG, "audio_hw_write: invalid params: data=%p, len=%zu, bits=%u, channels=%u",
+                 data, len, s_bits_per_sample, s_channels);
         return 0;
     }
     size_t samples = len / sizeof(int16_t);
     if (samples == 0) {
         return 0;
     }
+    
+    static int write_count = 0;
+    if (write_count == 0) {
+        ESP_LOGI(TAG, "audio_hw_write: first write, samples=%zu", samples);
+    }
+    write_count++;
+    
     int written = board_audio_write_samples((const int16_t*)data, (int)samples);
     if (written <= 0) {
+        if (write_count % 100 == 0) {
+            ESP_LOGW(TAG, "audio_hw_write: write_samples returned %d", written);
+        }
         return 0;
     }
     app_audio_notify_external_output();

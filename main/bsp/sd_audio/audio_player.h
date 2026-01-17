@@ -32,3 +32,7 @@ size_t audio_player_get_track_count(void);    // 总曲目数
 /* 音量控制 */
 void audio_player_set_volume(uint8_t volume);  // 设置音量 (0-100)
 uint8_t audio_player_get_volume(void);         // 获取当前音量
+
+/* 播放完成回调 - 当播放自然结束(非手动停止)时调用 */
+typedef void (*audio_player_done_cb_t)(audio_play_mode_t mode, void *user_ctx);
+void audio_player_set_done_callback(audio_player_done_cb_t cb, void *ctx);
