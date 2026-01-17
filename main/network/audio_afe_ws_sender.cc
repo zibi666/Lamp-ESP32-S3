@@ -4,6 +4,7 @@
 #include "board.h"
 #include "pwm_test.h"
 #include "assets/lang_config.h"
+#include "audio_player.h"
 #include <esp_log.h>
 #include <memory>
 #include <string>
@@ -138,7 +139,11 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
             cmd == "tem_up" ||
             cmd == "volume_down" ||
             cmd == "volume_up" ||
-            cmd == "volume_set") {
+            cmd == "volume_set" ||
+            cmd == "sleep_music_start" ||
+            cmd == "sleep_music_stop" ||
+            cmd == "sleep_music_next" ||
+            cmd == "sleep_music_prev") {
             ESP_LOGI(TAG, "Backend command: %s, amplitude=%d", cmd.c_str(), amplitude);
             if (cmd == "brightness_down") {
                 LampAdjustBrightness(-amplitude);
@@ -164,6 +169,58 @@ void audio_afe_ws_attach_downlink(AudioService* service) {
                     int target_volume = std::max(0, std::min(100, amplitude));
                     codec->SetOutputVolume(target_volume);
                     ESP_LOGI(TAG, "Volume set to: %d", target_volume);
+                }
+            } else if (cmd == "sleep_music_start") {
+                // 启动助眠音乐播放
+                if (!audio_player_is_running()) {
+                    esp_err_t ret = audio_player_start();
+                    if (ret == ESP_OK) {
+                        ESP_LOGI(TAG, "Sleep music started");
+                        auto display = Board::GetInstance().GetDisplay();
+                        if (display) {
+                            display->ShowNotification("助眠音乐已开启", 2000);
+                        }
+                    } else {
+                        ESP_LOGE(TAG, "Failed to start sleep music: %d", ret);
+                    }
+                } else {
+                    ESP_LOGI(TAG, "Sleep music already running");
+                }
+            } else if (cmd == "sleep_music_stop") {
+                // 停止助眠音乐播放
+                if (audio_player_is_running()) {
+                    audio_player_stop();
+                    ESP_LOGI(TAG, "Sleep music stopped");
+                    auto display = Board::GetInstance().GetDisplay();
+                    if (display) {
+                        display->ShowNotification("助眠音乐已关闭", 2000);
+                    }
+                } else {
+                    ESP_LOGI(TAG, "Sleep music not running");
+                }
+            } else if (cmd == "sleep_music_next") {
+                // 下一首
+                if (audio_player_is_running()) {
+                    audio_player_next();
+                    ESP_LOGI(TAG, "Sleep music: next track");
+                    auto display = Board::GetInstance().GetDisplay();
+                    if (display) {
+                        display->ShowNotification("下一首", 1500);
+                    }
+                } else {
+                    ESP_LOGI(TAG, "Sleep music not running, cannot skip");
+                }
+            } else if (cmd == "sleep_music_prev") {
+                // 上一首
+                if (audio_player_is_running()) {
+                    audio_player_prev();
+                    ESP_LOGI(TAG, "Sleep music: previous track");
+                    auto display = Board::GetInstance().GetDisplay();
+                    if (display) {
+                        display->ShowNotification("上一首", 1500);
+                    }
+                } else {
+                    ESP_LOGI(TAG, "Sleep music not running, cannot skip");
                 }
             }
         }

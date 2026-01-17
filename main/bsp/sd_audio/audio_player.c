@@ -43,6 +43,9 @@ static TaskHandle_t s_audio_task = NULL;
 static bool s_inited = false;
 static bool s_stop = false;
 static size_t s_track_index = 0;
+static volatile bool s_skip_next = false;
+static volatile bool s_skip_prev = false;
+static size_t s_track_count = 0;
 
 static bool is_wav_file(const char *name)
 {
@@ -157,7 +160,7 @@ static esp_err_t play_single(const char *path)
     ESP_LOGI(TAG, "play %s (%lu Hz, %u bit, %u ch)", path, 
              (unsigned long)info.sample_rate, info.bits_per_sample, info.channels);
 
-    while (!s_stop) {
+    while (!s_stop && !s_skip_next && !s_skip_prev) {
         UINT br = 0;
         fr = f_read(&file, buf, AUDIO_IO_BUF_SIZE, &br);
         if (fr != FR_OK || br == 0) {
@@ -218,6 +221,7 @@ static void audio_task(void *args)
             continue;
         }
 
+        s_track_count = track_count;
         if (s_track_index >= track_count) {
             s_track_index = 0;
         }
@@ -231,7 +235,18 @@ static void audio_task(void *args)
                 break;
             }
 
-            s_track_index = (s_track_index + 1) % track_count;
+            // 处理切歌逻辑
+            if (s_skip_next) {
+                s_skip_next = false;
+                s_track_index = (s_track_index + 1) % track_count;
+                ESP_LOGI(TAG, "Skipping to next track: %zu", s_track_index);
+            } else if (s_skip_prev) {
+                s_skip_prev = false;
+                s_track_index = (s_track_index == 0) ? (track_count - 1) : (s_track_index - 1);
+                ESP_LOGI(TAG, "Skipping to previous track: %zu", s_track_index);
+            } else {
+                s_track_index = (s_track_index + 1) % track_count;
+            }
         }
     }
 
@@ -282,4 +297,20 @@ void audio_player_stop(void)
 bool audio_player_is_running(void)
 {
     return s_audio_task != NULL;
+}
+
+void audio_player_next(void)
+{
+    if (s_audio_task) {
+        s_skip_next = true;
+        ESP_LOGI(TAG, "Next track requested");
+    }
+}
+
+void audio_player_prev(void)
+{
+    if (s_audio_task) {
+        s_skip_prev = true;
+        ESP_LOGI(TAG, "Previous track requested");
+    }
 }

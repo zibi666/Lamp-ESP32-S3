@@ -1,0 +1,3 @@
+# 忽略构建输出和依赖组件
+build/
+managed_components/
